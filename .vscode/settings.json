@@ -1,3 +1,18 @@
 {
-    "easysass.targetDir": "public/css"
+    "easysass.targetDir": "public/css",
+    "easysass.compileAfterSave": true,
+    "liveSassCompile.settings.watchOnLaunch": true,
+    "liveSassCompile.settings.generateMap": true,
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/public/css",
+            // "savePathReplacementPairs": null
+        }
+    ],
+    "liveSassCompile.settings.includeItems": [
+        "/sass/style.scss",
+    ],
+    
 }
