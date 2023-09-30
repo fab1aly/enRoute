@@ -67,14 +67,18 @@ header nav details[open] menu li {
 
 #listpoint {
   background-color: brown;
-  border: solid 1px red;
+  border: solid 1px green;
   max-height: 10rem;
-  min-height: 1rem;
+  min-height: 1.4rem;
   width: 100%;
   position: absolute;
   bottom: 1rem;
   left: 0;
   z-index: 1000;
+}
+
+.point {
+  font-size: 1.4rem;
 }
 
 /*# sourceMappingURL=style.css.map */

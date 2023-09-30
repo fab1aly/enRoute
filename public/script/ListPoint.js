@@ -60,7 +60,7 @@ class ListPoint {
     //function for display the points in div 
     displayList(elementID = this.idListElement) {
 
-        // if (this.list !== null) {
+        if (this.list.length) {
             const div = document.querySelector(`#${elementID}`);
 
             div.replaceChildren();
@@ -71,13 +71,14 @@ class ListPoint {
                 const ul = document.querySelector(`#${elementID}>ul`);
 
                 const li = document.createElement('li');
+                li.classList.add('point');
                 li.setAttribute("data-id", point.properties.id);
                 li.textContent = point.properties.label;
                 li.feature = point; //pour garder objet
 
                 ul.appendChild(li);
             }
-        // }
+        }
 
     }
 }
