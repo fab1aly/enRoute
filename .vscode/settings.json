@@ -2,6 +2,9 @@
     "easysass.targetDir": "public/css",
     "easysass.compileAfterSave": true,
     "liveSassCompile.settings.watchOnLaunch": true,
+    "liveSassCompile.settings.autoprefix": [
+        "defaults"
+    ],
     "liveSassCompile.settings.generateMap": true,
     "liveSassCompile.settings.formats": [
         {
@@ -14,5 +17,4 @@
     "liveSassCompile.settings.includeItems": [
         "/sass/style.scss",
     ],
-    
 }
