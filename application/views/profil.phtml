@@ -1,0 +1,36 @@
+
+    <p>Vos info :</p>
+    
+    <form method='post' action='./profil'>
+        <fieldset>
+            <!--<?php var_dump($user_info);?>-->
+            <legend>nom d'utilisateur : <?= htmlspecialchars($_SESSION['user']->getUsername())?></legend>
+            
+            <input type="text" name="new_username" placeholder="nouveau nom"/>
+            <input type="submit" value="Submit"/>
+        </fieldset>
+    </form>
+    
+    <form method='post' action='./profil'>
+        <fieldset>
+            <legend>email : <?= htmlspecialchars($_SESSION['user']->getEmail())?></legend>
+            
+            <input type="email" name="new_email" placeholder="nouvel email"/>
+            <input type="submit" value="Submit"/>
+        </fieldset>
+    </form>
+    
+    <form method='post' action='./profil'>
+        <fieldset>
+            <legend>Mot de passe</legend>
+            
+            <input type="password" name="new_password" placeholder="nouveau mdp"/>
+            <input type="submit" value="Submit"/>
+        </fieldset>
+    </form>
+    
+    
+    
+    <p style="color:red">
+        <a href="./profil-delete">Supprimer votre compte</a>
+    </p>

@@ -1,0 +1,95 @@
+:root {
+    font-size: 62.5%;
+
+}
+
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 1.6rem;
+}
+
+header {
+    nav {
+        display: flex;
+        justify-content: space-between; // align-items: center;
+        border: solid 1px darkblue;
+        border-radius: 1rem;
+        background-color: lightblue;
+
+        padding: 1rem;
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        li {
+            list-style: none;
+
+            h1 {
+                margin: 0;
+                font-size: 3rem;
+            }
+        }
+
+        details {
+            border: solid 1px green;
+            width: 30%;
+            height: 2rem;
+
+            summary {
+                border: solid 1px blue;
+                display: block;
+            }
+        }
+
+        details[open] {
+            border: solid 1px green;
+            width: 30%;
+            height: 3.8rem;
+
+            summary {
+                border: solid 1px blue;
+                display: block;
+            }
+
+            menu {
+                display: flex;
+                justify-content: space-around;
+                border: solid 1px purple;
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+}
+
+
+#searchbar {}
+
+#map .leaflet-control-attribution {
+    display: none
+}
+
+#map {
+    position: relative;
+
+}
+
+#listpoint {
+    background-color: brown;
+    border: solid 1px red;
+    max-height: 10rem;
+    min-height: 1rem;
+    width: 100%;
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    z-index: 1000;
+}
