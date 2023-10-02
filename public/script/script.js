@@ -12,9 +12,11 @@ navigator.geolocation.getCurrentPosition(function(e) {
 const list = new ListPoint('list', "listpoint");
 
 
-
+// event listener
 const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', () => {
+
+    // for remove point
     if (event.target.matches('.point button')) {
         console.log(event.target.dataset.index);
         list.removePoint(event.target.dataset.index);
@@ -27,13 +29,6 @@ listElement.addEventListener('click', () => {
 
 // button.addEventListener('click', () => { this.saveListInDB() });
 //this.saveListInDB.bind(this)  // a tester
-
-// // for remove buttons (plz refactor)
-// for (let button of document.querySelectorAll('.point')) {
-//     button.addEventListener('click', () => {
-//         list.removePoint(event.target.dataset.index);
-//     });
-// }
 
 // document.querySelector('.total').addEventListener('click', list.saveListInDB);
 

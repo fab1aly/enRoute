@@ -9,9 +9,6 @@ class ListPoint {
 
         this.loadList();
         this.displayList();
-
-        // Add event listeners for drag and drop
-        // this.dragAndDrop();
     }
 
 
@@ -74,11 +71,13 @@ class ListPoint {
 
     //remove point in list by index
     removePoint(index) {
-
-        this.list.pop(index);
+        // if (isNaN(index)) {
+        this.list.splice(index, 1);
         console.log("remove point at index " + index);
         this.saveList();
         this.displayList();
+        // }
+
 
 
 
