@@ -65,22 +65,14 @@ class ListPoint {
         this.list.push(feature);
 
         this.saveList();
-        this.displayList();
-        this.dragAndDrop();
     }
 
     //remove point in list by index
     removePoint(index) {
-        // if (isNaN(index)) {
         this.list.splice(index, 1);
         console.log("remove point at index " + index);
+
         this.saveList();
-        this.displayList();
-        // }
-
-
-
-
     }
 
     //method for save list in local storage
@@ -89,6 +81,7 @@ class ListPoint {
 
         console.log(`save '${nameInLocalStorage}' in localStorage :`);
         console.log(this.list);
+        this.displayList();
 
     }
 
@@ -129,18 +122,12 @@ class ListPoint {
                     }
                     this.saveList();
 
-                    // update index of li in data attribut
-                    // for (let [index, li] of document.querySelectorAll(`.point`).entries()) {
-                    //     li.setAttribute("data-index", index);
-                    // }
-                    // update index of button in data attribut
+                    // update the remove button
                     for (let [index, button] of document.querySelectorAll(`.point button`).entries()) {
                         button.setAttribute("data-index", index);
                     }
 
-
-
-
+                    // Removing dragging class from item
                     item.classList.remove("dragging");
                 });
             }
