@@ -1,23 +1,16 @@
 
 
 
-<div class="searchbar">
+<search class="searchbar">
     <input type="text">
     <ul></ul>
+</search>
+<div id="listpoint">
+    <ul></ul>
+    
 </div>
-<div id="map" style="width: 100vw; height: 80vh;">
-    <div id="listpoint">
-        <ul></ul>
-        <template>
-            <div class="point" >
-
-                <span></span>
-                <button data-action="removeButton">-</button>
-                <button data-action="upButton">up</button>
-                <button data-action="downButton">down</button>
-            </div>
-        </template>
-    </div>
+<div id="map" style="width: 100vw; height: 70vh;">
+    
     <script>// L'id du container, par exemple <div id="map"></div>
         var mapID = 'map';
         
@@ -66,3 +59,4 @@
         // var geocoder = L.geocoderBAN({ collapsed: false }).addTo(myMap)
     </script>
 </div>
+

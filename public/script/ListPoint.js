@@ -1,27 +1,71 @@
-/**
- * Classe représentant un point dans un espace à deux dimensions.
- */
 class ListPoint {
     /**
-     * Crée un nouveau point avec les coordonnées x et y spécifiées.
-     * @param {string} name - La coordonnée x du point.
-     * @param {number} y - La coordonnée y du point.
+     
      */
     constructor(name, divId) {
         this.idListElement = divId;
         this.nameList = name;
         this.list = [];
+
+        // Add event listeners for drag and drop
+        // this.dragAndDrop();
     }
 
 
+    //function for display the points in div 
+    displayList(elementID = this.idListElement) {
+
+        const div = document.querySelector(`#${elementID}`);
+        div.replaceChildren();
+        if (this.list.length > 0) {
+
+            div.appendChild(document.createElement('ul'));
+
+            for (let [index, point] of this.list.entries()) {
+
+                const ul = document.querySelector(`#${elementID}>ul`);
+
+                const li = document.createElement('li');
+                li.classList.add('point');
+
+                li.setAttribute("data-index", index);
+                li.setAttribute("draggable", true);
+
+                li.textContent = point.properties.label;
+                li.feature = point; //pour garder geojson
+
+                const button = document.createElement('button');
+                button.textContent = '-';
+                button.setAttribute("data-index", index);
+                // button.addEventListener('click', this.list.removePoint(event.target.dataset.index));
+
+                li.appendChild(button);
+
+                ul.appendChild(li);
+            }
+
+        }
+        // add li for total information
+        const liTotalElement = document.createElement('li');
+        liTotalElement.classList.add('total');
+        liTotalElement.textContent = 'total';
+
+        const button = document.createElement('button');
+        button.textContent = 'save';
+
+        // const a = document.createElement('a');
+        // a.setAttribute("href", '/save-in-db');
+        // button.appendChild(a);
 
 
-    //add point in list from geocoding search
-    /**
-     * Calcule la distance entre ce point et un autre point.
-     * @param {Object} feature - L'autre point à utiliser pour le calcul de la distance.
-     * @return {number} La distance entre les deux points.
-     */
+        liTotalElement.appendChild(button);
+        div.appendChild(liTotalElement);
+
+        document.querySelector(`.total`).addEventListener('click', this.saveListInDB.bind(this));
+        // () => {this.saveListInDB()} // a tester
+    }
+
+    // add end point in list
     addPoint(feature) {
         this.list.push(feature);
 
@@ -29,15 +73,13 @@ class ListPoint {
         this.displayList();
     }
 
-    //remove point in list with id
-    removePoint(id) {
-        for (let [index, point] of this.list.entries()) {
-            if (point.properties.id == id) {
-                this.list.pop(index);
-                console.log("remove : " + id);
-            }
-        }
+    //remove point in list by index
+    removePoint(index) {
+        this.list.pop(index);
+        console.log("remove point at index " + index);
+        this.saveList();
         this.displayList();
+
     }
 
     //method for save list in local storage
@@ -51,35 +93,106 @@ class ListPoint {
 
     //method for load list in local storage
     loadList(nameInLocalStorage = this.nameList) {
-        this.list = JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`));
+        if (window.localStorage.getItem('list')) {
+            this.list = JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`));
 
-        console.log(`load '${nameInLocalStorage}' from localStorage :`);
-        console.log(JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`)));
+            console.log(`load '${nameInLocalStorage}' from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`)));
+        }
+        else {
+            console.log(` no list in localStorage`);
+        }
     }
 
-    //function for display the points in div 
-    displayList(elementID = this.idListElement) {
 
-        if (this.list.length) {
-            const div = document.querySelector(`#${elementID}`);
+    // Add event listeners for drag and drop
+    dragAndDrop() {
+        const sortableList = document.querySelector(`#${this.idListElement}>ul`);
+        // console.log(sortableList)
 
-            div.replaceChildren();
-            div.appendChild(document.createElement('ul'));
+        if (document.querySelectorAll('.point').length > 0) {
+            const items = sortableList.querySelectorAll('.point');
 
-            for (let point of this.list) {
+            for (let item of items) {
+                item.addEventListener("dragstart", () => {
+                    console.log('drag');
+                    // Adding dragging class to item after a delay
+                    setTimeout(() => item.classList.add("dragging"), 0);
+                });
+                // Removing dragging class from item on dragend event
+                item.addEventListener("dragend", () => {
 
-                const ul = document.querySelector(`#${elementID}>ul`);
+                    // update the list 
+                    this.list = [];
+                    for (let li of document.querySelectorAll(`.point`)) {
+                        this.list.push(li.feature);
+                    }
 
-                const li = document.createElement('li');
-                li.classList.add('point');
-                li.setAttribute("data-id", point.properties.id);
-                li.textContent = point.properties.label;
-                li.feature = point; //pour garder objet
+                    // update index of li in data attribut
+                    for (let [index, li] of document.querySelectorAll(`.point`).entries()) {
+                        li.setAttribute("data-index", index);
+                    }
 
-                ul.appendChild(li);
+                    this.saveList();
+
+                    item.classList.remove("dragging");
+                });
             }
+            const initSortableList = (e) => {
+                e.preventDefault();
+                const draggingItem = document.querySelector(".dragging");
+
+                // Getting all items except currently dragging and making array of them
+                let siblings = [...sortableList.querySelectorAll(".point:not(.dragging)")];
+                // Finding the sibling after which the dragging item should be placed
+                let nextSibling = siblings.find(sibling => {
+                    return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+                });
+                // Inserting the dragging item before the found sibling
+                sortableList.insertBefore(draggingItem, nextSibling);
+            };
+
+            sortableList.addEventListener("dragover", initSortableList);
+            sortableList.addEventListener("dragenter", e => e.preventDefault());
+
         }
 
 
+
+
+    }
+
+    // Method to save the list in the database
+    saveListInDB(list) {
+        console.log(this);
+        // Getting the list as a JSON string
+        // const listAsJSON = JSON.stringify(this.list);
+        // const listName = this.nameList;
+
+        // const form = new FormData(document.getElementById("login-form"));
+
+        // Making an AJAX request to the database
+        fetch('./save-in-db', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Content-Type": "text/plain",
+                },
+                body: this
+            })
+            .then((response) => {
+                // Checking the response status code
+                if (response.status === 200) {
+                    // The list was successfully saved
+                }
+                else {
+                    // An error occurred
+                    console.log(response.status);
+                }
+            })
+            .catch((error) => {
+                // An error occurred
+                console.log(error);
+            });
     }
 }

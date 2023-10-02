@@ -57,12 +57,12 @@ header nav details[open] menu li {
   list-style: none;
 }
 
-#map .leaflet-control-attribution {
-  display: none;
+#searchbar {
+  color: rgb(18, 53, 88);
 }
 
-#map {
-  position: relative;
+#map .leaflet-control-attribution {
+  display: none;
 }
 
 #listpoint {
@@ -71,14 +71,13 @@ header nav details[open] menu li {
   max-height: 10rem;
   min-height: 1.4rem;
   width: 100%;
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
   z-index: 1000;
 }
 
 .point {
   font-size: 1.4rem;
+  height: 2rem;
+  border: solid 1px green;
 }
 
 /*# sourceMappingURL=style.css.map */

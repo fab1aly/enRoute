@@ -12,9 +12,19 @@ navigator.geolocation.getCurrentPosition(function(e) {
 
 const list = new ListPoint('list', "listpoint");
 
-list.saveList();
+// list.saveList();
 list.loadList();
 list.displayList();
+list.dragAndDrop();
+
+for (let button of document.querySelectorAll('.point')) {
+    button.addEventListener('click', () => {
+        list.removePoint(event.target.dataset.index);
+    });
+}
+
+// document.querySelector('.total').addEventListener('click', list.saveListInDB);
+
 
 
 

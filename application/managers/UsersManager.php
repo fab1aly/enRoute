@@ -91,18 +91,8 @@
             $sth->fetch();
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
         public function getUserInfo (int $id)
         {
-            // $dbh = require 'database.php';
             
             $query = "SELECT * FROM Users WHERE id= $id";
             
@@ -110,6 +100,5 @@
             
             return $sth->fetch();
         }
-        
         
     }

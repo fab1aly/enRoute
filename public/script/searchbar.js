@@ -33,7 +33,7 @@ inputElt.addEventListener("input", async() => {
 
             const li = document.createElement('li');
             li.textContent = result.properties.label;
-            li.feature = result; //pour garder objet
+            li.feature = result; //pour garder geojson
 
             ul.appendChild(li);
         }

@@ -81,8 +81,7 @@ header {
 }
 
 #map {
-    position: relative;
-
+    // position: relative;
 }
 
 #listpoint {
@@ -90,13 +89,14 @@ header {
     border: solid 1px green;
     max-height: 10rem;
     min-height: 1.4rem;
-    width: 100%;
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
+    width: 100%; // position: absolute;
+    // bottom: 1rem;
+    // left: 0;
     z-index: 1000;
 }
 
 .point {
     font-size: 1.4rem;
+    height: 2rem;
+    border: solid 1px green;
 }
