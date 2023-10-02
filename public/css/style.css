@@ -68,8 +68,8 @@ header nav details[open] menu li {
 #listpoint {
   background-color: brown;
   border: solid 1px green;
-  max-height: 10rem;
-  min-height: 1.4rem;
+  max-height: 15rem;
+  overflow-y: auto;
   width: 100%;
   z-index: 1000;
 }

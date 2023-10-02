@@ -7,6 +7,9 @@ class ListPoint {
         this.nameList = name;
         this.list = [];
 
+        this.loadList();
+        this.displayList();
+
         // Add event listeners for drag and drop
         // this.dragAndDrop();
     }
@@ -16,53 +19,48 @@ class ListPoint {
     displayList(elementID = this.idListElement) {
 
         const div = document.querySelector(`#${elementID}`);
-        div.replaceChildren();
+
+        // clean ul
+        div.querySelector('ul').replaceChildren();
+
+
         if (this.list.length > 0) {
 
-            div.appendChild(document.createElement('ul'));
-
+            // for display point in list
             for (let [index, point] of this.list.entries()) {
 
-                const ul = document.querySelector(`#${elementID}>ul`);
+                const ul = document.querySelector(`#${elementID} ul`);
 
                 const li = document.createElement('li');
                 li.classList.add('point');
-
-                li.setAttribute("data-index", index);
                 li.setAttribute("draggable", true);
+                // li.setAttribute("data-index", index);
+
 
                 li.textContent = point.properties.label;
-                li.feature = point; //pour garder geojson
+                li.feature = point; //for save geojson
 
+                // make button for remove
                 const button = document.createElement('button');
                 button.textContent = '-';
                 button.setAttribute("data-index", index);
-                // button.addEventListener('click', this.list.removePoint(event.target.dataset.index));
 
+                // add button in li
                 li.appendChild(button);
-
+                // add li in ul
                 ul.appendChild(li);
             }
-
         }
-        // add li for total information
-        const liTotalElement = document.createElement('li');
-        liTotalElement.classList.add('total');
-        liTotalElement.textContent = 'total';
-
-        const button = document.createElement('button');
-        button.textContent = 'save';
-
-        // const a = document.createElement('a');
-        // a.setAttribute("href", '/save-in-db');
-        // button.appendChild(a);
+        this.dragAndDrop();
 
 
-        liTotalElement.appendChild(button);
-        div.appendChild(liTotalElement);
+        // listener for save button
+        const button = div.querySelector('form button');
 
-        document.querySelector(`.total`).addEventListener('click', this.saveListInDB.bind(this));
-        // () => {this.saveListInDB()} // a tester
+        button.addEventListener('click', () => { this.saveListInDB() });
+        //this.saveListInDB.bind(this)  // a tester ?
+
+
     }
 
     // add end point in list
@@ -71,14 +69,18 @@ class ListPoint {
 
         this.saveList();
         this.displayList();
+        this.dragAndDrop();
     }
 
     //remove point in list by index
     removePoint(index) {
+
         this.list.pop(index);
         console.log("remove point at index " + index);
         this.saveList();
         this.displayList();
+
+
 
     }
 
@@ -104,7 +106,6 @@ class ListPoint {
         }
     }
 
-
     // Add event listeners for drag and drop
     dragAndDrop() {
         const sortableList = document.querySelector(`#${this.idListElement}>ul`);
@@ -127,13 +128,19 @@ class ListPoint {
                     for (let li of document.querySelectorAll(`.point`)) {
                         this.list.push(li.feature);
                     }
+                    this.saveList();
 
                     // update index of li in data attribut
-                    for (let [index, li] of document.querySelectorAll(`.point`).entries()) {
-                        li.setAttribute("data-index", index);
+                    // for (let [index, li] of document.querySelectorAll(`.point`).entries()) {
+                    //     li.setAttribute("data-index", index);
+                    // }
+                    // update index of button in data attribut
+                    for (let [index, button] of document.querySelectorAll(`.point button`).entries()) {
+                        button.setAttribute("data-index", index);
                     }
 
-                    this.saveList();
+
+
 
                     item.classList.remove("dragging");
                 });
@@ -154,12 +161,7 @@ class ListPoint {
 
             sortableList.addEventListener("dragover", initSortableList);
             sortableList.addEventListener("dragenter", e => e.preventDefault());
-
         }
-
-
-
-
     }
 
     // Method to save the list in the database

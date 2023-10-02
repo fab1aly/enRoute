@@ -13,7 +13,7 @@ async function searchAddress(address) {
     return data;
 }
 
-const inputElt = document.querySelector('.searchbar>input');
+const inputElt = document.querySelector('search>input');
 
 // Écoutez les changements sur le champ de texte de l'adresse.
 inputElt.addEventListener("input", async() => {
@@ -25,7 +25,7 @@ inputElt.addEventListener("input", async() => {
         const results = await searchAddress(inputElt.value);
 
         // Afficher les résultats de la recherche.
-        const ul = document.querySelector(`.searchbar>ul`);
+        const ul = document.querySelector(`search>ul`);
         ul.replaceChildren();
 
         // console.log(results);
