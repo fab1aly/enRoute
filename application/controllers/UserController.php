@@ -15,7 +15,7 @@
         public function signUp() : void
         {
 session_start();
-            
+
             // display form (GET)
             if ($_SERVER['REQUEST_METHOD'] == 'GET') // empty($_GET)
             {
@@ -90,9 +90,13 @@ session_start();
 					//  Si un utilisateur a été trouvé et que le mot de passe est correct…
 					if($user instanceof User)
 					{
-						//  Persistance de l'utilisateur dans la session.
+						//  Persist user in session.
 						$user->logInSession();
-						//  Redirection vers l' acceuil.
+						
+						// cancel data form in session
+						unset($_SESSION['formSignData']);
+						
+						//  Redirection to home
 						header('Location: ./');
 						exit;
 					}
