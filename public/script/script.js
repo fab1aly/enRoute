@@ -9,7 +9,7 @@ navigator.geolocation.getCurrentPosition(function(e) {
 
 
 // init an instance of ListPoint
-const list = new ListPoint('list', "listpoint");
+const list = new ListPoint();
 
 
 // event listener

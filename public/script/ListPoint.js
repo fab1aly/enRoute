@@ -1,10 +1,13 @@
 class ListPoint {
     /**
-     
+     * Creates a new list point.
+     * @param {string} name The name of the list point.
+     * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(name, divId) {
-        this.idListElement = divId;
+    constructor(name = "list", divId = "listpoint") {
+
         this.nameList = name;
+        this.idListElement = divId;
         this.list = [];
 
         this.loadList();
@@ -15,25 +18,17 @@ class ListPoint {
     //function for display the points in div 
     displayList(elementID = this.idListElement) {
 
-        const div = document.querySelector(`#${elementID}`);
-
         // clean ul
-        div.querySelector('ul').replaceChildren();
-
+        const ul = document.querySelector(`#${elementID} ul`);
+        ul.replaceChildren();
 
         if (this.list.length > 0) {
-
             // for display point in list
             for (let [index, point] of this.list.entries()) {
-
-                const ul = document.querySelector(`#${elementID} ul`);
 
                 const li = document.createElement('li');
                 li.classList.add('point');
                 li.setAttribute("draggable", true);
-                // li.setAttribute("data-index", index);
-
-
                 li.textContent = point.properties.label;
                 li.feature = point; //for save geojson
 
@@ -52,50 +47,21 @@ class ListPoint {
 
 
         // listener for save button
-        const button = div.querySelector('form button');
+        const button = document.querySelector(`#${elementID}form button`);
 
         button.addEventListener('click', () => { this.saveListInDB() });
         //this.saveListInDB.bind(this)  // a tester ?
 
+        // // Créez l'élément bouton
+        // const button = document.createElement('button');
+        // button.textContent = 'Enregistrer';
 
-    }
+        // // Ajoutez l'écouteur d'événement click à l'élément bouton
+        // button.addEventListener('click', () => { this.saveListInDB() });
 
-    // add end point in list
-    addPoint(feature) {
-        this.list.push(feature);
+        // // Ajoutez l'élément bouton à l'élément ul
+        // ul.appendChild(button);
 
-        this.saveList();
-    }
-
-    //remove point in list by index
-    removePoint(index) {
-        this.list.splice(index, 1);
-        console.log("remove point at index " + index);
-
-        this.saveList();
-    }
-
-    //method for save list in local storage
-    saveList(nameInLocalStorage = this.nameList) {
-        window.localStorage.setItem(`${nameInLocalStorage}`, JSON.stringify(this.list));
-
-        console.log(`save '${nameInLocalStorage}' in localStorage :`);
-        console.log(this.list);
-        this.displayList();
-
-    }
-
-    //method for load list in local storage
-    loadList(nameInLocalStorage = this.nameList) {
-        if (window.localStorage.getItem('list')) {
-            this.list = JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`));
-
-            console.log(`load '${nameInLocalStorage}' from localStorage :`);
-            console.log(JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`)));
-        }
-        else {
-            console.log(` no list in localStorage`);
-        }
     }
 
     // Add event listeners for drag and drop
@@ -147,6 +113,44 @@ class ListPoint {
 
             sortableList.addEventListener("dragover", initSortableList);
             sortableList.addEventListener("dragenter", e => e.preventDefault());
+        }
+    }
+
+    // add end point in list
+    addPoint(feature) {
+        this.list.push(feature);
+
+        this.saveList();
+    }
+
+    //remove point in list by index
+    removePoint(index) {
+        this.list.splice(index, 1);
+        console.log("remove point at index " + index);
+
+        this.saveList();
+    }
+
+    //method for save list in local storage
+    saveList(nameInLocalStorage = this.nameList) {
+        window.localStorage.setItem(`${nameInLocalStorage}`, JSON.stringify(this.list));
+
+        console.log(`save '${nameInLocalStorage}' in localStorage :`);
+        console.log(this.list);
+        this.displayList();
+
+    }
+
+    //method for load list in local storage
+    loadList(nameInLocalStorage = this.nameList) {
+        if (window.localStorage.getItem('list')) {
+            this.list = JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`));
+
+            console.log(`load '${nameInLocalStorage}' from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`)));
+        }
+        else {
+            console.log(` no list in localStorage`);
         }
     }
 
