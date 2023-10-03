@@ -14,33 +14,51 @@
         
         public function signUp() : void
         {
-            // affichage du form (GET)
+session_start();
+            
+            // display form (GET)
             if ($_SERVER['REQUEST_METHOD'] == 'GET') // empty($_GET)
             {
                 $this->renderView('sign-up.phtml',['title' => 'Inscription']);
             }
-            // traitement du form (POST)
+            // processing form (POST)
             else
             {
-                // verif si meme password
-                if ($_POST['password'] === $_POST['password_confirm'])
+                // save form data
+                $_SESSION['formSignData'] = $_POST;
+                
+                
+                // verif if all data form is present
+                if(array_key_exists('username', $_POST) 
+                    &&array_key_exists('email', $_POST) 
+                    && array_key_exists('password', $_POST)
+                    && array_key_exists('password_confirm', $_POST)
+                    && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+                    )
                 {
-                    if(array_key_exists('username', $_POST) 
-                        &&array_key_exists('email', $_POST) 
-                        && array_key_exists('password', $_POST)
-                        && array_key_exists('password_confirm', $_POST)
-                        && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
-                        )
+                    // verif if same password
+                    if($_POST['password'] !== $_POST['password_confirm'])
+                	{
+                		$_SESSION['error'] = 'Les deux mots de passe doivent être identiques.';
+                
+                		header('Location: ./sign-up');
+                		exit;
+                	}
+                    
+                    else // data processing
                     {
                         $user = new User(trim($_POST['username']), trim($_POST['email']),
-                                            trim($_POST['password']));
+                                        trim($_POST['password']));
                         $user->persist();
+                        
+// unset($_SESSION['user']);
+                        
+                        header('Location: ./sign-in'); //redirction sign-in
+                        exit;
                     }
-                    
-                    header('Location: ./sign-in'); //redirction vers sign-in si ok
-                    exit; 
                 }
-                header('Location: ./sign-up'); //redirction vers sign-up si echec
+
+                header('Location: ./sign-up'); //redirction sign-up if error
                 exit; 
                 
             }
@@ -48,15 +66,19 @@
         
         public function signIn() : void
 		{
-			//	Affichage du formulaire (GET)
+session_start();
+			//	display form (GET)
 			if($_SERVER['REQUEST_METHOD'] == 'GET')
 			{
 				$this->renderView('sign-in.phtml',['title' => 'Connexion']);
 			}
-			//	Traitement du formulaire (POST)
+			//	processing form (POST)
 			else
 			{
-				//  Si les différents champs ont été correctement remplis… (Il faudrait afficher un message d'erreur dans le cas contraire.)
+				// save form data
+                $_SESSION['formSignData'] = $_POST;
+                
+                //  Si les différents champs ont été correctement remplis… (Il faudrait afficher un message d'erreur dans le cas contraire.)
 				if(array_key_exists('email', $_POST) 
 				    && array_key_exists('password', $_POST) 
 				    && filter_var($_POST['email'], 
@@ -74,8 +96,17 @@
 						header('Location: ./');
 						exit;
 					}
-				}
+					// verif if same password
+                    else
+                	{
+                		$_SESSION['error'] = 'Adresse email ou  mots de passe inconnu.';
+                
+                		header('Location: ./sign-in');
+                		exit;
+                	}
 				//  Redirection vers la page de connexion.
+				}
+				
 				header('Location: ./sign-in');
 				exit;
 			}
@@ -85,7 +116,7 @@
 		{
 session_start();
 			
-			$_SESSION['user']->logOut();
+			unset($_SESSION['user']);
 
 			header('Location: ./sign-in');
 			exit;

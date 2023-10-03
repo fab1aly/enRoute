@@ -3,7 +3,6 @@
 	return
 	[
 		'/' => 'DefaultController::default',
-        '/my-routes' => 'DefaultController::myRoutes',
         
         '/sign-up' => 'UserController::signUp',
         '/sign-in' => 'UserController::signIn',
@@ -14,6 +13,7 @@
         '/profil-delete'=> 'UserController::profilDelete', //page de confirm
         '/user-delete'=> 'UserController::userDelete', //action delete user
         
-        '/save-in-db'=> 'ListController::saveListInDB',
+        '/my-routes' => 'ListController::myRoutes',
+        
 	];
 	

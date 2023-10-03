@@ -6,11 +6,11 @@
     
     class ListsManager extends Manager
     {
-        public function saveList (int $id, string $name, $listpoint)
+        public function saveList (int $id, string $name, $listpoint) : void
         {
             
-            $query = "INSERT INTO `Lists`( `name`, `list_point`, `user_id`)
-                                VALUES (:name,$listpoint, $id)";
+            $query = "INSERT INTO `Lists`(`user_id`, `name`, `list_point`)
+                                        VALUES ($id, :name, $listpoint)";
             
             $sth = self::$dbh->prepare($query);
             $sth->bindValue(':name', $name, PDO::PARAM_STR);

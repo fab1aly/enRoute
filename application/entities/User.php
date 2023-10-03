@@ -92,10 +92,5 @@
 			$_SESSION['user'] = $this;
         }
         
-        public function logout():void
-        {
-            unset($_SESSION['user']);
-        }
-        
     }
     

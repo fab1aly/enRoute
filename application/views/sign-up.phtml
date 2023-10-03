@@ -1,12 +1,32 @@
+<?php
 
+	if(array_key_exists('error', $_SESSION))
+	{
+		$error = $_SESSION['error'];
+		unset($_SESSION['error']);
+	}
+
+?>
     <form method="post" action="./sign-up">
         <fieldset>
             <legend>Inscription</legend>
-            <input type="text" name="username" placeholder="Pseudo"/>
-            <input type="email" name="email" placeholder="Adresse électronique"/>
+            
+            <input type="text" name="username" placeholder="Pseudo" 
+                <?= isset($_SESSION['formSignData']['username']) ?
+                    'value="'.$_SESSION['formSignData']['username'].'"' : null ?>
+            required>
+            
+            <input type="email" name="email" placeholder="Adresse électronique" 
+                <?= isset($_SESSION['formSignData']['email']) ? 
+                    'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
+            required>
             <br>
-            <input type="password" name="password" placeholder="Mot de passe"/>
-            <input type="password" name="password_confirm" placeholder="Vérifier votre mdp"/>
-            <input type="submit" value="Soumettre"/>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <input type="password" name="password_confirm" placeholder="Vérifier votre mdp" required>
+            <input type="submit" value="Inscription"/>
         </fieldset>
     </form>
+    
+    <?php if(isset($error)): ?>
+		<p style="color: red;"><?= $error ?></p>
+	<?php endif ?>
