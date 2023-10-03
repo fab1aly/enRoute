@@ -1,3 +1,18 @@
 <h2>Mes routes</h2>
 
-<?php var_dump($_POST);?>
+<!--<?php var_dump($_POST);?>-->
+
+<div class='my-routes'>
+    <label for="routes">Vos routes :</label>
+
+    <select name="routes" id="routes">
+        <?php foreach ($routes as $route):?>
+          
+        <option value="hamster"><?=htmlspecialchars($route['name'])?></option>
+          
+        <?php endforeach;?>
+    </select>
+
+</div>
+
+

@@ -43,14 +43,16 @@ class ListPoint {
                 ul.appendChild(li);
             }
         }
+        document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
         this.dragAndDrop();
 
 
-        // listener for save button
-        const button = document.querySelector(`#${elementID}form button`);
+        // // listener for save button
+        // const button = document.querySelector(`#listpoint form :nth-child(4)`);
+        // // console.log(button)
 
-        button.addEventListener('click', () => { this.saveListInDB() });
-        //this.saveListInDB.bind(this)  // a tester ?
+        // button.addEventListener('click', () => { this.saveListInDB() });
+        // //this.saveListInDB.bind(this)  // a tester ?
 
         // // Créez l'élément bouton
         // const button = document.createElement('button');
@@ -154,37 +156,43 @@ class ListPoint {
         }
     }
 
-    // Method to save the list in the database
-    saveListInDB(list) {
-        console.log(this);
-        // Getting the list as a JSON string
-        // const listAsJSON = JSON.stringify(this.list);
-        // const listName = this.nameList;
+    //     // Method to save the list in the database
+    //     saveListInDB() {
+    //         console.log(this);
+    //         // Getting the list as a JSON string
+    //         // const listAsJSON = JSON.stringify(this.list);
+    //         // const listName = this.nameList;
 
-        // const form = new FormData(document.getElementById("login-form"));
+    //         // const form = new FormData(document.getElementById("login-form"));
 
-        // Making an AJAX request to the database
-        fetch('./save-in-db', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Content-Type": "text/plain",
-                },
-                body: this
-            })
-            .then((response) => {
-                // Checking the response status code
-                if (response.status === 200) {
-                    // The list was successfully saved
-                }
-                else {
-                    // An error occurred
-                    console.log(response.status);
-                }
-            })
-            .catch((error) => {
-                // An error occurred
-                console.log(error);
-            });
-    }
+    //         // Making an AJAX request to the database
+
+    //         document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
+    //         //input[type="hidden"]
+
+    //         return;
+
+    //         fetch('./save-in-db', {
+    //                 method: "POST",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     // "Content-Type": "text/plain",
+    //                 },
+    //                 body: this
+    //             })
+    //             .then((response) => {
+    //                 // Checking the response status code
+    //                 if (response.status === 200) {
+    //                     // The list was successfully saved
+    //                 }
+    //                 else {
+    //                     // An error occurred
+    //                     console.log(response.status);
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 // An error occurred
+    //                 console.log(error);
+    //             });
+// }
 }

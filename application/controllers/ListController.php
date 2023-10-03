@@ -11,11 +11,9 @@
         //     session_start();
         // }
         
-        
         public function myRoutes ()
 		{
 session_start();
-
 // var_dump($_POST);
 // exit;
 		    //	 (GET)
@@ -23,7 +21,10 @@ session_start();
 			{
 				if (array_key_exists('user', $_SESSION))
                 {
-                    $this->renderView('my-routes.phtml',['title' => 'Mes routes']);
+                    $listsManager = new ListsManager;
+                    $routes = $listsManager->getRoutes($_SESSION['user']->getId());
+                    
+                    $this->renderView('my-routes.phtml',['title' => 'Mes routes', 'routes' => $routes]);
                 }
                 else
                 {
@@ -35,13 +36,13 @@ session_start();
 			// (POST) 
 			else
 			{
-// var_dump($_SESSION);
                 if (array_key_exists('user', $_SESSION))
                 {
+// var_dump($_POST);
+// var_dump($_SESSION['user']->getId());
+// exit;
                     $listsManager = new ListsManager;
-// 			        $listManager->saveList($_SESSION['user']->getId(), $_POST[]$name, $_POST[]$listpoint);
-                    
-                    
+			        $listsManager->saveList($_SESSION['user']->getId(), $_POST['name'], $_POST['listpoint']);
                     
                     $this->renderView('my-routes.phtml',['title' => 'Mes routes']);
                 }
@@ -51,8 +52,5 @@ session_start();
                     exit; 
                 }
             }
-			
-			
-			
 		}
     }
