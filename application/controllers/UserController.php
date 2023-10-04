@@ -44,18 +44,27 @@ session_start();
                 		header('Location: ./sign-up');
                 		exit;
                 	}
+                	
+                // 	// verif if email is exist in db
+                //     if($_POST['email'])
+                // 	{
+                // 		$_SESSION['error'] = 'Votre email est déja utiliser';
+                
+                // 		header('Location: ./sign-up');
+                // 		exit;
+                // 	}
                     
-                    else // data processing
-                    {
-                        $user = new User(trim($_POST['username']), trim($_POST['email']),
-                                        trim($_POST['password']));
-                        $user->persist();
-                        
+                     // data processing
+                    
+                    $user = new User(trim($_POST['username']), trim($_POST['email']),
+                                    trim($_POST['password']));
+                    $user->persist();
+                    
 // unset($_SESSION['user']);
-                        
-                        header('Location: ./sign-in'); //redirction sign-in
-                        exit;
-                    }
+                    
+                    header('Location: ./sign-in'); //redirction sign-in
+                    exit;
+                    
                 }
 
                 header('Location: ./sign-up'); //redirction sign-up if error

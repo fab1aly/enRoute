@@ -1,18 +1,40 @@
+<!--leaf-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin="">
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+<!--Script JS-->
+<script defer type="text/javascript" src="script/ListPoint.js"></script>
+<script defer type="text/javascript" src="script/my-routes.js"></script>
+
+
 <h2>Mes routes</h2>
 
 <!--<?php var_dump($_POST);?>-->
 
-<div class='my-routes'>
+<div id='my_routes'>
     <label for="routes">Vos routes :</label>
 
     <select name="routes" id="routes">
         <?php foreach ($routes as $route):?>
           
-        <option value="hamster"><?=htmlspecialchars($route['name'])?></option>
+        <option name="<?=htmlspecialchars($route['name'])?>"
+                value="<?=htmlspecialchars($route['list_point'])?>"
+        >
+            <?=htmlspecialchars($route['name'])?>
+        </option>
           
         <?php endforeach;?>
     </select>
-
+    <form method='post'>
+        <button type="button">Load</button>
+    </form>
 </div>
 
-
+<div id="listpoint">
+    <ul></ul>
+    
+</div>

@@ -44,7 +44,8 @@ session_start();
                     $listsManager = new ListsManager;
 			        $listsManager->saveList($_SESSION['user']->getId(), $_POST['name'], $_POST['listpoint']);
                     
-                    $this->renderView('my-routes.phtml',['title' => 'Mes routes']);
+                    $routes = $listsManager->getRoutes($_SESSION['user']->getId());
+                    $this->renderView('my-routes.phtml',['title' => 'Mes routes', 'routes' => $routes]);
                 }
                 else
                 {

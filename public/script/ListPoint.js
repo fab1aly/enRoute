@@ -4,14 +4,14 @@ class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(name = "list", divId = "listpoint") {
+    constructor(divId = "listpoint", name = "list", listpoint = []) {
 
         this.nameList = name;
         this.idListElement = divId;
-        this.list = [];
+        this.list = listpoint;
 
-        this.loadList();
-        this.displayList();
+        // this.loadList();
+        // this.displayList();
     }
 
 
@@ -23,9 +23,10 @@ class ListPoint {
         ul.replaceChildren();
 
         if (this.list.length > 0) {
-            // for display point in list
+            // for display points in list
             for (let [index, point] of this.list.entries()) {
 
+                //make li from point
                 const li = document.createElement('li');
                 li.classList.add('point');
                 li.setAttribute("draggable", true);
@@ -34,6 +35,7 @@ class ListPoint {
 
                 // make button for remove
                 const button = document.createElement('button');
+                button.classList.add('remove');
                 button.textContent = '-';
                 button.setAttribute("data-index", index);
 
@@ -43,7 +45,12 @@ class ListPoint {
                 ul.appendChild(li);
             }
         }
-        document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
+
+        // add list in json in input for the save form 
+        if (document.querySelector('#listpoint form ') !== null) {
+            document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
+        }
+
         this.dragAndDrop();
 
 
@@ -194,5 +201,5 @@ class ListPoint {
     //                 // An error occurred
     //                 console.log(error);
     //             });
-// }
+    // }
 }
