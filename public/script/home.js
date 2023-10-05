@@ -9,9 +9,22 @@ navigator.geolocation.getCurrentPosition(function(e) {
 
 
 // init an instance of ListPoint
-const list = new ListPoint();
-list.loadList();
-list.displayList();
+let list_in_value = document.querySelector('#listpoint').dataset.value;
+if (list_in_value == null) {
+    list_in_value = [];
+}
+else {
+    list_in_value = JSON.parse(list_in_value);
+}
+
+console.log(list_in_value);
+
+const list_in_local_storage = new ListPoint(list_in_value);
+
+// list_in_local_storage.loadList();
+list_in_local_storage.displayList();
+
+
 
 
 // event listener
@@ -21,7 +34,7 @@ listElement.addEventListener('click', () => {
     // for remove point
     if (event.target.matches('.point .remove')) {
         // console.log(event.target.dataset.index);
-        list.removePoint(event.target.dataset.index);
+        list_in_local_storage.removePoint(event.target.dataset.index);
     }
 
     // for save list in db

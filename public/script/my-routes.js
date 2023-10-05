@@ -1,34 +1,32 @@
 // document.addEventListener('DOMContentLoaded', function() {
 
-const routesElement = document.querySelector(`#my_routes`);
+// const routesElement = document.querySelector(`#my_routes`);
+// const list_routes = routesElement.querySelector('select');
 
-function test() {
-    const name = list_routes.querySelector('option').name;
-    const list_point = JSON.parse(list_routes.querySelector('option').value);
+function displayList_routes() {
+    const list_routes = document.querySelector('#my_routes select');
+    const list_point = JSON.parse(list_routes.value);
 
-    const route = new ListPoint("listpoint", name, list_point);
+    const route = new ListPoint(list_point);
     route.displayList();
 }
 
-// test();
+displayList_routes();
 
 
 // event listener
-const list_routes = routesElement.querySelector('select');
-
-list_routes.addEventListener('change', () => {
-
-    test();
-
+// change select 
+document.querySelector('#my_routes select').addEventListener('change', () => {
+    console.log(document.querySelector('#my_routes select'))
+    // return
+    displayList_routes();
 });
 
 
-// event listener click
-
-routesElement.addEventListener('click', () => {
-    // for save list in db
+// click load button
+document.querySelector(`#my_routes`).addEventListener('click', () => {
     if (event.target.matches('#my_routes form button')) {
-        // document.querySelector('#my_routes form').submit();
+        document.querySelector('#my_routes form').submit();
     }
 });
 

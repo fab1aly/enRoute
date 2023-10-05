@@ -13,7 +13,7 @@ async function searchAddress(address) {
     return data;
 }
 
-const inputElt = document.querySelector('search>input');
+const inputElt = document.querySelector('.searchbar>input');
 
 // Écoutez les changements sur le champ de texte de l'adresse.
 inputElt.addEventListener("input", async() => {
@@ -25,7 +25,7 @@ inputElt.addEventListener("input", async() => {
         const results = await searchAddress(inputElt.value);
 
         // Afficher les résultats de la recherche.
-        const ul = document.querySelector(`search>ul`);
+        const ul = document.querySelector(`.searchbar>ul`);
         ul.replaceChildren();
 
         // console.log(results);
@@ -46,7 +46,7 @@ searchElt.addEventListener("click", () => {
     if (event.target.matches('li')) {
         console.log(event.target.feature);
 
-        list.addPoint(event.target.feature);
+        list_in_local_storage.addPoint(event.target.feature);
     }
 });
 

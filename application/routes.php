@@ -2,7 +2,10 @@
 
 	return
 	[
-		'/' => 'DefaultController::default',
+// 		'/' => 'DefaultController::default',
+		
+		'/' => 'ListController::home',
+		'/my-routes' => 'ListController::myRoutes',
         
         '/sign-up' => 'UserController::signUp',
         '/sign-in' => 'UserController::signIn',
@@ -10,10 +13,10 @@
         
         '/profil'=> 'UserController::profil',
         
-        '/profil-delete'=> 'UserController::profilDelete', //page de confirm
-        '/user-delete'=> 'UserController::userDelete', //action delete user
+        '/profil-delete'=> 'UserController::profilDelete', //confirm page 
+        '/user-delete'=> 'UserController::userDelete', //action page for delete user
         
-        '/my-routes' => 'ListController::myRoutes',
+        
         
 	];
 	

@@ -16,20 +16,21 @@
 <!--<?php var_dump($_POST);?>-->
 
 <div id='my_routes'>
-    <label for="routes">Vos routes :</label>
+    <form method='post' action='./'>
+        <label for="my_route">Vos routes :</label>
 
-    <select name="routes" id="routes">
-        <?php foreach ($routes as $route):?>
-          
-        <option name="<?=htmlspecialchars($route['name'])?>"
-                value="<?=htmlspecialchars($route['list_point'])?>"
-        >
-            <?=htmlspecialchars($route['name'])?>
-        </option>
-          
-        <?php endforeach;?>
-    </select>
-    <form method='post'>
+        <select name="my_route" id="my_route">
+            <?php foreach ($routes as $route):?>
+              
+            <option name="<?=htmlspecialchars($route['name'])?>"
+                    value="<?=htmlspecialchars($route['list_point'])?>"
+            >
+                <?=htmlspecialchars($route['name'])?>
+            </option>
+              
+            <?php endforeach;?>
+        </select>
+    
         <button type="button">Load</button>
     </form>
 </div>

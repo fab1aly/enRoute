@@ -11,6 +11,30 @@
         //     session_start();
         // }
         
+        public function home (): void
+		{
+session_start();
+// var_dump($_POST);
+// exit;
+
+        if($_SERVER['REQUEST_METHOD'] == 'GET')
+			{
+			    $this->renderView('home.phtml',['title' => 'Accueil']);
+			}
+		
+		// (POST) 
+			else
+			{
+// var_dump($_POST);
+// exit;
+			    if (array_key_exists('my_route', $_POST))
+			    {
+			        $this->renderView('home.phtml',['title' => 'Accueil']);
+			    }
+			}
+			
+		}
+
         public function myRoutes ()
 		{
 session_start();

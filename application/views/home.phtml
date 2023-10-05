@@ -21,7 +21,9 @@
     <ul></ul>
 </div>
 
-<div id="listpoint">
+<div id="listpoint" data-value='<?= (array_key_exists('my_route', $_POST)) ? 
+                                        str_replace("'","",$_POST['my_route']) : null;?>'>
+    <!--attion guillement simple !  "'" remplacer par "vide"   -->
     <ul></ul>
     <div>
         <form method="post" action="./my-routes"> 

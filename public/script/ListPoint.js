@@ -4,7 +4,7 @@ class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(divId = "listpoint", name = "list", listpoint = []) {
+    constructor(listpoint = [], name = "list", divId = "listpoint") {
 
         this.nameList = name;
         this.idListElement = divId;

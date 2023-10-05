@@ -24,7 +24,7 @@
         public function getRoutes (int $user_id) 
         {
             
-            $query = "SELECT * FROM Lists WHERE user_id = :user_id";
+            $query = "SELECT * FROM Lists WHERE user_id = :user_id ORDER BY id DESC";
             
             $sth = self::$dbh->prepare($query);
             $sth->bindValue(':user_id', $user_id);
