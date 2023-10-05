@@ -141,22 +141,22 @@ class ListPoint {
     }
 
     //method for save list in local storage
-    saveList(nameInLocalStorage = this.nameList) {
-        window.localStorage.setItem(`${nameInLocalStorage}`, JSON.stringify(this.list));
+    saveList() {
+        window.localStorage.setItem(`local_list`, JSON.stringify(this.list));
 
-        console.log(`save '${nameInLocalStorage}' in localStorage :`);
+        console.log(`save 'local_list' in localStorage :`);
         console.log(this.list);
         this.displayList();
 
     }
 
     //method for load list in local storage
-    loadList(nameInLocalStorage = this.nameList) {
+    loadList() {
         if (window.localStorage.getItem('list')) {
-            this.list = JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`));
+            this.list = JSON.parse(window.localStorage.getItem(`local_list`));
 
-            console.log(`load '${nameInLocalStorage}' from localStorage :`);
-            console.log(JSON.parse(window.localStorage.getItem(`${nameInLocalStorage}`)));
+            console.log(`load 'local_list' from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`local_list`)));
         }
         else {
             console.log(` no list in localStorage`);

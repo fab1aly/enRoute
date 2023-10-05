@@ -7,22 +7,26 @@ navigator.geolocation.getCurrentPosition(function(e) {
     console.log("position -> ok");
 });
 
+// init var
+let local_list;
 
-// init an instance of ListPoint
-let list_in_value = document.querySelector('#listpoint').dataset.value;
-if (list_in_value == null) {
-    list_in_value = [];
+let list_element_value = document.querySelector('#listpoint').dataset.value;
+console.log(list_element_value);
+
+// if nothing in data value (come from POST)
+if (list_element_value !== '') {
+    local_list = new ListPoint(JSON.parse(list_element_value));
 }
 else {
-    list_in_value = JSON.parse(list_in_value);
+    local_list = new ListPoint();
 }
+console.log(local_list);
 
-console.log(list_in_value);
 
-const list_in_local_storage = new ListPoint(list_in_value);
 
-// list_in_local_storage.loadList();
-list_in_local_storage.displayList();
+
+local_list.saveList();
+local_list.displayList();
 
 
 
@@ -34,7 +38,7 @@ listElement.addEventListener('click', () => {
     // for remove point
     if (event.target.matches('.point .remove')) {
         // console.log(event.target.dataset.index);
-        list_in_local_storage.removePoint(event.target.dataset.index);
+        local_list.removePoint(event.target.dataset.index);
     }
 
     // for save list in db

@@ -12,23 +12,22 @@ async function searchAddress(address) {
     console.log(data);
     return data;
 }
-
 const inputElt = document.querySelector('.searchbar>input');
 
 // Écoutez les changements sur le champ de texte de l'adresse.
 inputElt.addEventListener("input", async() => {
 
-    //si l'adresse a plus de 8 charactere
-    if (inputElt.value.length >= 8) {
+    const inputValue = inputElt.value;
 
-        // Recherchez l'adresse.
-        const results = await searchAddress(inputElt.value);
+    if (inputValue.length >= 8) {
+
+        // Attendez que la promesse renvoyée par la fonction searchAddress() soit résolue.
+        const results = await searchAddress(inputValue);
 
         // Afficher les résultats de la recherche.
         const ul = document.querySelector(`.searchbar>ul`);
         ul.replaceChildren();
 
-        // console.log(results);
         for (let result of results.features) {
 
             const li = document.createElement('li');
@@ -40,13 +39,12 @@ inputElt.addEventListener("input", async() => {
     }
 });
 
-
 const searchElt = document.querySelector('.searchbar');
 searchElt.addEventListener("click", () => {
     if (event.target.matches('li')) {
         console.log(event.target.feature);
 
-        list_in_local_storage.addPoint(event.target.feature);
+        local_list.addPoint(event.target.feature);
     }
 });
 
