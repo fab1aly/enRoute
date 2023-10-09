@@ -21,7 +21,7 @@ inputElt.addEventListener("input", async() => {
 
     if (inputValue.length >= 8) {
 
-        // Attendez que la promesse renvoyée par la fonction searchAddress() soit résolue.
+        // Attend que la promesse renvoyée par la fonction searchAddress() soit résolue.
         const results = await searchAddress(inputValue);
 
         // Afficher les résultats de la recherche.

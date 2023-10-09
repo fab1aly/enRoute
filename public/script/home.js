@@ -9,24 +9,28 @@ navigator.geolocation.getCurrentPosition(function(e) {
 
 // init var
 let local_list;
-
 let list_element_value = document.querySelector('#listpoint').dataset.value;
 console.log(list_element_value);
 
-// if nothing in data value (come from POST)
+// if  data value (come from POST)
 if (list_element_value !== '') {
-    local_list = new ListPoint(JSON.parse(list_element_value));
+    local_list = new ListPoint(JSON.parse(list_element_value), 'local_list');
+    local_list.saveList();
+    list_element_value = '';
 }
 else {
     local_list = new ListPoint();
+    if (window.localStorage.getItem('local_list')) {
+        local_list.loadList();
+    }
+
 }
 console.log(local_list);
 
 
 
-
-local_list.saveList();
 local_list.displayList();
+local_list.dragAndDrop();
 
 
 
@@ -44,7 +48,8 @@ listElement.addEventListener('click', () => {
     // for save list in db
     if (event.target.matches('#listpoint form button')) {
 
-        const name = window.prompt('nommer cette route');
+        const name_default = document.querySelector('#listpoint').dataset.name;
+        const name = window.prompt('nommer cette route', name_default);
         document.querySelector('#listpoint form :nth-child(3)').value = name;
 
         document.querySelector('#listpoint form').submit();

@@ -4,7 +4,7 @@ class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(listpoint = [], name = "list", divId = "listpoint") {
+    constructor(listpoint = [], name = "local_list", divId = "listpoint") {
 
         this.nameList = name;
         this.idListElement = divId;
@@ -51,7 +51,7 @@ class ListPoint {
             document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
         }
 
-        this.dragAndDrop();
+        // this.dragAndDrop();
 
 
         // // listener for save button
@@ -142,7 +142,7 @@ class ListPoint {
 
     //method for save list in local storage
     saveList() {
-        window.localStorage.setItem(`local_list`, JSON.stringify(this.list));
+        window.localStorage.setItem(`${this.nameList}`, JSON.stringify(this.list));
 
         console.log(`save 'local_list' in localStorage :`);
         console.log(this.list);
@@ -152,11 +152,11 @@ class ListPoint {
 
     //method for load list in local storage
     loadList() {
-        if (window.localStorage.getItem('list')) {
-            this.list = JSON.parse(window.localStorage.getItem(`local_list`));
+        if (window.localStorage.getItem(`${this.nameList}`)) {
+            this.list = JSON.parse(window.localStorage.getItem(`${this.nameList}`));
 
-            console.log(`load 'local_list' from localStorage :`);
-            console.log(JSON.parse(window.localStorage.getItem(`local_list`)));
+            console.log(`load ${this.nameList} from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`${this.nameList}`)));
         }
         else {
             console.log(` no list in localStorage`);

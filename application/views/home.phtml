@@ -21,8 +21,9 @@
     <ul class="searchbar-results"></ul>
 </div>
 
-<div id="listpoint" data-value='<?= (array_key_exists('my_route', $_POST)) ? 
-                                        str_replace("'","",$_POST['my_route']) : null;?>'>
+<div id="listpoint" data-value='<?= (isset($_POST['my_route'])) ? str_replace("'","",$_POST['my_route']) : null;?>'
+                    data-name=''
+    >
     <!--attion guillement simple !  "'" remplacer par "vide"   -->
     <ul></ul>
     <div>

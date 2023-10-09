@@ -17,7 +17,9 @@
     <title><?= $title?></title>
 </head>
 <body>
-    <header>
+    <div id="app-container">
+        
+        <header>
         <nav class="">
         <?php if(isset($_SESSION['user'])): ?>
             <details>
@@ -55,12 +57,10 @@
             
         </nav>
     </header>
-    
-    <main>
+        
         <?= $viewContent?>
-    </main>
-    
-    <footer></footer>
+        
+    </div>
     
 </body>
 </html>

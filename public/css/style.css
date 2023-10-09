@@ -19,40 +19,49 @@ header nav {
   background-color: lightblue;
   padding: 1rem;
 }
+
 header nav a {
   text-decoration: none;
   color: black;
 }
+
 header nav li {
   list-style: none;
 }
+
 header nav li h1 {
   margin: 0;
   font-size: 3rem;
 }
+
 header nav details {
   border: solid 1px green;
   width: 30%;
   height: 2rem;
 }
+
 header nav details summary {
   border: solid 1px blue;
   display: block;
 }
+
 header nav details[open] {
   border: solid 1px green;
   width: 30%;
   height: 3.8rem;
 }
+
 header nav details[open] summary {
   border: solid 1px blue;
   display: block;
 }
+
 header nav details[open] menu {
   display: flex;
   justify-content: space-around;
   border: solid 1px purple;
 }
+
 header nav details[open] menu li {
   list-style: none;
 }
@@ -72,6 +81,7 @@ header nav details[open] menu li {
   overflow-y: auto;
   width: 100%;
   z-index: 1000;
+
 }
 
 .point {

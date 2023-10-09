@@ -7,8 +7,8 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 <!--Script JS-->
-<script defer type="text/javascript" src="script/ListPoint.js"></script>
-<script defer type="text/javascript" src="script/my-routes.js"></script>
+<script defer src="script/ListPoint.js"></script>
+<script defer src="script/my-routes.js"></script>
 
 
 <h2>Mes routes</h2>
@@ -17,14 +17,15 @@
 
 <div id='my_routes'>
     <form method='post' action='./'>
+        
+        <button type="button">Suppr</button>
+        
         <label for="my_route">Vos routes :</label>
 
         <select name="my_route" id="my_route">
             <?php foreach ($routes as $route):?>
               
-            <option name="<?=htmlspecialchars($route['name'])?>"
-                    value="<?=htmlspecialchars($route['list_point'])?>"
-            >
+            <option  value="<?=htmlspecialchars($route['list_point'])?>">
                 <?=htmlspecialchars($route['name'])?>
             </option>
               

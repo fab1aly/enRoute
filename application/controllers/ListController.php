@@ -14,26 +14,20 @@
         public function home (): void
 		{
 session_start();
-// var_dump($_POST);
-// exit;
 
-        if($_SERVER['REQUEST_METHOD'] == 'GET')
-			{
-			    $this->renderView('home.phtml',['title' => 'Accueil']);
-			}
-		
-		// (POST) 
-			else
-			{
+            if($_SERVER['REQUEST_METHOD'] == 'GET')
+    		{
+    		    $this->renderView('home.phtml',['title' => 'enRoute']);
+    		}
+    		
+    
+    		else // (POST) 
+    		{
 // var_dump($_POST);
 // exit;
-			    if (array_key_exists('my_route', $_POST))
-			    {
-			        $this->renderView('home.phtml',['title' => 'Accueil']);
-			    }
-			}
-			
-		}
+    		    $this->renderView('home.phtml',['title' => 'enRoute']);
+    		}
+    	}
 
         public function myRoutes ()
 		{
