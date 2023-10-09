@@ -31,22 +31,29 @@ inputElt.addEventListener("input", async() => {
         for (let result of results.features) {
 
             const li = document.createElement('li');
-            li.textContent = result.properties.label;
-            li.feature = result; //pour garder geojson
 
+
+            const span = document.createElement('span');
+            span.textContent = result.properties.label;
+            span.feature = result; //pour garder geojson
+
+            li.appendChild(span);
             ul.appendChild(li);
         }
     }
 });
 
 const searchElt = document.querySelector('.searchbar');
+
 searchElt.addEventListener("click", () => {
-    if (event.target.matches('li')) {
+    if (event.target.matches('span')) {
         console.log(event.target.feature);
 
         local_list.addPoint(event.target.feature);
     }
 });
+
+
 
 
 

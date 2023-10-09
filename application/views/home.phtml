@@ -16,7 +16,7 @@
     <!--<script defer type="text/javascript" src="script/map.js"></script>-->
 
 
-<div class="searchbar">
+<div id="searchbar" class="searchbar">
     <input class="searchbar-input" type="text" name="search_adress" placeholder="recherche">
     <ul class="searchbar-results"></ul>
 </div>
@@ -26,18 +26,16 @@
     >
     <!--attion guillement simple !  "'" remplacer par "vide"   -->
     <ul></ul>
-    <div>
-        <form method="post" action="./my-routes"> 
-        
-            <span>Total</span>
-            <input type="hidden" name="listpoint" value="">
-            <input type="hidden" name="name" value=''>
-            <button type="button">Save</button>
-        </form>
-    </div>
+    <form method="post" action="./my-routes"> 
+    
+        <span>Total</span>
+        <input type="hidden" name="listpoint" value="">
+        <input type="hidden" name="name" value=''>
+        <button type="button">Save</button>
+    </form>
 </div>
 
-<div id="map" style="width: 100vw; height: 60vh;">
+<div id="map">
     
     <script>// L'id du container, par exemple <div id="map"></div>
         var mapID = 'map';

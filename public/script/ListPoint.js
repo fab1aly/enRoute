@@ -30,8 +30,11 @@ class ListPoint {
                 const li = document.createElement('li');
                 li.classList.add('point');
                 li.setAttribute("draggable", true);
-                li.textContent = point.properties.label;
                 li.feature = point; //for save geojson
+
+                //make span for label
+                const span = document.createElement('span');
+                span.textContent = point.properties.label;
 
                 // make button for remove
                 const button = document.createElement('button');
@@ -41,6 +44,9 @@ class ListPoint {
 
                 // add button in li
                 li.appendChild(button);
+                // add span in li
+                li.appendChild(span);
+
                 // add li in ul
                 ul.appendChild(li);
             }
