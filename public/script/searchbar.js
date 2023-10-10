@@ -12,7 +12,7 @@ async function searchAddress(address) {
     console.log(data);
     return data;
 }
-const inputElt = document.querySelector('.searchbar>input');
+const inputElt = document.querySelector('#searchbar input');
 
 // Écoutez les changements sur le champ de texte de l'adresse.
 inputElt.addEventListener("input", async() => {
@@ -25,17 +25,16 @@ inputElt.addEventListener("input", async() => {
         const results = await searchAddress(inputValue);
 
         // Afficher les résultats de la recherche.
-        const ul = document.querySelector(`.searchbar>ul`);
+        const ul = document.querySelector(`#searchbar ul`);
         ul.replaceChildren();
 
         for (let result of results.features) {
 
-            const li = document.createElement('li');
-
-
             const span = document.createElement('span');
             span.textContent = result.properties.label;
-            span.feature = result; //pour garder geojson
+
+            const li = document.createElement('li');
+            li.feature = result; //pour garder geojson
 
             li.appendChild(span);
             ul.appendChild(li);
@@ -43,13 +42,16 @@ inputElt.addEventListener("input", async() => {
     }
 });
 
-const searchElt = document.querySelector('.searchbar');
+const searchbar = document.querySelector('#searchbar');
 
-searchElt.addEventListener("click", () => {
-    if (event.target.matches('span')) {
+searchbar.addEventListener("click", () => {
+    if (event.target.matches('li')) {
+
         console.log(event.target.feature);
-
         local_list.addPoint(event.target.feature);
+
+        const ul = document.querySelector(`#searchbar ul`);
+        ul.replaceChildren();
     }
 });
 

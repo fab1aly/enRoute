@@ -1,5 +1,16 @@
 // document.addEventListener('DOMContentLoaded', function() {
 
+// function headerAjust() {
+//     const header_height = document.querySelector('header').offsetHeight;
+//     // console.log(header_height);
+//     document.querySelector('#searchbar').style.top = header_height + 10 + "px";
+// }
+
+
+
+
+
+
 // on load position set view on it
 navigator.geolocation.getCurrentPosition(function(e) {
     myMap.setView([e.coords.latitude, e.coords.longitude], 12);

@@ -7,7 +7,7 @@
 	}
 
 ?>
-    <form method="post" action="./sign-up">
+    <form id="sign_up" class="sign-form" method="post" action="./sign-up">
         <fieldset>
             <legend>Inscription</legend>
             
@@ -20,10 +20,10 @@
                 <?= isset($_SESSION['formSignData']['email']) ? 
                     'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
             required>
-            <br>
+            
             <input type="password" name="password" placeholder="Mot de passe" required>
             <input type="password" name="password_confirm" placeholder="Vérifier votre mdp" required>
-            <input type="submit" value="Inscription">
+            <input type="submit" value="Valider">
         </fieldset>
     </form>
     
