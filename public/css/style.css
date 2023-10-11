@@ -270,23 +270,52 @@ header nav menu li a {
 }
 @media screen and (min-width: 1024px) and (min-height: 720px) {
   #app {
-    height: auto;
-  }
-  #map {
-    display: none;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 70vw auto;
+    grid-template-rows: 5.8rem 26rem auto;
+    gap: 0.5rem 0.5rem;
   }
   header {
     position: static;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: end;
+  }
+  #map {
+    position: static;
+    z-index: auto;
+    height: 100%;
+    grid-row-start: 2;
+    grid-row-end: end;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 1rem;
   }
   #searchbar {
     position: static;
     left: auto;
     right: auto;
+    width: auto;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: end;
+    margin: 0;
+    margin-right: 0.5rem;
   }
   #listpoint {
     position: static;
     left: auto;
     right: auto;
+    width: auto;
+    grid-row-start: 3;
+    grid-row-end: end;
+    grid-column-start: 2;
+    grid-column-end: end;
+    margin-right: 0.5rem;
   }
 }
 
