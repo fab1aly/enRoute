@@ -1,21 +1,16 @@
 #listpoint {
 
     position: absolute;
-    z-index: 1000;
+
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 1rem;
+    right: 1rem;
 
     background-color: DarkSeaGreen;
     border-radius: 1rem 1rem 0 0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
-
-    margin: .5rem;
     padding: .5rem;
-
-
-
 
     max-height: 50rem;
     overflow-y: auto;

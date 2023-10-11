@@ -42,7 +42,7 @@ async function searchAddress(address, position = null) {
     const url = "https://api-adresse.data.gouv.fr/search/?";
     const addressPlus = "&q=" + address.replaceAll(' ', '+');
 
-    const response = await fetch(url + addressPlus + posText);
+    const response = await fetch(url + addressPlus + position);
     const data = await response.json();
 
     console.log(data);
