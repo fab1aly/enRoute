@@ -5,11 +5,11 @@ class ListPoint {
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
     constructor(listpoint = [], name = "local_list", divId = "listpoint") {
-
+    
         this.nameList = name;
         this.idListElement = divId;
         this.list = listpoint;
-
+    
         // this.loadList();
         // this.displayList();
     }
@@ -31,7 +31,7 @@ class ListPoint {
                 li.classList.add('point');
                 li.setAttribute("draggable", true);
                 li.feature = point; //for save geojson
-                
+
                 li.textContent = point.properties.label;
 
                 // //make span for label
@@ -46,7 +46,7 @@ class ListPoint {
 
                 // add button in li
                 li.appendChild(button);
-                
+
                 // // add span in li
                 // li.appendChild(span);
 

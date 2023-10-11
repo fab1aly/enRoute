@@ -1,0 +1,87 @@
+#listpoint {
+
+    position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: DarkSeaGreen;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+
+    margin: .5rem;
+    padding: .5rem;
+
+
+
+
+    max-height: 50rem;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+
+    ul {
+
+        padding: .5rem 0 0 0;
+
+        li {
+
+            border: solid 1px DimGray;
+            border-radius: 1rem;
+            background-color: LightSteelBlue;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+            font-size: 1.4rem;
+            height: 3.5rem;
+
+            margin: .5rem 0;
+            padding: .5rem;
+
+            button {
+                border: solid 1px DimGray;
+                border-radius: 1rem;
+                background-color: Moccasin;
+
+
+                padding: .25rem 1rem;
+            }
+
+            span {
+                margin-left: 1rem;
+            }
+        }
+    }
+
+    form {
+        border: solid 1px DimGray;
+        border-radius: 1rem;
+        background-color: IndianRed;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+        font-size: 1.4rem;
+        height: 3.5rem;
+
+        margin: .5rem 0 0 0;
+        padding: .5rem;
+
+        button {
+            border: solid 1px DimGray;
+            border-radius: 1rem;
+            background-color: Moccasin;
+
+
+            padding: .25rem 1rem;
+        }
+
+        span {
+            margin-left: 1rem;
+        }
+    }
+
+}

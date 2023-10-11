@@ -1,0 +1,54 @@
+#searchbar {
+
+    position: absolute;
+    top: 6.5rem;
+    right: 0;
+    z-index: 1000;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 1rem;
+    background-color: Gainsboro;
+
+    margin: .5rem;
+    padding: .5rem;
+    width: 60vw;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    input {
+        height: 2.5rem;
+        color: Black;
+        background-color: WhiteSmoke;
+        border-radius: .8rem;
+        border: none;
+        padding: 0 .5rem;
+
+    }
+
+    ul {
+
+        li {
+            height: 4rem;
+            color: Black;
+            background-color: WhiteSmoke;
+            margin-bottom: .3rem;
+            border-radius: 1rem;
+            padding: 1rem .5rem;
+            display: flex;
+            align-items: center
+        }
+        li:first-child {
+            margin-top: 1rem;
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+
+
+
+}

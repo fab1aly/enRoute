@@ -1,0 +1,60 @@
+#sign_in {}
+
+.sign-form {
+    position: absolute;
+    top: 30vh;
+    left: 15vw;
+    right: 15vw;
+
+    border: solid 1px DimGray;
+    border-radius: 1rem;
+    background-color: DarkSeaGreen;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    padding: 1rem;
+
+    fieldset {
+
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+
+        background-color: LightSteelBlue;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        border-radius: .5rem;
+        border: solid 1px DimGray;
+
+        margin: .5rem;
+        padding: .5rem;
+
+        color: #222;
+
+        legend {
+            border: solid 1px DimGray;
+            border-radius: .5rem;
+            background-color: IndianRed;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+            margin: .5rem;
+            padding: .5rem;
+        }
+
+        input {
+            // border: solid 1px DimGray;
+            border-radius: .5rem;
+            background-color: WhiteSmoke;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+            margin: .5rem;
+            padding: .5rem;
+        }
+
+        input[type="submit"] {
+            border: solid 1px DimGray;
+            border-radius: 1rem;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            background-color: Moccasin;
+            width: fit-content;
+        }
+    }
+}
