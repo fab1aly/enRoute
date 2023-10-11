@@ -18,7 +18,7 @@
 
         display: grid;
         grid-template-columns: 70vw auto;
-        grid-template-rows: 5.8rem 26rem auto;
+        grid-template-rows: 5.8rem 3.8rem 26rem auto;
         gap: .5rem .5rem;
 
     }
@@ -48,28 +48,47 @@
 
     #searchbar {
         position: static;
-        left: auto;
-        right: auto;
         width: auto;
 
         grid-row-start: 2;
-        grid-row-end: 3;
+        grid-row-end: 2 span 3;
         grid-column-start: 2;
         grid-column-end: end;
 
         margin: 0;
         margin-right: .5rem;
 
+        ul {
+            transform: translateY(1rem);
+            border-radius: 1rem;
+
+
+            li {
+                height: 2.5rem;
+                color: Black;
+                background-color: WhiteSmoke;
+                margin: .4rem .5rem;
+                border-radius: 1rem;
+                padding: 1rem .5rem;
+                display: flex;
+                align-items: center
+            }
+            li:first-child {
+                margin-top: .5rem;
+            }
+            li:last-child {
+                margin-bottom: .5rem;
+            }
+        }
+
     }
 
     #listpoint {
         position: static;
-        left: auto;
-        right: auto;
         width: auto;
 
-        grid-row-start: 3;
-        grid-row-end: end;
+        grid-row-start: 4;
+        grid-row-end: 6;
         grid-column-start: 2;
         grid-column-end: end;
 

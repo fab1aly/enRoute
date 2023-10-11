@@ -118,7 +118,7 @@ header nav menu li a {
 
 #searchbar {
   position: absolute;
-  top: 6.5rem;
+  top: 5.6rem;
   right: 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 1rem;
@@ -128,22 +128,26 @@ header nav menu li a {
   width: 60vw;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-start;
 }
 #searchbar input {
   height: 2.5rem;
   color: Black;
   background-color: WhiteSmoke;
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   border: none;
-  padding: 0 0.5rem;
+  margin: 0.1rem;
+  padding: 1rem 0.7rem;
+}
+#searchbar ul {
+  background-color: Gainsboro;
 }
 #searchbar ul li {
-  height: 4rem;
-  color: Black;
+  min-height: 2.5rem;
+  max-height: 4rem;
   background-color: WhiteSmoke;
-  margin-bottom: 0.3rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
+  margin: 0.5rem 0.3rem;
   padding: 1rem 0.5rem;
   display: flex;
   align-items: center;
@@ -154,7 +158,10 @@ header nav menu li a {
 #searchbar ul li:last-child {
   margin-bottom: 0;
 }
-
+#searchbar ul li:hover {
+  background-color: AntiqueWhite;
+  border: solid 1px DimGray;
+}
 #listpoint {
   position: absolute;
   bottom: 0;
@@ -168,7 +175,7 @@ header nav menu li a {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
 }
 #listpoint ul {
   padding: 0.5rem 0 0 0;
@@ -273,7 +280,7 @@ header nav menu li a {
     height: 100vh;
     display: grid;
     grid-template-columns: 70vw auto;
-    grid-template-rows: 5.8rem 26rem auto;
+    grid-template-rows: 5.8rem 3.8rem 26rem auto;
     gap: 0.5rem 0.5rem;
   }
   header {
@@ -296,23 +303,39 @@ header nav menu li a {
   }
   #searchbar {
     position: static;
-    left: auto;
-    right: auto;
     width: auto;
     grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-end: 2 span 3;
     grid-column-start: 2;
     grid-column-end: end;
     margin: 0;
     margin-right: 0.5rem;
   }
+  #searchbar ul {
+    transform: translateY(1rem);
+    border-radius: 1rem;
+  }
+  #searchbar ul li {
+    height: 2.5rem;
+    color: Black;
+    background-color: WhiteSmoke;
+    margin: 0.4rem 0.5rem;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  #searchbar ul li:first-child {
+    margin-top: 0.5rem;
+  }
+  #searchbar ul li:last-child {
+    margin-bottom: 0.5rem;
+  }
   #listpoint {
     position: static;
-    left: auto;
-    right: auto;
     width: auto;
-    grid-row-start: 3;
-    grid-row-end: end;
+    grid-row-start: 4;
+    grid-row-end: 6;
     grid-column-start: 2;
     grid-column-end: end;
     margin-right: 0.5rem;

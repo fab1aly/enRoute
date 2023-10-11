@@ -83,22 +83,49 @@ inputElt.addEventListener("input", async() => {
     }
 });
 
+// // event click
+// const searchbar = document.querySelector('#searchbar');
 
-// event click
-const searchbar = document.querySelector('#searchbar');
+// searchbar.addEventListener("click", () => {
+//     if (event.target.matches('li')) {
 
-searchbar.addEventListener("click", () => {
-    if (event.target.matches('li')) {
+//         console.log(event.target.feature);
+//         local_list.addPoint(event.target.feature);
 
-        console.log(event.target.feature);
-        local_list.addPoint(event.target.feature);
+//         const ul = document.querySelector(`#searchbar ul`);
+//         ul.replaceChildren();
+//     }
+// });
 
-        const ul = document.querySelector(`#searchbar ul`);
+const ul = document.querySelector('#searchbar ul');
+
+ul.addEventListener("click", (event) => {
+    const target = event.target;
+    
+    // Vérifier si l'élément cible est un <li> ou un <span>
+    if (target.matches('li') || target.matches('span')) {
+        // Si c'est un <li>, utilisez event.target
+        if (target.matches('li')) {
+            console.log(target.textContent);
+            // Faites ce que vous devez faire avec le <li> (par exemple, local_list.addPoint())
+            local_list.addPoint(target.feature);
+        }
+        // Si c'est un <span>, accédez à son parent <li> et obtenez le texte de celui-ci
+        else if (target.matches('span')) {
+            const li = target.closest('li');
+            if (li) {
+                console.log(li.textContent);
+                // Faites ce que vous devez faire avec le <li> (par exemple, local_list.addPoint())
+                local_list.addPoint(li.feature);
+            }
+        }
+
+        // Remplacez le contenu de la liste (cette partie peut être ajustée en fonction de vos besoins)
+        // const ul = document.querySelector(`#searchbar ul`);
+        // ul.innerHTML = '';
         ul.replaceChildren();
     }
 });
-
-
 
 
 
