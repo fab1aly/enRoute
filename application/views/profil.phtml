@@ -1,36 +1,50 @@
+<?php
+	if(array_key_exists('error', $_SESSION))
+	{
+		$error = $_SESSION['error'];
+		unset($_SESSION['error']);
+	}
+?>
 
-    <p>Vos info :</p>
+<div id="sign-container">
     
-    <form method='post' action='./profil'>
+    <form class="sign-form" method='post' action='./profil'>
+        
         <fieldset>
             <!--<?php var_dump($user_info);?>-->
-            <legend>nom d'utilisateur : <?= htmlspecialchars($_SESSION['user']->getUsername())?></legend>
+            <legend>nom d'utilisateur : </legend>
             
-            <input type="text" name="new_username" placeholder="nouveau nom"/>
-            <input type="submit" value="Submit"/>
+            <input type="text" name="new_username" placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
+            
         </fieldset>
-    </form>
     
-    <form method='post' action='./profil'>
         <fieldset>
-            <legend>email : <?= htmlspecialchars($_SESSION['user']->getEmail())?></legend>
+            <legend>email : </legend>
             
-            <input type="email" name="new_email" placeholder="nouvel email"/>
-            <input type="submit" value="Submit"/>
+            <input type="email" name="new_email" placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
+            
         </fieldset>
-    </form>
     
-    <form method='post' action='./profil'>
         <fieldset>
             <legend>Mot de passe</legend>
             
-            <input type="password" name="new_password" placeholder="nouveau mdp"/>
-            <input type="submit" value="Submit"/>
+            <input type="password" name="new_password" placeholder="nouveau mdp">
+            <input type="password" name="new_password_confirm" placeholder="vérifier mdp">
+            
         </fieldset>
+        
+        <button type="submit" >Mettre à jour</button>
     </form>
     
+    <a class="delete-user" href="./profil-delete">Supprimer votre compte</a>
+
+    <?php if(isset($error)): ?>
+		<p class="error"><?= $error ?></p>
+	<?php endif ?>
+	
+</div>
     
     
-    <p style="color:red">
-        <a href="./profil-delete">Supprimer votre compte</a>
-    </p>
+    
+    
+    

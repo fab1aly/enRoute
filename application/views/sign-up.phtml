@@ -7,6 +7,7 @@
 	}
 
 ?>
+<div id="sign-container">
     <form id="sign_up" class="sign-form" method="post" action="./sign-up">
         <fieldset>
             <legend>Inscription</legend>
@@ -23,10 +24,13 @@
             
             <input type="password" name="password" placeholder="Mot de passe" required>
             <input type="password" name="password_confirm" placeholder="Vérifier votre mdp" required>
-            <input type="submit" value="Valider">
+            
         </fieldset>
+        <button type="submit" >Valider</button>
     </form>
-    
+
     <?php if(isset($error)): ?>
-		<p style="color: red;"><?= $error ?></p>
+		<p class="error"><?= $error ?></p>
 	<?php endif ?>
+	
+</div>

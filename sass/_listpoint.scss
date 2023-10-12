@@ -1,7 +1,6 @@
 #listpoint {
 
     position: absolute;
-
     bottom: 0;
     left: 1rem;
     right: 1rem;
@@ -11,21 +10,18 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     padding: .5rem;
-
+    min-height: 0rem;
     max-height: 50rem;
-    overflow-y: auto;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 
 
-
-
     ul {
 
-        padding: .5rem 0 0 0;
-
+        // padding: .5rem 0 0 0; 
+        overflow-y: auto;
         li {
 
             border: solid 1px DimGray;
@@ -54,7 +50,7 @@
         }
     }
 
-    form {
+    div {
         border: solid 1px DimGray;
         border-radius: 1rem;
         background-color: IndianRed;
@@ -66,18 +62,20 @@
         margin: .5rem 0 0 0;
         padding: .5rem;
 
-        button {
-            border: solid 1px DimGray;
-            border-radius: 1rem;
-            background-color: Moccasin;
-
-
-            padding: .25rem 1rem;
-        }
-
         span {
             margin-left: 1rem;
         }
-    }
 
+        form {
+            display: inline;
+            button {
+                border: solid 1px DimGray;
+                border-radius: 1rem;
+                background-color: Moccasin;
+
+                padding: .25rem 1rem;
+            }
+        }
+
+    }
 }

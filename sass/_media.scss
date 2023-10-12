@@ -18,7 +18,7 @@
 
         display: grid;
         grid-template-columns: 70vw auto;
-        grid-template-rows: 5.8rem 3.8rem 26rem auto;
+        grid-template-rows: 5.8rem 3.8rem 15rem auto;
         gap: .5rem .5rem;
 
     }
@@ -40,8 +40,7 @@
         grid-row-start: 2;
         grid-row-end: end;
         grid-column-start: 1;
-        grid-column-end: 2;
-
+        grid-column-end: 2; // align-self: end;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius: 1rem;
     }
@@ -88,11 +87,11 @@
         width: auto;
 
         grid-row-start: 4;
-        grid-row-end: 6;
+        grid-row-end: end;
         grid-column-start: 2;
         grid-column-end: end;
+        align-self: end;
 
         margin-right: .5rem;
-
     }
 }

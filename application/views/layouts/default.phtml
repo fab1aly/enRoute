@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,48 +15,48 @@
 </head>
 <body>
 
-    <div id="app">
-        
-        <header>
-            
-            <div class="tiltle">
-                <a href='./'>
-                    <img src="#" alt="logo">
-                    <h1>enRoute</h1>
-                </a>
-            </div>
-            
-            <nav class="">
-            <?php if(isset($_SESSION['user'])): ?>
-                    <menu class=''>
-                        <li class="">
-                            <a href="./my-routes">Mes routes</a>
-                        </li>
-                        <li class="">
-                            <a href="./profil">Profil</a>
-                        </li>
-                        <li class="">
-                            <a href="./sign-out">Sortie</a>
-                        </li>
-                    </menu>
-                    <aside><p><?= $_SESSION['user']->getUsername() ?></p></aside>
-            <?php else: ?>
-                    <menu class=''>
-                        <li class="">
-                            <a href="./sign-up">Inscription</a>
-                        </li>
-                        <li class="">
-                            <a href="./sign-in">Connection</a>
-                        </li>
-                    </menu>
-                    <aside>Invité</aside>
-            <?php endif;?>
-            </nav>
-<script>
-    // document.querySelector('header aside').addEventListener('click', () => {
-    //     document.querySelector('header menu').classList.toggle('menu-visible');
-    // });
+<div id="app">
     
+    <header>
+        
+        <div class="tiltle">
+            <a href='./'>
+                <img src="#" alt="logo">
+                <h1>enRoute</h1>
+            </a>
+        </div>
+        
+        <nav class="">
+        <?php if(isset($_SESSION['user'])): ?>
+                <menu class=''>
+                    <li class="">
+                        <a href="./my-routes">Routes</a>
+                    </li>
+                    <li class="">
+                        <a href="./profil">Profil</a>
+                    </li>
+                    <li class="">
+                        <a href="./sign-out">Sortie</a>
+                    </li>
+                </menu>
+                <aside><p><?= $_SESSION['user']->getUsername() ?></p></aside>
+        <?php else: ?>
+                <menu class=''>
+                    <li class="">
+                        <a href="./sign-up">Inscription</a>
+                    </li>
+                    <li class="">
+                        <a href="./sign-in">Connection</a>
+                    </li>
+                </menu>
+                <aside>Invité</aside>
+        <?php endif; ?>
+        </nav>
+<script>
+// document.querySelector('header aside').addEventListener('click', () => {
+//     document.querySelector('header menu').classList.toggle('menu-visible');
+// });
+
 const menu = document.querySelector('header menu');
 const nav = document.querySelector('header nav');
 const aside = document.querySelector('header aside');
@@ -64,31 +64,31 @@ const aside = document.querySelector('header aside');
 
 
 aside.addEventListener('click', () => {
-    console.log('ok')
-    requestAnimationFrame(() => {
-        if (menu.classList.contains('menu-visible')) {
-            console.log('visible')
-            menu.classList.remove('menu-visible');
-            nav.style.width = aside.offsetWidth+10+'px';
-        } else {
-            console.log(aside.offsetWidth)
-            menu.classList.add('menu-visible');
-            nav.style.width = menu.offsetWidth+10+aside.offsetWidth+10+'px';
-            menu.style.marginRight = 5+aside.offsetWidth+10+'px';
-        }
-    });
+console.log('ok')
+requestAnimationFrame(() => {
+    if (menu.classList.contains('menu-visible')) {
+        console.log('visible')
+        menu.classList.remove('menu-visible');
+        nav.style.width = aside.offsetWidth+10+'px';
+    } else {
+        console.log(aside.offsetWidth)
+        menu.classList.add('menu-visible');
+        nav.style.width = menu.offsetWidth+10+aside.offsetWidth+10+'px';
+        menu.style.marginRight = 5+aside.offsetWidth+10+'px';
+    }
+});
 });
 // Pour empêcher l'élément aside de bouger, nous pouvons lui ajouter une position absolue et le positionner à droite de la fenêtre :
 aside.style.position = 'absolute';
 aside.style.right = '.5rem';
 nav.style.width = aside.offsetWidth+10+'px';
 </script>
-        </header>
-        
-        
-        <?= $viewContent?>
-        
-    </div>
+    </header>
+    
+    
+    <?= $viewContent?>
+    
+</div>
     
 </body>
 </html>

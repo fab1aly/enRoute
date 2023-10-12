@@ -1,15 +1,15 @@
-class ListPoint {
+export default class ListPoint {
     /**
      * Creates a new list point.
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
     constructor(listpoint = [], name = "local_list", divId = "listpoint") {
-    
+
         this.nameList = name;
         this.idListElement = divId;
         this.list = listpoint;
-    
+
         // this.loadList();
         // this.displayList();
     }
@@ -57,7 +57,7 @@ class ListPoint {
 
         // add list in json in input for the save form 
         if (document.querySelector('#listpoint form ') !== null) {
-            document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
+            document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
         }
 
         // this.dragAndDrop();
@@ -137,8 +137,10 @@ class ListPoint {
     // add end point in list
     addPoint(feature) {
         this.list.push(feature);
-
         this.saveList();
+        this.displayList();
+        const ul = document.querySelector(`#${this.idListElement} ul`);
+        ul.scrollTop = ul.scrollHeight;
     }
 
     //remove point in list by index
@@ -147,6 +149,7 @@ class ListPoint {
         console.log("remove point at index " + index);
 
         this.saveList();
+        this.displayList();
     }
 
     //method for save list in local storage
@@ -155,7 +158,6 @@ class ListPoint {
 
         console.log(`save 'local_list' in localStorage :`);
         console.log(this.list);
-        this.displayList();
 
     }
 

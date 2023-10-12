@@ -61,6 +61,7 @@
             
             $sth->fetch();
         }
+        
         public function setNewEmail (int $id, string $email) : void
         {
             $query = "UPDATE Users SET email = :email WHERE id= $id";
@@ -89,6 +90,18 @@
             
             $sth = self::$dbh->query($query);
             $sth->fetch();
+        }
+        
+        public function getEmailIsKnown (string $email) : bool
+        {
+            $query = "SELECT COUNT(*) FROM Users WHERE email= :email";
+            
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
+            $sth->execute();
+            
+            $count = $sth->fetchColumn();
+            return $count > 0;
         }
         
         public function getUserInfo (int $id)

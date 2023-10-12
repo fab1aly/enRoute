@@ -1,19 +1,15 @@
-<!--leaf-->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin="">
+
 <!-- Make sure you put this AFTER Leaflet's CSS -->
  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
     
 <!--Script-->
-    <script defer src="script/Position.js"></script>
-    <script defer src="script/ListPoint.js"></script>
+    <script defer type="module" src="./script/module/Position.js"></script>
+    <script defer type="module" src="./script/module/ListPoint.js"></script>
+    <script defer type="module" src="./script/module/SearchBar.js"></script>
     
-    <script defer src="script/searchbar.js"></script>
-    
-    <script defer src="script/home.js"></script>
+    <script defer type="module" src="./script/home.js"></script>
     <!--<script defer type="text/javascript" src="script/map.js"></script>-->
 
 
@@ -27,13 +23,19 @@
     >
     <!--attion guillement simple !  "'" remplacer par "vide"   -->
     <ul></ul>
-    <form method="post" action="./my-routes"> 
     
+    <div>
         <span>Total</span>
-        <input type="hidden" name="listpoint" value="">
-        <input type="hidden" name="name" value=''>
-        <button type="button">Save</button>
-    </form>
+        
+        <?php if(isset($_SESSION['user'])): ?>
+        <form method="post" action="./my-routes"> 
+            <input type="hidden" name="listpoint" value="">
+            <input type="hidden" name="name" value=''>
+            <button type="button">Save</button>
+        </form>
+        <?php endif; ?>
+    </div>
+    
 </div>
 
 <div id="map">

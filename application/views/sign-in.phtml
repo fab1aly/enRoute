@@ -8,21 +8,25 @@
 
 ?>
 
-
-<form id="sign_in" class="sign-form" method="post" action="./sign-in">
-    <fieldset>
-        <legend>Connection</legend>
+<div id="sign-container">
+    <form id="sign_in" class="sign-form" method="post" action="./sign-in">
+        <fieldset>
+            <legend>Connection</legend>
+            
+            <input type="email" name="email" placeholder="Adresse électronique" 
+                <?= isset($_SESSION['formSignData']['email']) ? 
+                    'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
+            required>
+            
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            
+        </fieldset>
         
-        <input type="email" name="email" placeholder="Adresse électronique" 
-            <?= isset($_SESSION['formSignData']['email']) ? 
-                'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
-        required>
-        
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <input type="submit" value="Valider">
-    </fieldset>
-</form>
-
-<?php if(isset($error)): ?>
-	<p style="color: red;"><?= $error ?></p>
-<?php endif ?>
+        <button type="submit" >Valider</button>
+    </form>
+    
+    <?php if(isset($error)): ?>
+    	<p class="error"><?= $error ?></p>
+    <?php endif ?>
+    
+</div>

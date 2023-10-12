@@ -1,6 +1,5 @@
 <?php
 
-
     // namespace Application/Controller;
     
     class UserController extends Controller
@@ -12,7 +11,7 @@
         // }
         
         
-        public function signUp() : void
+        public function signUp() : void // inscription
         {
 session_start();
 
@@ -36,6 +35,18 @@ session_start();
                     && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
                     )
                 {
+                    // verif if email is used
+                    $usersManager = new UsersManager; // recup de la fonction
+                    $emailValid = $usersManager->getEmailIsKnown ($_POST['email']);
+                    
+                    if($emailValid)
+                	{
+                		$_SESSION['error'] = 'Cette email est déjà utilisé.';
+                
+                		header('Location: ./sign-up');
+                		exit;
+                	}
+                    
                     // verif if same password
                     if($_POST['password'] !== $_POST['password_confirm'])
                 	{
@@ -45,24 +56,15 @@ session_start();
                 		exit;
                 	}
                 	
-                // 	// verif if email is exist in db
-                //     if($_POST['email'])
-                // 	{
-                // 		$_SESSION['error'] = 'Votre email est déja utiliser';
-                
-                // 		header('Location: ./sign-up');
-                // 		exit;
-                // 	}
                     
                      // data processing
-                    
                     $user = new User(trim($_POST['username']), trim($_POST['email']),
                                     trim($_POST['password']));
                     $user->persist();
                     
 // unset($_SESSION['user']);
                     
-                    header('Location: ./sign-in'); //redirction sign-in
+                    header('Location: ./sign-in'); //redirction sign-in if valid
                     exit;
                     
                 }
@@ -73,7 +75,7 @@ session_start();
             }
         }
         
-        public function signIn() : void
+        public function signIn() : void // connection
 		{
 session_start();
 			//	display form (GET)
@@ -87,7 +89,7 @@ session_start();
 				// save form data
                 $_SESSION['formSignData'] = $_POST;
                 
-                //  Si les différents champs ont été correctement remplis… (Il faudrait afficher un message d'erreur dans le cas contraire.)
+                //  Si les différents champs ont été correctement remplis… 
 				if(array_key_exists('email', $_POST) 
 				    && array_key_exists('password', $_POST) 
 				    && filter_var($_POST['email'], 
@@ -97,7 +99,8 @@ session_start();
 					$usersManager = new UsersManager;
 					$user = $usersManager->connectUser(trim($_POST['email']), trim($_POST['password']));
 					//  Si un utilisateur a été trouvé et que le mot de passe est correct…
-					if($user instanceof User)
+				// 	if($user instanceof User)
+					if($user !== null)
 					{
 						//  Persist user in session.
 						$user->logInSession();
@@ -125,7 +128,7 @@ session_start();
 			}
 		}
         
-        public function signOut() : void
+        public function signOut() : void // deconnection
 		{
 session_start();
 			
@@ -155,16 +158,28 @@ session_start();
 			else
 			{
 // var_dump($_SESSION);
-                if (array_key_exists('new_username', $_POST))
+                if ($_POST['new_username'] !== '')
                 {
-                    $_SESSION['user']->setUsername($_SESSION['user']->getId(), $_POST['new_username']);
+                    $_SESSION['user']->setUsername($_SESSION['user']->getId(), trim($_POST['new_username']));
                 }
-                elseif (array_key_exists('new_email', $_POST))
+                elseif ($_POST['new_email'] !== '')
                 {
-                    $_SESSION['user']->setEmail($_SESSION['user']->getId(), $_POST['new_email']);
+                    if (filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
+                    {
+                        $_SESSION['user']->setEmail($_SESSION['user']->getId(), trim($_POST['new_email']));
+                    }
                 }
-                elseif (array_key_exists('new_password', $_POST))
+                elseif ($_POST['new_password'] !== '')
                 {
+                    
+                    if($_POST['new_password'] !== $_POST['new_password_confirm'])
+                	{
+                		$_SESSION['error'] = 'Les deux mots de passe doivent être identiques.';
+                
+                		header('Location: ./profil');
+                		exit;
+                	}
+                    
                     $_SESSION['user']->setPassword($_SESSION['user']->getId(), $_POST['new_password']);
                 }
     
