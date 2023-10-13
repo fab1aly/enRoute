@@ -26,13 +26,13 @@ body {
   width: 100%;
 }
 
-#map {
+#local_map {
   position: fixed;
   z-index: -1;
   width: 100%;
   height: 100%;
 }
-#map .leaflet-control-attribution {
+#local_map .leaflet-control-attribution {
   display: none;
 }
 
@@ -326,7 +326,7 @@ header nav menu li a {
     grid-column-start: 1;
     grid-column-end: end;
   }
-  #map {
+  #local_map {
     position: static;
     z-index: auto;
     height: 100%;

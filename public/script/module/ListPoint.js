@@ -4,23 +4,32 @@ export default class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(listpoint = [], name = "local_list", divId = "listpoint") {
+    constructor(map, listpoint = [], name = "local_list", divId = "listpoint") {
 
+        this.list = listpoint;
         this.nameList = name;
         this.idListElement = divId;
-        this.list = listpoint;
 
-        // this.loadList();
-        // this.displayList();
+        this.map = map;
+        // // Create a layer group to hold the markers
+        this.pointLayerGroup = L.layerGroup()
+        this.pointMarker = L.marker([0, 0]);
+        this.pointLayerGroup.addLayer(this.pointMarker);
+        this.pointLayerGroup.addTo(this.map);
     }
 
 
-    //function for display the points in div 
+    //function for display the points in div and map 
     displayList(elementID = this.idListElement) {
 
         // clean ul
         const ul = document.querySelector(`#${elementID} ul`);
         ul.replaceChildren();
+
+        // remove old point layer
+        this.map.removeLayer(this.pointLayerGroup);
+        // make new group
+        this.pointLayerGroup = L.layerGroup()
 
         if (this.list.length > 0) {
             // for display points in list
@@ -52,8 +61,17 @@ export default class ListPoint {
 
                 // add li in ul
                 ul.appendChild(li);
+
+
+                // Create a marker for each point
+                const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
+                // Add the marker to the layer group
+                this.pointLayerGroup.addLayer(marker);
             }
         }
+
+        // Add the layer group to the map
+        this.pointLayerGroup.addTo(this.map);
 
         // add list in json in input for the save form 
         if (document.querySelector('#listpoint form ') !== null) {

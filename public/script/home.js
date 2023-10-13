@@ -9,27 +9,27 @@
 
 // init local_list
 import ListPoint from "./module/ListPoint.js";
-
-const listElement = document.querySelector(`#listpoint`);
-
-// init local_list
 let local_list;
 
-let value = listElement.dataset.value;
-
-
-// if data value (come from POST)
+// check if list sended by load function from Routes page (come from POST)
+const listElement = document.querySelector(`#listpoint`);
+const value = listElement.dataset.value;
+// if data value 
 if (value !== '') {
-    local_list = new ListPoint(JSON.parse(value), 'local_list');
+    local_list = new ListPoint(local_map, JSON.parse(value), 'local_list');
     local_list.saveList();
     listElement.dataset.value = '';
 }
+// make a new list
 else {
-    local_list = new ListPoint();
+    local_list = new ListPoint(local_map);
+    // check if list in local storage
     if (window.localStorage.getItem('local_list')) {
         local_list.loadList();
     }
+
 }
+
 console.log(local_list);
 
 local_list.displayList();
@@ -64,19 +64,22 @@ listElement.addEventListener('click', () => {
 
 // init Position
 import Position from "./module/Position.js";
-const pos = new Position();
+const pos = new Position(local_map);
 
+// 
+
+////////////////////////////////////////////////////////////////////////////////
 // init SearchBar
 import SearchBar from "./module/SearchBar.js";
-const searchBar = new SearchBar(local_list, pos.posText);
+const searchBar = new SearchBar(local_list, pos);
 
 ////////////////////////////////////////////////////////////////////////////////
 
 // on load position set view on it
 navigator.geolocation.getCurrentPosition(function(e) {
-    myMap.setView([e.coords.latitude, e.coords.longitude], 12);
+    local_map.setView([e.coords.latitude, e.coords.longitude], 13);
     // myMap.setView([e.coords.latitude, e.coords.longitude], ((myMap.getZoom() >= 11) ? myMap.getZoom() : 11));
-    console.log("position -> ok");
+    console.log(e);
 });
 
 

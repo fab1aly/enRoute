@@ -1,22 +1,65 @@
 export default class Position {
-    constructor() {
+    constructor(map, time = 5000) {
+        this.map = map;
+        this.time = time;
+
         this.lat = null;
         this.lon = null;
-        this.posText = null;
+        this.radius = null;
+
+        // init  position layer
+        this.positionLayerGroup = L.layerGroup();
+
+        this.positionMarker = L.marker([0, 0]);
+        this.positionCircle = L.circle([0, 0], this.radius);
+
+        this.positionLayerGroup.addLayer(this.positionMarker);
+        this.positionLayerGroup.addLayer(this.positionCircle);
+
+        this.positionLayerGroup.addTo(this.map);
 
         // Commence à surveiller la position de l'utilisateur
         this.watchId = navigator.geolocation.watchPosition(
             this.updateLocation.bind(this),
-            this.handleLocationError.bind(this)
+            this.handleLocationError.bind(this), {
+                enableHighAccuracy: true,
+                timeout: this.time,
+                maximumAge: 0,
+            }
         );
+
+    }
+    getPosArray() {
+        return [this.lat, this.lon];
+    }
+    getLat() {
+        return this.lat;
+    }
+    getLon() {
+        return this.lon;
     }
 
     updateLocation(position) {
-        this.lat = (Math.round(position.coords.latitude * 1000)) / 1000;
-        this.lon = (Math.round(position.coords.longitude * 1000)) / 1000;
+        this.lat = position.coords.latitude;
+        this.lon = position.coords.longitude;
+        this.radius = position.coords.accuracy;
         console.log("Latitude:", this.lat);
         console.log("Longitude:", this.lon);
-        this.posText = '&lat=' + this.lat + '&lon=' + this.lon;
+        console.log("Exactitude:", this.radius);
+
+
+        // remove old position layer
+        this.map.removeLayer(this.positionLayerGroup);
+        // make marker and circle
+        this.positionMarker = L.marker([this.lat, this.lon])
+            .bindPopup("Vous étes à " + this.radius + " méters de ce point");
+        this.positionCircle = L.circle([this.lat, this.lon], this.radius);
+        // make new group
+        this.positionLayerGroup = L.layerGroup();
+        this.positionLayerGroup.addLayer(this.positionMarker);
+        this.positionLayerGroup.addLayer(this.positionCircle);
+        // Add the layer group to the map
+        this.positionLayerGroup.addTo(this.map);
     }
 
     handleLocationError(error) {
@@ -28,56 +71,3 @@ export default class Position {
         navigator.geolocation.clearWatch(this.watchId);
     }
 }
-
-// Utilisation de la classe Position
-// const position = new Position();
-
-// Si vous souhaitez arrêter de surveiller la position à un moment donné, vous pouvez appeler la méthode stopWatchingLocation.
-// position.stopWatchingLocation();
-
-
-// class Position {
-//     constructor(time = 5000) {
-//         this.time = time;
-//         this.lat = null; // Initialisé à null
-//         this.lon = null; // Initialisé à null
-//         this.posText = null;
-//         this.isGettingLocation = false;
-//         this.isUpdatingLocation = false;
-
-//         this.getLocation();
-//     }
-
-//     async getLocation() {
-//         if (this.isGettingLocation || this.isUpdatingLocation) {
-//             return;
-//         }
-
-//         this.isGettingLocation = true;
-
-//         try {
-//             const e = await new Promise((resolve, reject) => {
-//                 navigator.geolocation.getCurrentPosition(resolve, reject);
-//             });
-
-//             this.lat = (Math.round(e.coords.latitude * 1000)) / 1000;
-//             this.lon = (Math.round(e.coords.longitude * 1000)) / 1000;
-
-//             this.posText = '&lat=' + this.lat + '&lon=' + this.lon;
-
-//             this.isGettingLocation = false;
-//             this.isUpdatingLocation = true;
-
-//             setTimeout(() => {
-//                 this.isUpdatingLocation = false;
-//                 this.getLocation();
-//                 console.log(this.posText);
-//             }, this.time);
-//         }
-//         catch (error) {
-//             // Gérez les erreurs ici, par exemple, si l'utilisateur refuse l'accès à la localisation
-//             console.error("Erreur lors de la récupération de la localisation :", error);
-//             this.isGettingLocation = false;
-//         }
-//     }
-// }
