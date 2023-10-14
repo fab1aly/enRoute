@@ -14,7 +14,10 @@
 
 
 <div id="searchbar" class="searchbar">
-    <input class="searchbar-input" type="text" name="search_adress" placeholder="recherche">
+    <span>
+        <input class="searchbar-input" type="text" name="search_adress" placeholder="recherche">
+        <span><i class="fa-regular fa-circle-xmark"></i></span> 
+    </span>
     <ul class="searchbar-results"></ul>
 </div>
 
@@ -25,16 +28,28 @@
     <ul></ul>
     
     <div>
-        <span>Total</span>
+        <span>Total : 26km / 1h34</span>
         
-        <?php if(isset($_SESSION['user'])): ?>
+    <?php if(isset($_SESSION['user'])): ?>
         <form method="post" action="./my-routes"> 
             <input type="hidden" name="listpoint" value="">
             <input type="hidden" name="name" value=''>
             <button type="button">Save</button>
         </form>
-        <?php endif; ?>
+    <?php endif; ?>
     </div>
+    
+    <template>
+        <li class="point" draggable="true">
+            
+            <span class='label'></span>
+            <!--<button class="remove" data-index="" style="display: none;">-->
+                <span class="remove" data-index="" style="display: none;">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </span>
+            <!--</button>-->
+        </li>
+    </template>
     
 </div>
 

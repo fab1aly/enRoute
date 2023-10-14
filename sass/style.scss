@@ -47,25 +47,20 @@ body {
     width: 100%;
 }
 
-#local_map {
+@media screen and (min-width: 1024px) and (min-height: 720px) {
 
-    position: fixed;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
+    #app {
+        height: 100vh;
 
-    .leaflet-control-attribution {
-        display: none
+        display: grid;
+        grid-template-columns: 70vw auto;
+        grid-template-rows: 5.8rem 3.8rem 15rem auto;
+        gap: .5rem .5rem;
     }
 }
 
-.leaflet-top {
-    top: 7rem; //bypass leaflet CSS
-}
-
 @import 'header',
+'map',
 'searchbar',
 'listpoint',
 'sign';
-
-@import'media';

@@ -30,7 +30,7 @@ else {
 
 }
 
-console.log(local_list);
+// console.log(local_list);s
 
 local_list.displayList();
 local_list.dragAndDrop();
@@ -39,12 +39,13 @@ local_list.dragAndDrop();
 
 // ListPoint event listener
 // const listElement = document.querySelector(`#listpoint`);
-listElement.addEventListener('click', () => {
+listElement.addEventListener('click', (event) => {
 
     // for remove point
-    if (event.target.matches('.point .remove')) {
+    if (event.target.matches('.remove i')) {
         // console.log(event.target.dataset.index);
-        local_list.removePoint(event.target.dataset.index);
+        const remove = event.target.closest('.remove')
+        local_list.removePoint(remove.dataset.index);
     }
 
     // for save list in db
@@ -79,7 +80,7 @@ const searchBar = new SearchBar(local_list, pos);
 navigator.geolocation.getCurrentPosition(function(e) {
     local_map.setView([e.coords.latitude, e.coords.longitude], 13);
     // myMap.setView([e.coords.latitude, e.coords.longitude], ((myMap.getZoom() >= 11) ? myMap.getZoom() : 11));
-    console.log(e);
+    // console.log(e);
 });
 
 

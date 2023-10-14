@@ -1,0 +1,30 @@
+#local_map {
+
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+
+    .leaflet-control-attribution {
+        display: none
+    }
+}
+
+.leaflet-top {
+    top: 7rem; //bypass leaflet CSS
+}
+
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+    #local_map {
+        position: static;
+        z-index: auto;
+        height: 100%;
+
+        grid-row-start: 2;
+        grid-row-end: end;
+        grid-column-start: 1;
+        grid-column-end: 2; // align-self: end;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        border-radius: 1rem;
+    }
+}

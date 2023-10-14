@@ -8,25 +8,32 @@ export default class ListPoint {
 
         this.list = listpoint;
         this.nameList = name;
-        this.idListElement = divId;
+
+        this.listElement = document.querySelector(`#${divId}`);
+        this.ul = document.querySelector(`#${divId} ul`);
 
         this.map = map;
-        // // Create a layer group to hold the markers
+        // init layer point group 
         this.pointLayerGroup = L.layerGroup()
-        this.pointMarker = L.marker([0, 0]);
-        this.pointLayerGroup.addLayer(this.pointMarker);
         this.pointLayerGroup.addTo(this.map);
+
+
+
+
+    }
+    getListPointArray() {
+        return this.list;
     }
 
 
     //function for display the points in div and map 
-    displayList(elementID = this.idListElement) {
+    // play thi
+    displayList() {
 
         // clean ul
-        const ul = document.querySelector(`#${elementID} ul`);
-        ul.replaceChildren();
+        this.ul.replaceChildren();
 
-        // remove old point layer
+        // remove old group point layer
         this.map.removeLayer(this.pointLayerGroup);
         // make new group
         this.pointLayerGroup = L.layerGroup()
@@ -35,32 +42,24 @@ export default class ListPoint {
             // for display points in list
             for (let [index, point] of this.list.entries()) {
 
-                //make li from point
-                const li = document.createElement('li');
-                li.classList.add('point');
-                li.setAttribute("draggable", true);
+
+                const template = this.listElement.querySelector(`template`);
+
+                const li = template.content.cloneNode(true);
                 li.feature = point; //for save geojson
 
-                li.textContent = point.properties.label;
 
-                // //make span for label
-                // const span = document.createElement('span');
-                // span.textContent = point.properties.label;
+                // console.log(li)
+                // li.textContent = point.properties.label;
+                const label = li.querySelector('.label');
+                label.textContent = point.properties.label;
+                label.feature = point; //for save geojson
 
-                // make button for remove
-                const button = document.createElement('button');
-                button.classList.add('remove');
-                button.textContent = '-';
-                button.setAttribute("data-index", index);
+                const remove = li.querySelector(`.remove`);
+                remove.setAttribute("data-index", index);
 
-                // add button in li
-                li.appendChild(button);
+                this.ul.appendChild(li);
 
-                // // add span in li
-                // li.appendChild(span);
-
-                // add li in ul
-                ul.appendChild(li);
 
 
                 // Create a marker for each point
@@ -78,34 +77,59 @@ export default class ListPoint {
             document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
         }
 
-        // this.dragAndDrop();
+        this.selectPoint();
 
 
-        // // listener for save button
-        // const button = document.querySelector(`#listpoint form :nth-child(4)`);
-        // // console.log(button)
+    }
 
-        // button.addEventListener('click', () => { this.saveListInDB() });
-        // //this.saveListInDB.bind(this)  // a tester ?
+    selectPoint() {
+        if (this.getListPointArray().length > 0) {
+            const removeClassFromOldSelected = (ul) => {
+                const olds = ul.querySelectorAll('.selected');
+                if (olds.length > 0) {
+                    for (let old of olds) {
+                        old.classList.remove('selected');
+                        old.querySelector('.remove').style.display = "none";
+                    }
+                }
+            };
 
-        // // Créez l'élément bouton
-        // const button = document.createElement('button');
-        // button.textContent = 'Enregistrer';
+            const setViewOnPoint = (feature, map) => {
+                map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+            };
 
-        // // Ajoutez l'écouteur d'événement click à l'élément bouton
-        // button.addEventListener('click', () => { this.saveListInDB() });
+            const displayRemoveButton = (li) => {
+                li.classList.add('selected');
+                li.querySelector('.remove').style.display = "inline-block";
+            };
 
-        // // Ajoutez l'élément bouton à l'élément ul
-        // ul.appendChild(button);
-
+            this.ul.addEventListener("click", (event) => {
+                removeClassFromOldSelected(this.ul);
+                let li;
+                if (event.target.matches('span')) {
+                    li = event.target.closest('li'); // Utilisez event.target.closest('li') pour obtenir l'élément li parent
+                    setViewOnPoint(event.target.feature, this.map); // Utilisez event.target.parentElement pour accéder à l'élément li parent
+                }
+                else if (event.target.matches('li')) {
+                    li = event.target;
+                    const span = event.target.querySelector('.label');
+                    if (span) {
+                        setViewOnPoint(span.feature, this.map);
+                    }
+                }
+                if (li) {
+                    displayRemoveButton(li);
+                }
+            });
+        }
     }
 
     // Add event listeners for drag and drop
     dragAndDrop() {
-        const sortableList = document.querySelector(`#${this.idListElement}>ul`);
+        const sortableList = this.ul;
         // console.log(sortableList)
 
-        if (document.querySelectorAll('.point').length > 0) {
+        if (this.ul.querySelectorAll('.point').length > 0) {
             const items = sortableList.querySelectorAll('.point');
 
             for (let item of items) {
@@ -119,13 +143,13 @@ export default class ListPoint {
 
                     // update the list 
                     this.list = [];
-                    for (let li of document.querySelectorAll(`.point`)) {
+                    for (let li of this.ul.querySelectorAll(`.point`)) {
                         this.list.push(li.feature);
                     }
                     this.saveList();
 
                     // update the remove button
-                    for (let [index, button] of document.querySelectorAll(`.point button`).entries()) {
+                    for (let [index, button] of this.ul.querySelectorAll(`.point button`).entries()) {
                         button.setAttribute("data-index", index);
                     }
 
@@ -135,7 +159,7 @@ export default class ListPoint {
             }
             const initSortableList = (e) => {
                 e.preventDefault();
-                const draggingItem = document.querySelector(".dragging");
+                const draggingItem = this.ul.querySelector(".dragging");
 
                 // Getting all items except currently dragging and making array of them
                 let siblings = [...sortableList.querySelectorAll(".point:not(.dragging)")];
@@ -157,8 +181,9 @@ export default class ListPoint {
         this.list.push(feature);
         this.saveList();
         this.displayList();
-        const ul = document.querySelector(`#${this.idListElement} ul`);
-        ul.scrollTop = ul.scrollHeight;
+
+        this.ul.scrollTop = this.ul.scrollHeight;
+        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
     }
 
     //remove point in list by index
@@ -169,6 +194,10 @@ export default class ListPoint {
         this.saveList();
         this.displayList();
     }
+
+
+
+
 
     //method for save list in local storage
     saveList() {
@@ -192,43 +221,5 @@ export default class ListPoint {
         }
     }
 
-    //     // Method to save the list in the database
-    //     saveListInDB() {
-    //         console.log(this);
-    //         // Getting the list as a JSON string
-    //         // const listAsJSON = JSON.stringify(this.list);
-    //         // const listName = this.nameList;
 
-    //         // const form = new FormData(document.getElementById("login-form"));
-
-    //         // Making an AJAX request to the database
-
-    //         document.querySelector('#listpoint form :nth-child(2)').value = JSON.stringify(this.list);
-    //         //input[type="hidden"]
-
-    //         return;
-
-    //         fetch('./save-in-db', {
-    //                 method: "POST",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     // "Content-Type": "text/plain",
-    //                 },
-    //                 body: this
-    //             })
-    //             .then((response) => {
-    //                 // Checking the response status code
-    //                 if (response.status === 200) {
-    //                     // The list was successfully saved
-    //                 }
-    //                 else {
-    //                     // An error occurred
-    //                     console.log(response.status);
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 // An error occurred
-    //                 console.log(error);
-    //             });
-    // }
 }

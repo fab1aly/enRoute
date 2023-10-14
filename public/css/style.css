@@ -26,20 +26,15 @@ body {
   width: 100%;
 }
 
-#local_map {
-  position: fixed;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+  #app {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 70vw auto;
+    grid-template-rows: 5.8rem 3.8rem 15rem auto;
+    gap: 0.5rem 0.5rem;
+  }
 }
-#local_map .leaflet-control-attribution {
-  display: none;
-}
-
-.leaflet-top {
-  top: 7rem;
-}
-
 header {
   position: fixed;
   z-index: 1000;
@@ -119,28 +114,78 @@ header nav menu li a {
   color: black;
 }
 
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+  header {
+    position: static;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: end;
+  }
+}
+#local_map {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+#local_map .leaflet-control-attribution {
+  display: none;
+}
+
+.leaflet-top {
+  top: 7rem;
+}
+
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+  #local_map {
+    position: static;
+    z-index: auto;
+    height: 100%;
+    grid-row-start: 2;
+    grid-row-end: end;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 1rem;
+  }
+}
 #searchbar {
   position: absolute;
   top: 5.6rem;
   right: 0;
+  max-width: 80vw;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 1rem;
   background-color: Gainsboro;
-  margin: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
   padding: 0.5rem;
-  width: 60vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-#searchbar input {
+#searchbar span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#searchbar span input {
   height: 2.5rem;
-  color: Black;
+  flex-grow: 1;
   background-color: WhiteSmoke;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem 0 0 0.5rem;
   border: none;
-  margin: 0.1rem;
-  padding: 1rem 0.7rem;
+  padding: 1rem 0 1rem 0.5rem;
+  color: Black;
+}
+#searchbar span span {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: WhiteSmoke;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1rem 0 1rem 0;
+  font-size: 2rem;
+  color: Gainsboro;
 }
 #searchbar ul {
   background-color: Gainsboro;
@@ -164,6 +209,42 @@ header nav menu li a {
 #searchbar ul li:hover {
   background-color: AntiqueWhite;
   border: solid 1px DimGray;
+}
+@media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
+  #searchbar {
+    width: 30vw;
+  }
+}
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+  #searchbar {
+    position: static;
+    width: auto;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-column-end: end;
+    padding-bottom: 3rem;
+    margin-right: 0.5rem;
+  }
+  #searchbar ul {
+    transform: translateY(1rem);
+    border-radius: 1rem;
+  }
+  #searchbar ul li {
+    height: 2.5rem;
+    color: Black;
+    background-color: WhiteSmoke;
+    margin: 0.4rem 0.5rem;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  #searchbar ul li:first-child {
+    margin-top: 0.5rem;
+  }
+  #searchbar ul li:last-child {
+    margin-bottom: 0.5rem;
+  }
 }
 #listpoint {
   position: absolute;
@@ -189,31 +270,40 @@ header nav menu li a {
   background-color: LightSteelBlue;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   font-size: 1.4rem;
-  height: 3.5rem;
+  height: 3rem;
   margin: 0.5rem 0;
   padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-#listpoint ul li button {
-  border: solid 1px DimGray;
-  border-radius: 1rem;
-  background-color: Moccasin;
-  padding: 0.25rem 1rem;
+#listpoint ul li .remove {
+  color: DimGray;
 }
-#listpoint ul li span {
-  margin-left: 1rem;
+#listpoint ul .selected {
+  height: 3.5rem;
+  border: solid 3px DimGray;
+  background-color: lightblue;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin: 0.6rem 0;
+  padding: 0.8rem;
 }
 #listpoint div {
+  height: 3.5rem;
   border: solid 1px DimGray;
   border-radius: 1rem;
   background-color: IndianRed;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  font-size: 1.4rem;
-  height: 3.5rem;
   margin: 0.5rem 0 0 0;
   padding: 0.5rem;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #listpoint div span {
-  margin-left: 1rem;
+  flex-grow: 2;
+  text-align: center;
 }
 #listpoint div form {
   display: inline;
@@ -225,6 +315,24 @@ header nav menu li a {
   padding: 0.25rem 1rem;
 }
 
+@media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
+  #listpoint {
+    width: 40vw;
+    left: auto;
+    right: 0.5rem;
+  }
+}
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+  #listpoint {
+    position: static;
+    width: auto;
+    grid-row-end: end;
+    grid-column-start: 2;
+    grid-column-end: end;
+    align-self: end;
+    margin-right: 0.5rem;
+  }
+}
 #sign-container {
   position: absolute;
   width: 100%;
@@ -299,84 +407,6 @@ header nav menu li a {
 #sign-container #error {
   margin: 2rem;
   color: red;
-}
-
-@media screen and (min-width: 480px) and (max-width: 1280px) and (max-height: 1400px) {
-  #searchbar {
-    width: 40vw;
-  }
-  #listpoint {
-    width: 60vw;
-    left: auto;
-    right: 0.5rem;
-  }
-}
-@media screen and (min-width: 1024px) and (min-height: 720px) {
-  #app {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 70vw auto;
-    grid-template-rows: 5.8rem 3.8rem 15rem auto;
-    gap: 0.5rem 0.5rem;
-  }
-  header {
-    position: static;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: end;
-  }
-  #local_map {
-    position: static;
-    z-index: auto;
-    height: 100%;
-    grid-row-start: 2;
-    grid-row-end: end;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    border-radius: 1rem;
-  }
-  #searchbar {
-    position: static;
-    width: auto;
-    grid-row-start: 2;
-    grid-row-end: 2 span 3;
-    grid-column-start: 2;
-    grid-column-end: end;
-    margin: 0;
-    margin-right: 0.5rem;
-  }
-  #searchbar ul {
-    transform: translateY(1rem);
-    border-radius: 1rem;
-  }
-  #searchbar ul li {
-    height: 2.5rem;
-    color: Black;
-    background-color: WhiteSmoke;
-    margin: 0.4rem 0.5rem;
-    border-radius: 1rem;
-    padding: 1rem 0.5rem;
-    display: flex;
-    align-items: center;
-  }
-  #searchbar ul li:first-child {
-    margin-top: 0.5rem;
-  }
-  #searchbar ul li:last-child {
-    margin-bottom: 0.5rem;
-  }
-  #listpoint {
-    position: static;
-    width: auto;
-    grid-row-start: 4;
-    grid-row-end: end;
-    grid-column-start: 2;
-    grid-column-end: end;
-    align-self: end;
-    margin-right: 0.5rem;
-  }
 }
 
 /*# sourceMappingURL=style.css.map */

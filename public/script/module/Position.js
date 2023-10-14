@@ -7,18 +7,11 @@ export default class Position {
         this.lon = null;
         this.radius = null;
 
-        // init  position layer
+        // init group position layer
         this.positionLayerGroup = L.layerGroup();
-
-        this.positionMarker = L.marker([0, 0]);
-        this.positionCircle = L.circle([0, 0], this.radius);
-
-        this.positionLayerGroup.addLayer(this.positionMarker);
-        this.positionLayerGroup.addLayer(this.positionCircle);
-
         this.positionLayerGroup.addTo(this.map);
 
-        // Commence à surveiller la position de l'utilisateur
+        // begin watch user position
         this.watchId = navigator.geolocation.watchPosition(
             this.updateLocation.bind(this),
             this.handleLocationError.bind(this), {
@@ -29,8 +22,11 @@ export default class Position {
         );
 
     }
-    getPosArray() {
+    getCoordsArray() {
         return [this.lat, this.lon];
+    }
+    getRadius() {
+        return this.radius;
     }
     getLat() {
         return this.lat;
@@ -43,17 +39,17 @@ export default class Position {
         this.lat = position.coords.latitude;
         this.lon = position.coords.longitude;
         this.radius = position.coords.accuracy;
-        console.log("Latitude:", this.lat);
-        console.log("Longitude:", this.lon);
-        console.log("Exactitude:", this.radius);
+        // console.log("Latitude:", this.lat);
+        // console.log("Longitude:", this.lon);
+        // console.log("Exactitude:", this.radius + "m");
 
 
         // remove old position layer
         this.map.removeLayer(this.positionLayerGroup);
         // make marker and circle
-        this.positionMarker = L.marker([this.lat, this.lon])
-            .bindPopup("Vous étes à " + this.radius + " méters de ce point");
-        this.positionCircle = L.circle([this.lat, this.lon], this.radius);
+        this.positionMarker = L.marker(this.getCoordsArray())
+            .bindPopup("Vous étes à " + this.getRadius() + " métres de ce point");
+        this.positionCircle = L.circle(this.getCoordsArray(), this.getRadius());
         // make new group
         this.positionLayerGroup = L.layerGroup();
         this.positionLayerGroup.addLayer(this.positionMarker);

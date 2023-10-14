@@ -5,6 +5,7 @@ export default class SearchBar {
     constructor(list, position = null) {
 
         this.inputElement = document.querySelector('#searchbar input');
+        this.crossElement = document.querySelector('#searchbar span span');
         this.resultsList = document.querySelector('#searchbar ul');
         this.list = list;
         this.position = position;
@@ -21,9 +22,16 @@ export default class SearchBar {
             }
         });
 
+        // event listener for delete input at click cross
+        this.crossElement.addEventListener("click", () => {
+            this.inputElement.value = "";
+            this.clearResults();
+        });
+
         // event listener for click result
         this.resultsList.addEventListener("click", (event) => {
             this.handleResultClick(event.target);
+            this.inputElement.value = "";
         });
     }
 
@@ -98,4 +106,3 @@ export default class SearchBar {
 // const map = {} // Remplacez ceci par votre objet de carte
 
 // const searchBar = new SearchBar(inputElement, resultsList, map);
-

@@ -19,55 +19,70 @@
 
 
     ul {
-
+        // listpoint
         // padding: .5rem 0 0 0; 
         overflow-y: auto;
-        li {
 
+
+        li {
+            // point
             border: solid 1px DimGray;
             border-radius: 1rem;
             background-color: LightSteelBlue;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
             font-size: 1.4rem;
-            height: 3.5rem;
+            height: 3rem;
 
             margin: .5rem 0;
             padding: .5rem;
 
-            button {
-                border: solid 1px DimGray;
-                border-radius: 1rem;
-                background-color: Moccasin;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-
-                padding: .25rem 1rem;
+            .remove {
+                color: DimGray;
             }
+        }
 
-            span {
-                margin-left: 1rem;
-            }
+        .selected {
+            height: 3.5rem;
+
+            border: solid 3px DimGray;
+            background-color: lightblue;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+            margin: .6rem 0;
+            padding: .8rem;
         }
     }
 
     div {
+        height: 3.5rem;
+
         border: solid 1px DimGray;
         border-radius: 1rem;
         background-color: IndianRed;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
-        font-size: 1.4rem;
-        height: 3.5rem;
-
         margin: .5rem 0 0 0;
         padding: .5rem;
 
+        font-size: 1.4rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
         span {
-            margin-left: 1rem;
+            flex-grow: 2;
+            text-align: center;
         }
 
         form {
             display: inline;
+
             button {
                 border: solid 1px DimGray;
                 border-radius: 1rem;
@@ -77,5 +92,30 @@
             }
         }
 
+    }
+}
+
+//tablet
+@media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
+
+    #listpoint {
+        width: 40vw;
+        left: auto;
+        right: .5rem;
+    }
+}
+
+//desktop
+@media screen and (min-width: 1024px) and (min-height: 720px) {
+
+    #listpoint {
+        position: static;
+        width: auto; // grid-row-start: 4;
+        grid-row-end: end;
+        grid-column-start: 2;
+        grid-column-end: end;
+        align-self: end;
+
+        margin-right: .5rem;
     }
 }
