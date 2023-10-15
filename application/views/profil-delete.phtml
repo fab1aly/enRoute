@@ -1,3 +1,31 @@
+<?php
+	if(array_key_exists('error', $_SESSION))
+	{
+		$error = $_SESSION['error'];
+		unset($_SESSION['error']);
+	}
+?>
+
+<div id="sign-container">
+    
+    <form class="sign-form" method='post' action='./profil-delete'>
+        
+        <fieldset>
+            <legend>Suppression</legend>
+            
+            <input type="password" name="password" placeholder="mot de passe">
+        </fieldset>
+        
+        <button type="submit" >Confirmer</button>
+    </form>
+    
+
+
+    <?php if(isset($error)): ?>
+		<p class="error"><?= $error ?></p>
+	<?php endif ?>
+	
+</div>
 <a href='./profil'>Non</a>
 
 <a href='./user-delete'>OUI</a>

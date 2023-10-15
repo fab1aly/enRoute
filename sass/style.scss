@@ -27,39 +27,12 @@
     font-display: swap;
 }
 
-:root {
-    font-size: 62.5%;
-}
+// :root body
+@import 'data';
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Atkinson_Hyperlegible', sans-serif;
-    font-size: 1.6rem;
-}
-
-#app {
-
-    background-color: Moccasin;
-    height: 100%;
-    width: 100%;
-}
-
-@media screen and (min-width: 1024px) and (min-height: 720px) {
-
-    #app {
-        height: 100vh;
-
-        display: grid;
-        grid-template-columns: 70vw auto;
-        grid-template-rows: 5.8rem 3.8rem 15rem auto;
-        gap: .5rem .5rem;
-    }
-}
-
-@import 'header',
+// HTML element
+@import 'app',
+'header',
 'map',
 'searchbar',
 'listpoint',

@@ -5,30 +5,63 @@
     left: 1rem;
     right: 1rem;
 
-    background-color: DarkSeaGreen;
+    background-color: var(--bg-color);
     border-radius: 1rem 1rem 0 0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     padding: .5rem;
     min-height: 0rem;
-    max-height: 50rem;
+    max-height: 60vh;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
+
+
+    // .drag-bar {
+    //     height: .5rem;
+    //     width: 95%;
+    //     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    // }
+
+    .position {
+        // position
+        display: none;
+
+        width: 100%;
+
+        border: solid 1px var(--border-color);
+        border-radius: 1rem;
+        background-color: var(--button-color);
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+        font-size: 1.4rem;
+        height: 3rem;
+
+        margin: .5rem 0;
+        padding: .5rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
 
 
     ul {
         // listpoint
         // padding: .5rem 0 0 0; 
         overflow-y: auto;
+        width: 100%;
 
 
         li {
             // point
-            border: solid 1px DimGray;
+            border: solid 1px var(--border-color);
             border-radius: 1rem;
-            background-color: LightSteelBlue;
+            background-color: var(--item-color);
             box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
             font-size: 1.4rem;
@@ -42,28 +75,31 @@
             align-items: center;
 
             .remove {
-                color: DimGray;
+                color: var(--border-color);
             }
         }
 
         .selected {
             height: 3.5rem;
 
-            border: solid 3px DimGray;
-            background-color: lightblue;
+            border: solid 3px var(--border-color);
+            background-color: var(--select-color);
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
             margin: .6rem 0;
             padding: .8rem;
+
         }
     }
 
-    div {
+    .total {
+        //total
         height: 3.5rem;
+        width: 100%;
 
-        border: solid 1px DimGray;
+        border: solid 1px var(--border-color);
         border-radius: 1rem;
-        background-color: IndianRed;
+        background-color: var(--info-color);
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
         margin: .5rem 0 0 0;
@@ -84,9 +120,9 @@
             display: inline;
 
             button {
-                border: solid 1px DimGray;
+                border: solid 1px var(--border-color);
                 border-radius: 1rem;
-                background-color: Moccasin;
+                background-color: var(--button-color);
 
                 padding: .25rem 1rem;
             }
@@ -106,7 +142,7 @@
 }
 
 //desktop
-@media screen and (min-width: 1024px) and (min-height: 720px) {
+@media screen and (min-width: 1024px) and (min-height: 600px) {
 
     #listpoint {
         position: static;

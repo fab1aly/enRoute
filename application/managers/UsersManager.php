@@ -51,6 +51,32 @@
             
         }
         
+        public function confirmPasswordUser (string $email, string $password) : ? User
+        {
+            
+            $query = 'SELECT * FROM Users WHERE email = :email';
+            
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':email', $email, PDO::PARAM_STR);
+            $sth->execute();
+            
+            $sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'User');
+    // var_dump('ok '.$user);
+            $user = $sth->fetch();
+            
+            //	Si un utilisateur a été trouvé (avec cette adresse électronique) et que le mot de passe est correct…
+			/*password_verify($user->password, $user['password'])*/
+			if($user !== false && $user->verifyPassword($password))
+			{
+				return $user;
+			}
+			else
+			{
+				return null;
+			}
+            
+        }
+        
         public function setNewUsername (int $id, string $username) : void
         {
             $query = "UPDATE Users SET username = :username WHERE id= $id";
@@ -104,7 +130,7 @@
             return $count > 0;
         }
         
-        public function getUserInfo (int $id)
+        public function getUserInfo (int $id) 
         {
             
             $query = "SELECT * FROM Users WHERE id= $id";
@@ -114,4 +140,13 @@
             return $sth->fetch();
         }
         
+        public function getUserPassword (int $id) 
+        {
+            
+            $query = "SELECT password FROM Users WHERE id= $id";
+            
+            $sth = self::$dbh->query($query);
+            
+            return $sth->fetch();
+        }
     }

@@ -1,6 +1,4 @@
 <?php
-
-    // namespace Application/Controller;
     
     class UserController extends Controller
     {
@@ -37,9 +35,9 @@ session_start();
                 {
                     // verif if email is used
                     $usersManager = new UsersManager; // recup de la fonction
-                    $emailValid = $usersManager->getEmailIsKnown ($_POST['email']);
+                    $emailIsKnown = $usersManager->getEmailIsKnown ($_POST['email']);
                     
-                    if($emailValid)
+                    if($emailIsKnown)
                 	{
                 		$_SESSION['error'] = 'Cette email est déjà utilisé.';
                 
@@ -75,7 +73,7 @@ session_start();
             }
         }
         
-        public function signIn() : void // connection
+        public function signIn() : void // connexion
 		{
 session_start();
 			//	display form (GET)
@@ -112,10 +110,10 @@ session_start();
 						header('Location: ./');
 						exit;
 					}
-					// verif if same password
+					
                     else
                 	{
-                		$_SESSION['error'] = 'Adresse email ou  mots de passe inconnu.';
+                		$_SESSION['error'] = 'Adresse email ou mot de passe inconnu.';
                 
                 		header('Location: ./sign-in');
                 		exit;
@@ -128,7 +126,7 @@ session_start();
 			}
 		}
         
-        public function signOut() : void // deconnection
+        public function signOut() : void // deconnexion
 		{
 session_start();
 			
@@ -166,6 +164,18 @@ session_start();
                 {
                     if (filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
                     {
+                        // verif if email is used
+                        $usersManager = new UsersManager; // recup de la fonction
+                        $emailIsKnown = $usersManager->getEmailIsKnown ($_POST['new_email']);
+                        
+                        if($emailIsKnown)
+                    	{
+                    		$_SESSION['error'] = 'Cette email est déjà utilisé.';
+                    
+                    		header('Location: ./profil');
+                    		exit;
+                    	}
+                        
                         $_SESSION['user']->setEmail($_SESSION['user']->getId(), trim($_POST['new_email']));
                     }
                 }
@@ -191,20 +201,68 @@ session_start();
         public function profilDelete() : void
 		{
 session_start();
-			$this->renderView('profil-delete.phtml',['title' => 'Suppression']);
+
+            //	display form (GET)
+			if($_SERVER['REQUEST_METHOD'] == 'GET')
+			{
+					$this->renderView('profil-delete.phtml',['title' => 'Suppression']);
+			}
+			//	processing form (POST)
+			else
+			{
+			    if(array_key_exists('password', $_POST))
+				{
+				    $usersManager = new UsersManager;
+            		$userPassword = $usersManager->getUserPassword($_SESSION['user']->getId());
+				    
+				    if(password_verify($_POST['password'], $userPassword['password']))
+        			{
+        				$usersManager = new UsersManager;
+            			$usersManager->deleteUser($_SESSION['user']->getId());
+            			
+            			unset($_SESSION['user']);
+            
+            			header('Location: ./');
+            			exit;
+        			}
+        			else
+        			{
+        				$_SESSION['error'] = 'Mauvais mot de passe.';
+        				
+        				header('Location: ./profil-delete');
+            			exit;
+        			}
+				}
+				
+			}
+		
 		}
 		
-		public function userDelete() : void
+		public function signForget() : void
 		{
 session_start();
 // var_dump($_SESSION['user']->getId());
+            
+            //	display form (GET)
+			if($_SERVER['REQUEST_METHOD'] == 'GET')
+			{
+				$this->renderView('sign-forget.phtml',['title' => 'Mot de passe oublié']);
+			}
 			
-			$usersManager = new UsersManager;
-			$usersManager->deleteUser($_SESSION['user']->getId());
-			$_SESSION['user']->logout();
-
-			header('Location: ./');
-			exit;
+			
 		}
+
+// 		public function userDelete() : void
+// 		{
+// session_start();
+// // var_dump($_SESSION['user']->getId());
+			
+// 			$usersManager = new UsersManager;
+// 			$usersManager->deleteUser($_SESSION['user']->getId());
+// 			$_SESSION['user']->logout();
+
+// 			header('Location: ./');
+// 			exit;
+// 		}
 		
     }

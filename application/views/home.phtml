@@ -23,11 +23,33 @@
 
 <div id="listpoint" data-value='<?= (isset($_POST['my_route'])) ? str_replace("'","",$_POST['my_route']) : null;?>'
                     data-name=''
-    >
-    <!--attion guillement simple !  "'" remplacer par "vide"   -->
-    <ul></ul>
-    
-    <div>
+    ><!--attion guillement simple !  "'" remplacer par "vide"   -->
+
+
+    <!--<div class="drag-bar"></div>-->
+
+
+    <div class="position">
+        <span>Votre position</span>
+    </div>
+
+
+    <ul>
+        <!--list of point-->
+    </ul>
+    <template> <!--template of point-->
+        <li class="point" draggable="true">
+            
+            <span class='label'>
+                <!--label of point-->
+            </span>
+            <span class="remove" data-index="" style="display: none;">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </span>
+        </li>
+    </template>
+
+    <div class="total">
         <span>Total : 26km / 1h34</span>
         
     <?php if(isset($_SESSION['user'])): ?>
@@ -38,18 +60,8 @@
         </form>
     <?php endif; ?>
     </div>
-    
-    <template>
-        <li class="point" draggable="true">
-            
-            <span class='label'></span>
-            <!--<button class="remove" data-index="" style="display: none;">-->
-                <span class="remove" data-index="" style="display: none;">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                </span>
-            <!--</button>-->
-        </li>
-    </template>
+
+
     
 </div>
 
@@ -81,26 +93,65 @@
                 style: 'normal',
                 format: 'image/png',
                 service: 'WMTS',
-                opacity: 0.5,
+                opacity: 0.7,
                 attribution: ', Carte © IGN-F/Geoportail'
             });
         
-        // Plan OpenStreetMap_France avec une transparence de 50%
+        // Plan OpenStreetMap_France avec une transparence de 70%
         var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             maxZoom: 20,
             opacity: 0.7,
             attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
+        
+        
+        
+        // var largeurEcran = window.screen.width;
+        // console.log("Largeur de l'écran : " + largeurEcran);
+        // var zoom = ((window.screen.width >= 1024) ? 6 : 5) ;
+        // if (largeurEcran> 1024){
+        //     zoom = 6;
+        // }
+        
+        
+        
         // Ma carte
         var local_map = L.map(mapID, {
             center: [46.1, 1.7],
-            zoom: 6,
-            layers: [OpenStreetMap_France]
+            zoom: ((window.screen.width >= 768) ? 6 : 5),
+            layers: [OpenStreetMap_France],
+            // zoomControl: false,
+            // watch: true,
+            // setView: true,
+            // animate: true,
         });
         
         
         //Boite de recherche geocode
         // var geocoder = L.geocoderBAN({ collapsed: false }).addTo(myMap)
+        
+        
+        
+        // var position = L.Control.handler().addTo(local_map).setPosition('topleft')
+        
+        
+        var baseMaps = {
+            "OsmFrance": OpenStreetMap_France,
+            "PlanIGN": PlanIGN,
+            "OrthoIGN": OrthoIGN,
+        };
+        // var overlayMaps = {
+        //     "Cities": cities
+        // };
+        var layers_control = L.control.layers(baseMaps).addTo(local_map).setPosition('topleft');
+        
+        var scale_control = L.control.scale({imperial:false}).addTo(local_map).setPosition('topleft');
+        
+        // var zoom_control = L.control.zoom().addTo(local_map).setPosition('topleft');
+        
+        
+    
+        
     </script>
 </div>
 

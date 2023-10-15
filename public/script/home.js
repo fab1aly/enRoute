@@ -6,7 +6,7 @@
 //     document.querySelector('#searchbar').style.top = header_height + 10 + "px";
 // }
 
-
+////////////////////////////////////////////////////////////////////////////////
 // init local_list
 import ListPoint from "./module/ListPoint.js";
 let local_list;
@@ -20,7 +20,7 @@ if (value !== '') {
     local_list.saveList();
     listElement.dataset.value = '';
 }
-// make a new list
+// also make a new list
 else {
     local_list = new ListPoint(local_map);
     // check if list in local storage
@@ -58,8 +58,12 @@ listElement.addEventListener('click', (event) => {
 
         document.querySelector('#listpoint form').submit();
     }
-});
 
+    // for set view at position
+    if (event.target.matches('.position') || event.target.matches('.position span')) {
+        local_map.setView(pos.getCoordsArray(), 15);
+    }
+});
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -76,7 +80,7 @@ const searchBar = new SearchBar(local_list, pos);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// on load position set view on it
+// set view at position on load
 navigator.geolocation.getCurrentPosition(function(e) {
     local_map.setView([e.coords.latitude, e.coords.longitude], 13);
     // myMap.setView([e.coords.latitude, e.coords.longitude], ((myMap.getZoom() >= 11) ? myMap.getZoom() : 11));

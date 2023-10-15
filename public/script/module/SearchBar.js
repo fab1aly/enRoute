@@ -39,8 +39,6 @@ export default class SearchBar {
         const url = "https://api-adresse.data.gouv.fr/search/?";
         const addressPlus = "&q=" + address.replaceAll(' ', '+');
 
-
-
         if (this.position !== null) {
 
             const latText = (Math.round(await this.position.getLat() * 1000)) / 1000;

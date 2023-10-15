@@ -30,6 +30,8 @@ export default class ListPoint {
     // play thi
     displayList() {
 
+
+
         // clean ul
         this.ul.replaceChildren();
 
@@ -41,6 +43,11 @@ export default class ListPoint {
         if (this.list.length > 0) {
             // for display points in list
             for (let [index, point] of this.list.entries()) {
+
+                if (point == null || point == undefined) {
+                    this.removePoint(index);
+
+                }
 
 
                 const template = this.listElement.querySelector(`template`);
@@ -84,27 +91,31 @@ export default class ListPoint {
 
     selectPoint() {
         if (this.getListPointArray().length > 0) {
-            const removeClassFromOldSelected = (ul) => {
-                const olds = ul.querySelectorAll('.selected');
-                if (olds.length > 0) {
-                    for (let old of olds) {
-                        old.classList.remove('selected');
-                        old.querySelector('.remove').style.display = "none";
-                    }
-                }
-            };
 
             const setViewOnPoint = (feature, map) => {
                 map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
             };
 
             const displayRemoveButton = (li) => {
-                li.classList.add('selected');
-                li.querySelector('.remove').style.display = "inline-block";
+                // toggle class selected and remove button
+                if (li.classList.contains('selected')) {
+                    li.classList.remove('selected');
+                    li.querySelector('.remove').style.display = "none";
+                }
+                else {
+                    const old = this.ul.querySelector('.selected');
+                    if (old) {
+                        old.classList.remove('selected');
+                        old.querySelector('.remove').style.display = "none";
+                    }
+                    li.classList.add('selected');
+                    li.querySelector('.remove').style.display = "inline-block";
+                }
             };
 
             this.ul.addEventListener("click", (event) => {
-                removeClassFromOldSelected(this.ul);
+
+                // removeClassFromOldSelected(this.ul);
                 let li;
                 if (event.target.matches('span')) {
                     li = event.target.closest('li'); // Utilisez event.target.closest('li') pour obtenir l'élément li parent
@@ -220,6 +231,8 @@ export default class ListPoint {
             console.log(` no list in localStorage`);
         }
     }
+
+
 
 
 }

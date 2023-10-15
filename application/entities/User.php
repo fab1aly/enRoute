@@ -27,6 +27,7 @@
         {
             return $this->username;
         }
+        
         public function setUsername(int $id, string $username)
         {
             $usersManager = new UsersManager; // recup de la fonction
@@ -90,6 +91,11 @@
 		    
 			//  Persistance de l'utilisateur dans la session.
 			$_SESSION['user'] = $this;
+        }
+        
+        public function logout():void
+        {
+            unset($_SESSION['user']);
         }
         
     }

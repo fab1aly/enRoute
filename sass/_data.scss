@@ -1,0 +1,38 @@
+:root {
+
+    font-size: 62.5%;
+
+
+    --text-color: #222;
+    
+    --border-color: DimGray;
+    
+    --bg-color: DarkSeaGreen;
+    --item-color: LightSteelBlue;
+    --button-color: Moccasin;
+    --info-color: IndianRed;
+    --select-color: Lightblue;
+    
+    --sb-bg-color: Gainsboro;
+    --sb-item-color: WhiteSmoke;
+    --sb-select-color: AntiqueWhite;
+    
+    
+    body {
+        font-family: 'Atkinson_Hyperlegible', sans-serif;
+        font-size: 1.6rem;
+        color: var(--text-color);
+
+        a,
+        button {
+            color: var(--text-color);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+    }
+
+
+
+}

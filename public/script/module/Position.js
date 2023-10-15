@@ -1,7 +1,10 @@
 export default class Position {
-    constructor(map, time = 5000) {
+    constructor(map = 'local_map', divId = "listpoint", time = 5000) {
+
         this.map = map;
         this.time = time;
+
+        this.positionElement = document.querySelector(`#${divId} .position`);
 
         this.lat = null;
         this.lon = null;
@@ -36,6 +39,10 @@ export default class Position {
     }
 
     updateLocation(position) {
+
+        this.positionElement.style.display = '';
+
+        // update coords and radius
         this.lat = position.coords.latitude;
         this.lon = position.coords.longitude;
         this.radius = position.coords.accuracy;
@@ -56,10 +63,16 @@ export default class Position {
         this.positionLayerGroup.addLayer(this.positionCircle);
         // Add the layer group to the map
         this.positionLayerGroup.addTo(this.map);
+
+
     }
 
     handleLocationError(error) {
         console.error("Erreur de géolocalisation:", error);
+        this.positionElement.style.display = 'none';
+        this.lat = null;
+        this.lon = null;
+        this.radius = null;
     }
 
     stopWatchingLocation() {

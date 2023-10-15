@@ -10,6 +10,7 @@
         '/sign-up' => 'UserController::signUp',
         '/sign-in' => 'UserController::signIn',
         '/sign-out' => 'UserController::signOut',
+        '/sign-forget' => 'UserController::signForget',
         
         '/profil'=> 'UserController::profil',
         
