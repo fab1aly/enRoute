@@ -125,9 +125,9 @@ export default class ListPoint {
         ////////////////////////////////////////////////////////////////////////////////
 
         // add list in json in input for the save/load form 
-        if (document.querySelector('#listpoint form ') !== null) {
-            document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
-        }
+        // if (document.querySelector('#listpoint form ') !== null) {
+        //     document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
+        // }
         ////////////////////////////////////////////////////////////////////////////////
         this.selectPoint();
 

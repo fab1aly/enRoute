@@ -37,7 +37,6 @@ local_list.displayList();
 local_list.dragAndDrop();
 
 ////////////////////////////////////////////////////////////////////////////////
-
 // ListPoint event listener
 // const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', (event) => {
@@ -68,6 +67,10 @@ const modal = document.querySelector("#modal");
 // When clicks on the button, remove list (submit)
 const button = document.querySelector("#modal button");
 button.addEventListener('click', () => {
+
+    const listpoint = JSON.stringify(local_list.getList());
+    document.querySelector('#listpoint form :nth-child(1)').value = listpoint;
+
     const input = document.querySelector("#modal input");
     document.querySelector('#listpoint form :nth-child(2)').value = input.value;
 

@@ -504,10 +504,13 @@ header nav menu li a {
   border: solid 1px var(--border-color);
   border-radius: 0.5rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: var(--info-color);
+  background-color: var(--button-color);
   margin: 0.5rem;
   padding: 0.5rem;
   width: fit-content;
+}
+#modal .modal-content button .remove {
+  background-color: var(--info-color);
 }
 @keyframes animatetop {
   from {

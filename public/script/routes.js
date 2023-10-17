@@ -20,10 +20,12 @@ function displaySelect(li) {
 }
 
 function setUniqidInLoadForm(li) {
-    // add uniqid to load form input
-    const input = document.querySelector('.total form input');
     console.log(li.dataset.uniqid)
+    // add uniqid to load form input
+    const input = document.querySelector('#listpoint form input');
+
     input.setAttribute('value', li.dataset.uniqid);
+
 
 }
 
@@ -134,7 +136,7 @@ const pos = new Position(map);
 const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', (event) => {
 
-    // for set view at position
+    // set view at position
     if (event.target.matches('.position') || event.target.matches('.position span')) {
         map.setView(pos.getCoordsArray(), 15);
     }
