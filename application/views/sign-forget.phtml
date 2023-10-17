@@ -8,7 +8,7 @@
 
 ?>
 <div id="sign-container">
-    <form id="sign_up" class="sign-form" method="post" action="./sign-up">
+    <form id="sign_up" class="sign-form" method="post" action="./sign-forget">
         <fieldset>
             <legend>Mot de passe oublié</legend>
             
@@ -17,9 +17,6 @@
                 <?= isset($_SESSION['formSignData']['email']) ? 
                     'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
             required>
-            
-            <input type="password" name="password" placeholder="Mot de passe" required>
-            <input type="password" name="password_confirm" placeholder="Vérifier votre mdp" required>
             
         </fieldset>
         <button type="submit" >Valider</button>

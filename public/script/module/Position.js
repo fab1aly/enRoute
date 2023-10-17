@@ -1,5 +1,5 @@
 export default class Position {
-    constructor(map = 'local_map', divId = "listpoint", time = 5000) {
+    constructor(map = 'map', divId = "listpoint", time = 5000) {
 
         this.map = map;
         this.time = time;
@@ -23,6 +23,9 @@ export default class Position {
                 maximumAge: 0,
             }
         );
+        
+        
+        
 
     }
     getCoordsArray() {

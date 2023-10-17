@@ -5,7 +5,8 @@
 // 		'/' => 'DefaultController::default',
 		
 		'/' => 'ListController::home',
-		'/my-routes' => 'ListController::myRoutes',
+		'/routes' => 'ListController::routes',
+		'/routes-process' => 'ListController::routesProcess',
         
         '/sign-up' => 'UserController::signUp',
         '/sign-in' => 'UserController::signIn',
@@ -13,6 +14,7 @@
         '/sign-forget' => 'UserController::signForget',
         
         '/profil'=> 'UserController::profil',
+        '/profil-process'=> 'UserController::profilProcess',
         
         '/profil-delete'=> 'UserController::profilDelete', //confirm page 
         '/user-delete'=> 'UserController::userDelete', //action page for delete user

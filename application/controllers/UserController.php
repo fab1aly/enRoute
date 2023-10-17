@@ -7,8 +7,7 @@
         // {
         //     session_start();
         // }
-        
-        
+
         public function signUp() : void // inscription
         {
 session_start();
@@ -72,7 +71,7 @@ session_start();
                 
             }
         }
-        
+
         public function signIn() : void // connexion
 		{
 session_start();
@@ -125,7 +124,7 @@ session_start();
 				exit;
 			}
 		}
-        
+
         public function signOut() : void // deconnexion
 		{
 session_start();
@@ -135,8 +134,78 @@ session_start();
 			header('Location: ./sign-in');
 			exit;
 		}
-		
-		public function profil() : void
+
+		public function signForget() : void // oubli
+		{
+session_start();
+// var_dump($_SESSION['user']->getId());
+            
+            //	display form (GET)
+			if($_SERVER['REQUEST_METHOD'] == 'GET')
+			{
+				$this->renderView('sign-forget.phtml',['title' => 'Mot de passe oublié']);
+			}
+			//	display form (POST)
+			else
+			{
+			    if (isset($_POST['email']))
+			    {
+			        
+			        // verif if email known
+                    $usersManager = new UsersManager;
+                    $emailIsKnown = $usersManager->getEmailIsKnown ($_POST['email']);
+                    
+                    if($emailIsKnown)
+                	{
+                		// create new password
+                        $password = uniqid();
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    
+                        $subject = 'Mot de passe oublié';
+                        $message = "Bonjour, voici votre nouveau mot de passe : $password";
+                        $headers = 'Content-Type: text/plain; charset="UTF-8"';
+                    
+                        if (mail($_POST['email'], $subject, $message, $headers))
+                        {
+                            $query = "UPDATE Users SET password = :password WHERE email= :email";
+            
+                            $sth = self::$dbh->prepare($query);
+                            $sth->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
+                            $sth->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
+                            $sth->execute();
+                            
+                            $sth->fetch();
+                            
+                            $_SESSION['error'] = "E-mail envoyé";
+                            header('Location: ./sign-in');
+                	        exit;
+                        } 
+                        else 
+                        {
+                            $_SESSION['error'] = "Une erreur est survenue";
+                            header('Location: ./sign-forget');
+                	        exit;
+                        }
+                	}
+                	else
+    			    {
+    			        $_SESSION['error'] = "Cette email n'existe pas.";
+                    
+                    	header('Location: ./sign-forget');
+                    	exit;
+    			    }
+    			}
+			    else
+			    {
+                	$_SESSION['error'] = "Entrer un email valide";
+                	
+                	header('Location: ./sign-forget');
+                	exit;
+			    }
+            }
+		}
+
+		public function profil() : void // profil
         {
 session_start();
             //	Affichage du formulaire (GET)
@@ -197,8 +266,56 @@ session_start();
     			exit;
             }
         }
-        
-        public function profilDelete() : void
+
+        public function profilProcess ()
+        {
+session_start();
+            if (array_key_exists('user', $_SESSION))
+            {
+                if ($_POST['new_username'] !== '')
+                {
+                    $_SESSION['user']->setUsername($_SESSION['user']->getId(), trim($_POST['new_username']));
+                }
+                elseif ($_POST['new_email'] !== '')
+                {
+                    if (filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
+                    {
+                        // verif if email is used
+                        $usersManager = new UsersManager; // recup de la fonction
+                        $emailIsKnown = $usersManager->getEmailIsKnown ($_POST['new_email']);
+                        
+                        if($emailIsKnown)
+                    	{
+                    		$_SESSION['error'] = 'Cette email est déjà utilisé.';
+                    
+                    		header('Location: ./profil');
+                    		exit;
+                    	}
+                        
+                        $_SESSION['user']->setEmail($_SESSION['user']->getId(), trim($_POST['new_email']));
+                    }
+                }
+                elseif ($_POST['new_password'] !== '')
+                {
+                    
+                    if($_POST['new_password'] !== $_POST['new_password_confirm'])
+                	{
+                		$_SESSION['error'] = 'Les deux mots de passe doivent être identiques.';
+                
+                		header('Location: ./profil');
+                		exit;
+                	}
+                    
+                    $_SESSION['user']->setPassword($_SESSION['user']->getId(), $_POST['new_password']);
+                }
+    			header('Location: ./profil');
+    			exit;
+            }
+            header('Location: ./sign-in');
+			exit;
+        }
+
+        public function profilDelete() : void // confirm delete
 		{
 session_start();
 
@@ -237,20 +354,7 @@ session_start();
 			}
 		
 		}
-		
-		public function signForget() : void
-		{
-session_start();
-// var_dump($_SESSION['user']->getId());
-            
-            //	display form (GET)
-			if($_SERVER['REQUEST_METHOD'] == 'GET')
-			{
-				$this->renderView('sign-forget.phtml',['title' => 'Mot de passe oublié']);
-			}
-			
-			
-		}
+
 
 // 		public function userDelete() : void
 // 		{

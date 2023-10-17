@@ -4,7 +4,7 @@ export default class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(map, listpoint = [], name = "local_list", divId = "listpoint") {
+    constructor(map, name = "local_list", listpoint = [], divId = "listpoint") {
 
         this.list = listpoint;
         this.nameList = name;
@@ -21,21 +21,65 @@ export default class ListPoint {
 
 
     }
-    getListPointArray() {
+    getList() {
         return this.list;
     }
 
+    // add list
+    setList(list) {
+        this.list = list;
+    }
+
+    // add end point in list
+    addPoint(feature) {
+        this.list.push(feature);
+        this.saveList();
+        this.displayList();
+
+        this.ul.scrollTop = this.ul.scrollHeight;
+        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+    }
+
+    //remove point in list by index
+    removePoint(index) {
+        this.list.splice(index, 1);
+        console.log("remove point at index " + index);
+
+        this.saveList();
+        this.displayList();
+    }
+
+    //save list in local storage
+    saveList() {
+        window.localStorage.setItem(`${this.nameList}`, JSON.stringify(this.list));
+
+        console.log(`save 'local_list' in localStorage :`);
+        console.log(this.list);
+    }
+
+    //load list in local storage
+    loadList() {
+        if (window.localStorage.getItem(`${this.nameList}`)) {
+            this.list = JSON.parse(window.localStorage.getItem(`${this.nameList}`));
+
+            console.log(`load ${this.nameList} from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`${this.nameList}`)));
+        }
+        else {
+            console.log(` no list in localStorage`);
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     //function for display the points in div and map 
     // play thi
     displayList() {
-
-
-
         // clean ul
         this.ul.replaceChildren();
 
-        // remove old group point layer
+        // clean map
         this.map.removeLayer(this.pointLayerGroup);
         // make new group
         this.pointLayerGroup = L.layerGroup()
@@ -46,15 +90,11 @@ export default class ListPoint {
 
                 if (point == null || point == undefined) {
                     this.removePoint(index);
-
                 }
-
-
                 const template = this.listElement.querySelector(`template`);
 
                 const li = template.content.cloneNode(true);
                 li.feature = point; //for save geojson
-
 
                 // console.log(li)
                 // li.textContent = point.properties.label;
@@ -63,13 +103,14 @@ export default class ListPoint {
                 label.feature = point; //for save geojson
 
                 const remove = li.querySelector(`.remove`);
-                remove.setAttribute("data-index", index);
+                if (remove != null) {
+                    remove.setAttribute("data-index", index);
+                }
 
                 this.ul.appendChild(li);
 
 
-
-                // Create a marker for each point
+                // Create a marker for point
                 const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
                 // Add the marker to the layer group
                 this.pointLayerGroup.addLayer(marker);
@@ -79,38 +120,27 @@ export default class ListPoint {
         // Add the layer group to the map
         this.pointLayerGroup.addTo(this.map);
 
-        // add list in json in input for the save form 
+
+
+        ////////////////////////////////////////////////////////////////////////////////
+
+        // add list in json in input for the save/load form 
         if (document.querySelector('#listpoint form ') !== null) {
             document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
         }
-
+        ////////////////////////////////////////////////////////////////////////////////
         this.selectPoint();
 
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+
     selectPoint() {
-        if (this.getListPointArray().length > 0) {
+        if (this.getList().length > 0) {
 
             const setViewOnPoint = (feature, map) => {
                 map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-            };
-
-            const displayRemoveButton = (li) => {
-                // toggle class selected and remove button
-                if (li.classList.contains('selected')) {
-                    li.classList.remove('selected');
-                    li.querySelector('.remove').style.display = "none";
-                }
-                else {
-                    const old = this.ul.querySelector('.selected');
-                    if (old) {
-                        old.classList.remove('selected');
-                        old.querySelector('.remove').style.display = "none";
-                    }
-                    li.classList.add('selected');
-                    li.querySelector('.remove').style.display = "inline-block";
-                }
             };
 
             this.ul.addEventListener("click", (event) => {
@@ -129,12 +159,33 @@ export default class ListPoint {
                     }
                 }
                 if (li) {
-                    displayRemoveButton(li);
+                    if (li.classList.contains('selected')) {
+                        li.classList.remove('selected');
+                        if (li.querySelector('.remove') != null) {
+                            li.querySelector('.remove').style.display = "none";
+                        }
+                        
+                    }
+                    else {
+                        const old = this.ul.querySelector('.selected');
+                        if (old != null) {
+                            old.classList.remove('selected');
+                            if (old.querySelector('.remove') != null) {
+                            old.querySelector('.remove').style.display = "none";
+                            }
+                        }
+                        li.classList.add('selected');
+                        if (li.querySelector('.remove') != null) {
+                        li.querySelector('.remove').style.display = "inline-block";
+                        }
+                    }
                 }
             });
         }
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////
     // Add event listeners for drag and drop
     dragAndDrop() {
         const sortableList = this.ul;
@@ -186,53 +237,5 @@ export default class ListPoint {
             sortableList.addEventListener("dragenter", e => e.preventDefault());
         }
     }
-
-    // add end point in list
-    addPoint(feature) {
-        this.list.push(feature);
-        this.saveList();
-        this.displayList();
-
-        this.ul.scrollTop = this.ul.scrollHeight;
-        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-    }
-
-    //remove point in list by index
-    removePoint(index) {
-        this.list.splice(index, 1);
-        console.log("remove point at index " + index);
-
-        this.saveList();
-        this.displayList();
-    }
-
-
-
-
-
-    //method for save list in local storage
-    saveList() {
-        window.localStorage.setItem(`${this.nameList}`, JSON.stringify(this.list));
-
-        console.log(`save 'local_list' in localStorage :`);
-        console.log(this.list);
-
-    }
-
-    //method for load list in local storage
-    loadList() {
-        if (window.localStorage.getItem(`${this.nameList}`)) {
-            this.list = JSON.parse(window.localStorage.getItem(`${this.nameList}`));
-
-            console.log(`load ${this.nameList} from localStorage :`);
-            console.log(JSON.parse(window.localStorage.getItem(`${this.nameList}`)));
-        }
-        else {
-            console.log(` no list in localStorage`);
-        }
-    }
-
-
-
 
 }

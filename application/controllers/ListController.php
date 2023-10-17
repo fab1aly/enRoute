@@ -25,11 +25,16 @@ session_start();
     		{
 // var_dump($_POST);
 // exit;
-    		    $this->renderView('home.phtml',['title' => 'enRoute']);
+    		    $listsManager = new ListsManager;
+                $list_onload = $listsManager->getList($_POST['list_uniq_id']);
+                    
+// var_dump($list_onload);
+// exit;    		    
+    		    $this->renderView('home.phtml',['title' => 'enRoute', 'list_onload' => $list_onload]);
     		}
     	}
 
-        public function myRoutes ()
+        public function routes ()
 		{
 session_start();
 // var_dump($_POST);
@@ -40,9 +45,9 @@ session_start();
 				if (array_key_exists('user', $_SESSION))
                 {
                     $listsManager = new ListsManager;
-                    $routes = $listsManager->getRoutes($_SESSION['user']->getId());
+                    $lists = $listsManager->getListsByUserId($_SESSION['user']->getId());
                     
-                    $this->renderView('my-routes.phtml',['title' => 'Mes routes', 'routes' => $routes]);
+                    $this->renderView('routes.phtml',['title' => 'Routes', 'lists' => $lists]);
                 }
                 else
                 {
@@ -50,26 +55,45 @@ session_start();
                     exit; 
                 }
 			}
-			
-			// (POST) 
-			else
-			{
-                if (array_key_exists('user', $_SESSION))
+		}
+		
+		public function routesProcess ()
+		{
+session_start();
+// var_dump($_POST);
+// exit;
+
+		    if (array_key_exists('user', $_SESSION))
                 {
 // var_dump($_POST);
 // var_dump($_SESSION['user']->getId());
 // exit;
-                    $listsManager = new ListsManager;
-			        $listsManager->saveList($_SESSION['user']->getId(), $_POST['name'], $_POST['listpoint']);
+                    if (array_key_exists('listpoint', $_POST))
+                    {
                     
-                    $routes = $listsManager->getRoutes($_SESSION['user']->getId());
-                    $this->renderView('my-routes.phtml',['title' => 'Mes routes', 'routes' => $routes]);
+                        $uniqid = uniqid();
+                        $listsManager = new ListsManager;
+    			        $listsManager->saveList($_SESSION['user']->getId(), $_POST['name'], $_POST['listpoint'], $uniqid);
+    			        
+    			        header('Location: ./routes'); 
+                        exit; 
+                    }
+                    
+                    if (array_key_exists('uniq_id_list_remove', $_POST))
+                    {
+                        
+                        $listsManager = new ListsManager;
+    			        $listsManager->removeList($_SESSION['user']->getId(), $_POST['uniq_id_list_remove']);
+    			        
+    			        header('Location: ./routes'); 
+                        exit; 
+                    }
+
                 }
                 else
                 {
                     header('Location: ./sign-in'); //redirction vers sign-in
                     exit; 
                 }
-            }
 		}
     }

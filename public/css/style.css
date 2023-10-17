@@ -28,6 +28,7 @@
 :root body a,
 :root body button {
   color: var(--text-color);
+  font-family: Atkinson_Hyperlegible;
 }
 :root body * {
   box-sizing: border-box;
@@ -135,25 +136,25 @@ header nav menu li a {
     grid-column-end: end;
   }
 }
-#local_map {
+#map {
   position: fixed;
   z-index: -1;
   width: 100%;
   height: 100%;
 }
-#local_map .leaflet-top {
+#map .leaflet-top {
   top: 5rem;
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
   transform: scale(0.9);
 }
-#local_map .leaflet-control-attribution {
+#map .leaflet-control-attribution {
   display: none;
 }
 
 @media screen and (min-width: 1024px) and (min-height: 600px) {
-  #local_map {
+  #map {
     position: static;
     z-index: auto;
     height: 100%;
@@ -164,11 +165,11 @@ header nav menu li a {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 1rem;
   }
-  #local_map .leaflet-top {
+  #map .leaflet-top {
     top: auto;
     transform: none;
   }
-  #local_map .leaflet-control-attribution {
+  #map .leaflet-control-attribution {
     display: block;
   }
 }
@@ -259,6 +260,74 @@ header nav menu li a {
     margin-bottom: 0.5rem;
   }
 }
+#routes {
+  position: absolute;
+  top: 6rem;
+  right: 0.5rem;
+  max-width: 80vw;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 1rem;
+  background-color: var(--sb-bg-color);
+  padding: 0.5rem;
+}
+#routes ul {
+  background-color: var(--sb-bg-color);
+  overflow-y: auto;
+  max-height: 38vh;
+}
+#routes ul li {
+  min-height: 2.5rem;
+  max-height: 4rem;
+  background-color: var(--sb-item-color);
+  border-radius: 0.8rem;
+  margin: 0.5rem 0.3rem;
+  padding: 1rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#routes ul li .label {
+  margin-right: 1rem;
+}
+#routes ul li .remove {
+  color: var(--border-color);
+}
+#routes ul li:hover {
+  background-color: var(--sb-select-color);
+  border: solid 3px var(--border-color);
+  min-height: 2rem;
+  max-height: 3.4rem;
+}
+#routes ul .selected {
+  height: 3.5rem;
+  border: solid 3px var(--border-color);
+  background-color: var(--sb-select-color);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin: 0.6rem 0;
+  padding: 0.8rem;
+}
+
+@media screen and (min-width: 1024px) and (min-height: 600px) {
+  #routes {
+    position: static;
+    width: auto;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: end;
+    display: flex;
+  }
+  #routes ul {
+    height: 100%;
+    width: 100%;
+  }
+  #routes ul li {
+    height: 2.5rem;
+    margin: 0.4rem 0.5rem;
+    border-radius: 1rem;
+    padding: 1rem 0.5rem;
+  }
+}
 #listpoint {
   position: absolute;
   bottom: 0;
@@ -269,7 +338,7 @@ header nav menu li a {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.5rem;
   min-height: 0rem;
-  max-height: 60vh;
+  max-height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -343,6 +412,7 @@ header nav menu li a {
   border: solid 1px var(--border-color);
   border-radius: 1rem;
   background-color: var(--button-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.25rem 1rem;
 }
 
@@ -364,6 +434,104 @@ header nav menu li a {
     margin-right: 0.5rem;
   }
 }
+#modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  /* The Close Button */
+}
+#modal .modal-content {
+  border: solid 1px var(--border-color);
+  border-radius: 1rem;
+  background-color: var(--bg-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Could be more or less, depending on screen size */
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  /* Add Animation */
+}
+#modal .modal-content fieldset {
+  background-color: var(--item-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 0.5rem;
+  border: solid 1px var(--border-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+#modal .modal-content fieldset legend {
+  background-color: var(--info-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 0.5rem;
+  border: solid 1px var(--border-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+#modal .modal-content fieldset input {
+  background-color: var(--sb-item-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 0.5rem;
+  border: solid 1px var(--border-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+#modal .modal-content fieldset p {
+  background-color: var(--button-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 0.5rem;
+  border: solid 1px var(--border-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+#modal .modal-content button {
+  border: solid 1px var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: var(--info-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  width: fit-content;
+}
+@keyframes animatetop {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 100rem;
+    opacity: 1;
+  }
+}
+#modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+#modal .close:hover,
+#modal .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 #sign-container {
   position: absolute;
   width: 100%;
@@ -409,7 +577,7 @@ header nav menu li a {
 }
 #sign-container .sign-form input {
   border-radius: 0.5rem;
-  background-color: WhiteSmoke;
+  background-color: var(--sb-item-color);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
@@ -419,7 +587,6 @@ header nav menu li a {
   border-radius: 0.5rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   background-color: var(--button-color);
-  font-family: Atkinson_Hyperlegible;
   margin: 0.5rem;
   padding: 0.5rem;
   width: fit-content;
