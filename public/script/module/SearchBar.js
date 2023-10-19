@@ -41,8 +41,10 @@ export default class SearchBar {
 
         if (this.position !== null) {
 
-            const latText = (Math.round(await this.position.getLat() * 1000)) / 1000;
-            const lonText = (Math.round(await this.position.getLon() * 1000)) / 1000;
+            
+            const latText = await this.position.getLat();
+            const lonText = await this.position.getLon();
+            
             const posText = '&lat=' + latText + '&lon=' + lonText;
             // console.log(posText)
 

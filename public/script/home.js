@@ -11,18 +11,8 @@
 import ListPoint from "./module/ListPoint.js";
 let local_list;
 
-// check if list sended by load function from Routes page (come from POST)
-const listElement = document.querySelector(`#listpoint`);
-const value = listElement.dataset.list_onload;
-
-// if data-list_onload
-if (value !== '') {
-    local_list = new ListPoint(map, 'local_list', JSON.parse(value));
-    local_list.saveList();
-    // listElement.dataset.list_onload = '';
-}
 // if list in local storage
-else if (window.localStorage.getItem('local_list')) {
+if (window.localStorage.getItem('local_list')) {
     local_list = new ListPoint(map, 'local_list');
     local_list.loadList();
 }
@@ -30,23 +20,30 @@ else if (window.localStorage.getItem('local_list')) {
 else {
     local_list = new ListPoint(map, 'local_list');
 }
+// console.log(local_list);
 
-// console.log(local_list);s
-
-local_list.displayList();
-local_list.dragAndDrop();
+// display list
+local_list.displayInit();
+// local_list.dragAndDrop();
 
 ////////////////////////////////////////////////////////////////////////////////
 // ListPoint event listener
-// const listElement = document.querySelector(`#listpoint`);
+const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', (event) => {
 
+    // function for set view
+    function setViewOnPoint(feature, map) {
+        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+    }
+
+
     // set view at position
-    if (event.target.matches('.position') || event.target.matches('.position span')) {
+    if (event.target.matches('.position') ||
+        event.target.matches('.position span')) {
         map.setView(pos.getCoordsArray(), 15);
     }
 
-    // remove point
+    // remove point by cross
     if (event.target.matches('.remove i')) {
         // console.log(event.target.dataset.index);
         const li = event.target.closest('.remove');
@@ -57,11 +54,52 @@ listElement.addEventListener('click', (event) => {
     if (event.target.matches('#listpoint form button')) {
         modal.style.display = "flex";
     }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Seleted Point event listener (toggle selected point)
+
+    let li;
+    if (event.target.matches('span')) {
+        li = event.target.closest('li');
+        setViewOnPoint(event.target.feature, map);
+    }
+    else if (event.target.matches('li')) {
+        li = event.target;
+        const span = event.target.querySelector('.label');
+        if (span) {
+            setViewOnPoint(span.feature, map);
+        }
+    }
+    if (li) {
+        if (li.classList.contains('selected')) {
+            li.classList.remove('selected');
+            if (li.querySelector('.remove') != null) {
+                li.querySelector('.remove').style.display = "none";
+            }
+
+        }
+        else {
+            const old = listElement.querySelector('.selected');
+            if (old != null) {
+                old.classList.remove('selected');
+                if (old.querySelector('.remove') != null) {
+                    old.querySelector('.remove').style.display = "none";
+                }
+            }
+            li.classList.add('selected');
+            if (li.querySelector('.remove') != null) {
+                li.querySelector('.remove').style.display = "inline-block";
+            }
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // drag n drop
+
+
 });
-
-
 ////////////////////////////////////////////////////////////////////////////////
-// modal listner
+// Modal listner
 const modal = document.querySelector("#modal");
 
 // When clicks on the button, remove list (submit)
@@ -111,22 +149,6 @@ navigator.geolocation.getCurrentPosition(function(e) {
     // myMap.setView([e.coords.latitude, e.coords.longitude], ((myMap.getZoom() >= 11) ? myMap.getZoom() : 11));
     // console.log(e);
 });
-
-
-
-
-
-
-
-
-
-// listener for save button
-// const button = div.querySelector('form button');
-
-// button.addEventListener('click', () => { this.saveListInDB() });
-//this.saveListInDB.bind(this)  // a tester
-
-// document.querySelector('.total').addEventListener('click', list.saveListInDB);
 
 
 

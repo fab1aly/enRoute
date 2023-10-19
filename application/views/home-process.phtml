@@ -1,0 +1,26 @@
+
+
+
+<div id="list_onload" data-list_onload='<?= 
+
+        str_replace("'","",$list_onload['list_point']);
+?>'>
+</div>
+
+
+<script type='module'>
+    
+    // check if list sended by load function from Routes page (come from POST)
+const listElement = document.querySelector(`#list_onload`);
+const value = listElement.dataset.list_onload;
+
+import ListPoint from "./script/module/ListPoint.js";
+
+const local_list = new ListPoint(null, 'local_list', JSON.parse(value));
+local_list.saveList();
+    // listElement.dataset.list_onload = '';
+
+document.location.href="./"
+    
+</script>
+    

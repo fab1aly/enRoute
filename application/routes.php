@@ -5,6 +5,7 @@
 // 		'/' => 'DefaultController::default',
 		
 		'/' => 'ListController::home',
+		'/home-process' => 'ListController::homeProcess',
 		'/routes' => 'ListController::routes',
 		'/routes-process' => 'ListController::routesProcess',
         

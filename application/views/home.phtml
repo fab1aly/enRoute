@@ -21,10 +21,7 @@
     <ul class="searchbar-results"></ul>
 </div>
 
-<div id="listpoint" data-list_onload='<?= 
-    (isset($list_onload['list_point'])) ? 
-        str_replace("'","",$list_onload['list_point']) : null;
-?>'>
+<div id="listpoint">
 
     <!--<div class="drag-bar"></div>-->
 
@@ -49,7 +46,7 @@
     </template>
 
     <div class="total">
-        <span>Total : 26km / 1h34</span>
+        <span></span>
         
     <?php if(isset($_SESSION['user'])): ?>
         <form method="post" action="./routes-process"> 

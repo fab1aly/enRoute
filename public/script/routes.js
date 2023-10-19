@@ -14,28 +14,21 @@ function displaySelect(li) {
         }
         li.classList.add('selected');
         li.querySelector('.remove').style.display = "inline-block";
-
-
     }
 }
 
+// function for add uniqid to load form input
 function setUniqidInLoadForm(li) {
-    console.log(li.dataset.uniqid)
-    // add uniqid to load form input
     const input = document.querySelector('#listpoint form input');
-
     input.setAttribute('value', li.dataset.uniqid);
-
-
 }
 
-
+// function for set modal info
 function setInputAndModal(li) {
-
     const modal_info = document.querySelector('#modal p');
-
     modal_info.textContent = 'Effacer : ' + li.dataset.name;
 }
+
 //   const setViewOnPoint = (feature, map) => {
 //         map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
 //     };
@@ -60,7 +53,7 @@ if (list_routes.querySelector('li')) {
     //display li list point
     const first_route_list = JSON.parse(li.dataset.value);
     route = new ListPoint(map, 'route', first_route_list);
-    route.displayList();
+    route.displayInit();
 }
 
 
@@ -88,7 +81,7 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
 
         const list_point = JSON.parse(li.dataset.value);
         route.setList(list_point);
-        route.displayList();
+        route.displayInit();
     }
 
     // remove route
@@ -101,6 +94,51 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
         modal.style.display = "flex";
     }
 });
+
+////////////////////////////////////////////////////////////////////////////
+// Seleted Point event listener (toggle selected point)
+const listpoint = document.querySelector('#listpoint');
+listpoint.addEventListener('click', () => {
+    function setViewOnPoint(feature, map) {
+        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+    }
+
+    let li;
+    if (event.target.matches('span')) {
+        li = event.target.closest('li');
+        setViewOnPoint(event.target.feature, map);
+    }
+    else if (event.target.matches('li')) {
+        li = event.target;
+        const span = event.target.querySelector('.label');
+        if (span) {
+            setViewOnPoint(span.feature, map);
+        }
+    }
+    if (li) {
+        if (li.classList.contains('selected')) {
+            li.classList.remove('selected');
+            if (li.querySelector('.remove') != null) {
+                li.querySelector('.remove').style.display = "none";
+            }
+
+        }
+        else {
+            const old = listElement.querySelector('.selected');
+            if (old != null) {
+                old.classList.remove('selected');
+                if (old.querySelector('.remove') != null) {
+                    old.querySelector('.remove').style.display = "none";
+                }
+            }
+            li.classList.add('selected');
+            if (li.querySelector('.remove') != null) {
+                li.querySelector('.remove').style.display = "inline-block";
+            }
+        }
+    }
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // modal listner

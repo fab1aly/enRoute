@@ -133,9 +133,11 @@
         public function getUserInfo (int $id) 
         {
             
-            $query = "SELECT * FROM Users WHERE id= $id";
+            $query = "SELECT * FROM Users WHERE id= :id";
             
-            $sth = self::$dbh->query($query);
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':id', $id, PDO::PARAM_STR);
+            $sth->execute();
             
             return $sth->fetch();
         }
@@ -143,9 +145,11 @@
         public function getUserPassword (int $id) 
         {
             
-            $query = "SELECT password FROM Users WHERE id= $id";
+            $query = "SELECT password FROM Users WHERE id= :id";
             
-            $sth = self::$dbh->query($query);
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':id', $id, PDO::PARAM_STR);
+            $sth->execute();
             
             return $sth->fetch();
         }

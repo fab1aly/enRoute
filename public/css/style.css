@@ -294,7 +294,6 @@ header nav menu li a {
 }
 #routes ul li:hover {
   background-color: var(--sb-select-color);
-  border: solid 3px var(--border-color);
   min-height: 2rem;
   max-height: 3.4rem;
 }
@@ -509,7 +508,7 @@ header nav menu li a {
   padding: 0.5rem;
   width: fit-content;
 }
-#modal .modal-content button .remove {
+#modal .modal-content .remove {
   background-color: var(--info-color);
 }
 @keyframes animatetop {

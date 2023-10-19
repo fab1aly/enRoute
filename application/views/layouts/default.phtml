@@ -39,7 +39,7 @@
                         <a href="./sign-out">Sortie</a>
                     </li>
                 </menu>
-                <aside><p><?= $_SESSION['user']->getUsername() ?></p></aside>
+                <aside><p><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></p></aside>
         <?php else: ?>
                 <menu class=''>
                     <li class="">

@@ -13,12 +13,14 @@ export default class ListPoint {
         this.ul = document.querySelector(`#${divId} ul`);
 
         this.map = map;
-        // init layer point group 
-        this.pointLayerGroup = L.layerGroup()
-        this.pointLayerGroup.addTo(this.map);
+        if (this.map) {
+            // init layer point group 
+            this.pointLayerGroup = L.layerGroup()
+            this.pointLayerGroup.addTo(this.map);
 
-
-
+            this.lineLayerGroup = L.layerGroup()
+            this.lineLayerGroup.addTo(this.map);
+        }
 
     }
     getList() {
@@ -70,19 +72,102 @@ export default class ListPoint {
         }
     }
 
+    //
+    displayInit() {
 
-    ////////////////////////////////////////////////////////////////////////////////
+        this.displayListElement();
+        this.displayPoints();
+        this.displayRouteSetTotal();
+    }
 
-    //function for display the points in div and map 
-    // play thi
-    displayList() {
-        // clean ul
-        this.ul.replaceChildren();
+    displayRouteSetTotal() {
+        if (!this.lineLayerGroup) {
+            this.lineLayerGroup = L.layerGroup();
+        }
+        else {
+            this.map.removeLayer(this.lineLayerGroup);
+            this.lineLayerGroup.clearLayers();
+        }
+
+        this.lineLayerGroup.addTo(this.map);
+
+        let duration = 0;
+        let distance = 0;
+
+        const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
+            const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
+            const utils = "resource=bdtopo-osrm&profile=car&optimization=fastest";
+            const start = `&start=${pointStart.geometry.coordinates}`;
+            const end = `&end=${pointEnd.geometry.coordinates}`;
+            const format = "&geometryFormat=geojson";
+            const other = "&getBbox=false&getSteps=false";
+
+            try {
+                const response = await fetch(url + utils + start + end + format + other);
+                const data = await response.json();
+
+                const line = L.geoJSON(data.geometry);
+                this.lineLayerGroup.addLayer(line);
+
+                duration += data.duration || 0;
+                distance += data.distance || 0;
+
+            }
+            catch (error) {
+                console.error('Erreur :', error);
+            }
+        };
+
+        const displayRoutes = async() => {
+            for (let i = 0; i < this.list.length - 1; i++) {
+                await fetchDataAndAddToMap(this.list[i], this.list[i + 1]);
+            }
+
+            //format time 
+            let durationText = Math.floor(duration / 60) + "h" + Math.floor(duration % 60) + "min";
+            if (duration < 59) {
+                durationText = Math.floor(duration) + "min";
+            }
+
+            //set total element
+            const totalElement = document.querySelector("#listpoint .total span");
+            totalElement.textContent = `Total : ${durationText} / ${Math.floor(distance)/1000}km`;
+        };
+
+        const totalElement = document.querySelector("#listpoint .total span");
+        totalElement.textContent = `Total : calcul en cours ...`;
+
+        displayRoutes();
+        this.lineLayerGroup.addTo(this.map);
+    }
+
+    displayPoints() {
 
         // clean map
         this.map.removeLayer(this.pointLayerGroup);
         // make new group
         this.pointLayerGroup = L.layerGroup()
+
+        // init layer point group 
+        this.pointLayerGroup.addTo(this.map);
+
+        for (let point of this.list) {
+            // Create a marker for point
+            const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
+            // Add the marker to the layer group
+            this.pointLayerGroup.addLayer(marker);
+        }
+
+        // Add the layer group to the map
+        this.pointLayerGroup.addTo(this.map);
+
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+    // display the points in div and map and route
+    displayListElement() {
+        // clean ul
+        this.ul.replaceChildren();
 
         if (this.list.length > 0) {
             // for display points in list
@@ -94,7 +179,7 @@ export default class ListPoint {
                 const template = this.listElement.querySelector(`template`);
 
                 const li = template.content.cloneNode(true);
-                li.feature = point; //for save geojson
+                li.feature = point; //for save geojson data
 
                 // console.log(li)
                 // li.textContent = point.properties.label;
@@ -108,84 +193,11 @@ export default class ListPoint {
                 }
 
                 this.ul.appendChild(li);
-
-
-                // Create a marker for point
-                const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
-                // Add the marker to the layer group
-                this.pointLayerGroup.addLayer(marker);
             }
         }
-
-        // Add the layer group to the map
-        this.pointLayerGroup.addTo(this.map);
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////
-
-        // add list in json in input for the save/load form 
-        // if (document.querySelector('#listpoint form ') !== null) {
-        //     document.querySelector('#listpoint form :nth-child(1)').value = JSON.stringify(this.list);
-        // }
-        ////////////////////////////////////////////////////////////////////////////////
-        this.selectPoint();
-
-
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
-
-    selectPoint() {
-        if (this.getList().length > 0) {
-
-            const setViewOnPoint = (feature, map) => {
-                map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-            };
-
-            this.ul.addEventListener("click", (event) => {
-
-                // removeClassFromOldSelected(this.ul);
-                let li;
-                if (event.target.matches('span')) {
-                    li = event.target.closest('li'); // Utilisez event.target.closest('li') pour obtenir l'élément li parent
-                    setViewOnPoint(event.target.feature, this.map); // Utilisez event.target.parentElement pour accéder à l'élément li parent
-                }
-                else if (event.target.matches('li')) {
-                    li = event.target;
-                    const span = event.target.querySelector('.label');
-                    if (span) {
-                        setViewOnPoint(span.feature, this.map);
-                    }
-                }
-                if (li) {
-                    if (li.classList.contains('selected')) {
-                        li.classList.remove('selected');
-                        if (li.querySelector('.remove') != null) {
-                            li.querySelector('.remove').style.display = "none";
-                        }
-                        
-                    }
-                    else {
-                        const old = this.ul.querySelector('.selected');
-                        if (old != null) {
-                            old.classList.remove('selected');
-                            if (old.querySelector('.remove') != null) {
-                            old.querySelector('.remove').style.display = "none";
-                            }
-                        }
-                        li.classList.add('selected');
-                        if (li.querySelector('.remove') != null) {
-                        li.querySelector('.remove').style.display = "inline-block";
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
     // Add event listeners for drag and drop
     dragAndDrop() {
         const sortableList = this.ul;
