@@ -4,7 +4,7 @@ export default class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(map, name = "local_list", listpoint = [], divId = "listpoint") {
+    constructor(map = null, name = "local_list", listpoint = [], divId = "listpoint") {
 
         this.list = listpoint;
         this.nameList = name;
@@ -27,7 +27,6 @@ export default class ListPoint {
         return this.list;
     }
 
-    // add list
     setList(list) {
         this.list = list;
     }
@@ -36,7 +35,7 @@ export default class ListPoint {
     addPoint(feature) {
         this.list.push(feature);
         this.saveList();
-        this.displayList();
+        this.displayInit();
 
         this.ul.scrollTop = this.ul.scrollHeight;
         this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
@@ -48,12 +47,12 @@ export default class ListPoint {
         console.log("remove point at index " + index);
 
         this.saveList();
-        this.displayList();
+        this.displayInit();
     }
 
     //save list in local storage
     saveList() {
-        window.localStorage.setItem(`${this.nameList}`, JSON.stringify(this.list));
+        window.localStorage.setItem(`local_list`, JSON.stringify(this.list));
 
         console.log(`save 'local_list' in localStorage :`);
         console.log(this.list);
@@ -61,25 +60,50 @@ export default class ListPoint {
 
     //load list in local storage
     loadList() {
-        if (window.localStorage.getItem(`${this.nameList}`)) {
-            this.list = JSON.parse(window.localStorage.getItem(`${this.nameList}`));
+        if (window.localStorage.getItem(`local_list`)) {
+            this.list = JSON.parse(window.localStorage.getItem(`local_list`));
 
-            console.log(`load ${this.nameList} from localStorage :`);
-            console.log(JSON.parse(window.localStorage.getItem(`${this.nameList}`)));
+            console.log(`load local_list from localStorage :`);
+            console.log(JSON.parse(window.localStorage.getItem(`local_list`)));
         }
         else {
             console.log(` no list in localStorage`);
         }
     }
 
-    //
+    ////////////////////////////////////////////////////////////////////////////
+    //init display
     displayInit() {
 
-        this.displayListElement();
+        this.displayList();
         this.displayPoints();
         this.displayRouteSetTotal();
     }
 
+    //display points in map
+    displayPoints() {
+
+        // clean map
+        this.map.removeLayer(this.pointLayerGroup);
+        // make new group
+        this.pointLayerGroup = L.layerGroup()
+
+        // init layer point group 
+        this.pointLayerGroup.addTo(this.map);
+
+        for (let point of this.list) {
+            // Create a marker for point
+            const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
+            // Add the marker to the layer group
+            this.pointLayerGroup.addLayer(marker);
+        }
+
+        // Add the layer group to the map
+        this.pointLayerGroup.addTo(this.map);
+
+    }
+
+    //display route in map and set total element with 
     displayRouteSetTotal() {
         if (!this.lineLayerGroup) {
             this.lineLayerGroup = L.layerGroup();
@@ -141,31 +165,8 @@ export default class ListPoint {
         this.lineLayerGroup.addTo(this.map);
     }
 
-    displayPoints() {
-
-        // clean map
-        this.map.removeLayer(this.pointLayerGroup);
-        // make new group
-        this.pointLayerGroup = L.layerGroup()
-
-        // init layer point group 
-        this.pointLayerGroup.addTo(this.map);
-
-        for (let point of this.list) {
-            // Create a marker for point
-            const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
-            // Add the marker to the layer group
-            this.pointLayerGroup.addLayer(marker);
-        }
-
-        // Add the layer group to the map
-        this.pointLayerGroup.addTo(this.map);
-
-    }
-    ////////////////////////////////////////////////////////////////////////////
-
-    // display the points in div and map and route
-    displayListElement() {
+    // display points element
+    displayList() {
         // clean ul
         this.ul.replaceChildren();
 
@@ -198,6 +199,8 @@ export default class ListPoint {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    // Add event listeners for toggle selected point
+
     // Add event listeners for drag and drop
     dragAndDrop() {
         const sortableList = this.ul;

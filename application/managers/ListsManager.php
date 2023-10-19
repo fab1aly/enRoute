@@ -9,7 +9,7 @@
         public function getList ( $uniqid) 
         {
             
-            $query = "SELECT list_point FROM Lists WHERE uniq_id = :uniqid";
+            $query = "SELECT listpoint FROM Lists WHERE uniq_id = :uniqid";
             
             $sth = self::$dbh->prepare($query);
             $sth->bindValue(':uniqid', $uniqid);
@@ -35,7 +35,7 @@
         public function saveList (int $user_id, string $name, string $listpoint, $uniqid) : void
         {
             
-            $query = "INSERT INTO Lists (uniq_id, user_id, name, list_point)
+            $query = "INSERT INTO Lists (uniq_id, user_id, name, listpoint)
                                 VALUES (:uniqid, :user_id, :name,:listpoint)";
             
             $sth = self::$dbh->prepare($query);

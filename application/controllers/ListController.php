@@ -20,18 +20,6 @@ session_start();
     		    $this->renderView('home.phtml',['title' => 'enRoute']);
     		}
     		
-    
-//     		else // (POST) 
-//     		{
-// // var_dump($_POST);
-// // exit;
-//     		    $listsManager = new ListsManager;
-//                 $list_onload = $listsManager->getList($_POST['list_uniq_id']);
-                    
-// // var_dump($list_onload);
-// // exit;    		    
-//     		    $this->renderView('home.phtml',['title' => 'enRoute', 'list_onload' => $list_onload]);
-//     		}
     	}
     	
     	public function homeProcess () : void
