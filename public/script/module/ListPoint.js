@@ -9,17 +9,24 @@ export default class ListPoint {
         this.list = listpoint;
         this.nameList = name;
 
-        this.listElement = document.querySelector(`#${divId}`);
-        this.ul = document.querySelector(`#${divId} ul`);
+        // this.listElement = document.querySelector(`#${divId}`);
+        // this.ul = document.querySelector(`#${divId} ul`);
 
         this.map = map;
         if (this.map) {
             // init layer point group 
             this.pointLayerGroup = L.layerGroup()
             this.pointLayerGroup.addTo(this.map);
-
+            // init layer line group
             this.lineLayerGroup = L.layerGroup()
             this.lineLayerGroup.addTo(this.map);
+
+            // select elements
+            this.listElement = document.querySelector(`#${divId}`);
+            this.ul = document.querySelector(`#${divId} ul`);
+
+            //init listener
+            this.displayRemoveSelected()
         }
 
     }
@@ -199,7 +206,50 @@ export default class ListPoint {
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // Add event listeners for toggle selected point
+    // Add event listeners for toggle selected point and remove by cross
+    displayRemoveSelected() {
+        const ul = this.listElement.querySelector(`ul`);
+        ul.addEventListener('click', (event) => {
+
+            // function for set view
+            function setViewOnPoint(feature, map) {
+                map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+            }
+            // function for toggle select li (route) in ul (routes)
+            function displaySelect(li, ul) {
+                if (li.classList.contains('selected') == false) {
+                    const old = ul.querySelector('.selected');
+                    if (old) {
+                        old.classList.remove('selected');
+                    }
+                    li.classList.add('selected');
+                }
+            }
+            // if click span, get li
+            let li;
+            if (event.target.matches('span')) {
+                li = event.target.closest('li');
+                setViewOnPoint(event.target.feature, this.map);
+            }
+            else if (event.target.matches('li')) {
+                li = event.target;
+                const span = event.target.querySelector('.label');
+                if (span) {
+                    setViewOnPoint(span.feature, this.map);
+                }
+            }
+            if (li) {
+                displaySelect(li, ul);
+            }
+
+            // remove point by cross
+            if (event.target.matches('.remove i')) {
+                // console.log(event.target.dataset.index);
+                const li = event.target.closest('.remove');
+                this.removePoint(li.dataset.index);
+            }
+        });
+    }
 
     // Add event listeners for drag and drop
     dragAndDrop() {

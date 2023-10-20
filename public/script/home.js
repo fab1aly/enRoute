@@ -9,17 +9,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // init local_list
 import ListPoint from "./module/ListPoint.js";
-let local_list;
+const local_list = new ListPoint(map, 'local_list');
 
 // if list in local storage
 if (window.localStorage.getItem('local_list')) {
-    local_list = new ListPoint(map, 'local_list');
     local_list.loadList();
 }
-// also make a new list
-else {
-    local_list = new ListPoint(map, 'local_list');
-}
+
 // console.log(local_list);
 
 // display list
@@ -27,77 +23,17 @@ local_list.displayInit();
 // local_list.dragAndDrop();
 
 ////////////////////////////////////////////////////////////////////////////////
-// ListPoint event listener
+// ListPoint event listener (SAVE)
 const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', (event) => {
-
-    // function for set view
-    function setViewOnPoint(feature, map) {
-        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-    }
-
-
-    // set view at position
-    if (event.target.matches('.position') ||
-        event.target.matches('.position span')) {
-        map.setView(pos.getCoordsArray(), 15);
-    }
-
-    // remove point by cross
-    if (event.target.matches('.remove i')) {
-        // console.log(event.target.dataset.index);
-        const li = event.target.closest('.remove');
-        local_list.removePoint(li.dataset.index);
-    }
 
     // save list in db (open modal)
     if (event.target.matches('#listpoint form button')) {
         modal.style.display = "flex";
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Seleted Point event listener (toggle selected point)
-
-    let li;
-    if (event.target.matches('span')) {
-        li = event.target.closest('li');
-        setViewOnPoint(event.target.feature, map);
-    }
-    else if (event.target.matches('li')) {
-        li = event.target;
-        const span = event.target.querySelector('.label');
-        if (span) {
-            setViewOnPoint(span.feature, map);
-        }
-    }
-    if (li) {
-        if (li.classList.contains('selected')) {
-            li.classList.remove('selected');
-            if (li.querySelector('.remove') != null) {
-                li.querySelector('.remove').style.display = "none";
-            }
-
-        }
-        else {
-            const old = listElement.querySelector('.selected');
-            if (old != null) {
-                old.classList.remove('selected');
-                if (old.querySelector('.remove') != null) {
-                    old.querySelector('.remove').style.display = "none";
-                }
-            }
-            li.classList.add('selected');
-            if (li.querySelector('.remove') != null) {
-                li.querySelector('.remove').style.display = "inline-block";
-            }
-        }
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-    // drag n drop
-
-
 });
+
 ////////////////////////////////////////////////////////////////////////////////
 // Modal listner
 const modal = document.querySelector("#modal");
@@ -128,7 +64,6 @@ document.addEventListener('click', () => {
         modal.style.display = "none";
     }
 });
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // init Position

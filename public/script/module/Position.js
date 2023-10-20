@@ -23,9 +23,10 @@ export default class Position {
                 maximumAge: 0,
             }
         );
-        
-        
-        
+
+        // init listener for set view on position
+        this.setViewOnPosition();
+
 
     }
     getCoordsArray() {
@@ -81,5 +82,16 @@ export default class Position {
     stopWatchingLocation() {
         // Arrête la surveillance de la position lorsqu'elle n'est plus nécessaire
         navigator.geolocation.clearWatch(this.watchId);
+    }
+
+
+    setViewOnPosition() {
+        this.positionElement.addEventListener('click', () => {
+            // set view at position
+            if (event.target.matches('.position') ||
+                event.target.matches('.position span')) {
+                this.map.setView(this.getCoordsArray(), 15);
+            }
+        });
     }
 }

@@ -1,19 +1,13 @@
 // document.addEventListener('DOMContentLoaded', function() {
 
 // function for toggle select li (route) in ul (routes)
-function displaySelect(li) {
-    if (li.classList.contains('selected')) {
-        li.classList.remove('selected');
-        li.querySelector('.remove').style.display = "none";
-    }
-    else {
-        const old = list_routes.querySelector('.selected');
-        if (old != null) {
+function displaySelect(li, ul) {
+    if (li.classList.contains('selected') == false) {
+        const old = ul.querySelector('.selected');
+        if (old) {
             old.classList.remove('selected');
-            old.querySelector('.remove').style.display = "none";
         }
         li.classList.add('selected');
-        li.querySelector('.remove').style.display = "inline-block";
     }
 }
 
@@ -29,9 +23,6 @@ function setInputAndModal(li) {
     modal_info.textContent = 'Effacer : ' + li.dataset.name;
 }
 
-//   const setViewOnPoint = (feature, map) => {
-//         map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-//     };
 
 ////////////////////////////////////////////////////////////////////////////////
 // on start display last route
@@ -46,7 +37,7 @@ if (list_routes.querySelector('li')) {
 
     // select last li
     const li = document.querySelector('#routes ul li:last-child');
-    displaySelect(li);
+    displaySelect(li, list_routes);
     setUniqidInLoadForm(li);
     setInputAndModal(li);
 
@@ -65,17 +56,13 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
     let li;
     if (event.target.matches('span')) {
         li = event.target.closest('li');
-        // setViewOnPoint(event.target.feature, this.map); // Utilisez event.target.parentElement pour accéder à l'élément li parent
+        // Utilisez event.target.parentElement pour accéder à l'élément li parent
     }
     else if (event.target.matches('li')) {
         li = event.target;
-        const span = event.target.querySelector('.label');
-        if (span) {
-            // setViewOnPoint(span.feature, this.map);
-        }
     }
     if (li) {
-        displaySelect(li);
+        displaySelect(li, list_routes);
         setUniqidInLoadForm(li);
         setInputAndModal(li);
 
@@ -95,49 +82,9 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
     }
 });
 
-////////////////////////////////////////////////////////////////////////////
-// Seleted Point event listener (toggle selected point)
-const listpoint = document.querySelector('#listpoint');
-listpoint.addEventListener('click', () => {
-    function setViewOnPoint(feature, map) {
-        map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-    }
+////////////////////////////////////////////////////////////////////////////////
 
-    let li;
-    if (event.target.matches('span')) {
-        li = event.target.closest('li');
-        setViewOnPoint(event.target.feature, map);
-    }
-    else if (event.target.matches('li')) {
-        li = event.target;
-        const span = event.target.querySelector('.label');
-        if (span) {
-            setViewOnPoint(span.feature, map);
-        }
-    }
-    if (li) {
-        if (li.classList.contains('selected')) {
-            li.classList.remove('selected');
-            if (li.querySelector('.remove') != null) {
-                li.querySelector('.remove').style.display = "none";
-            }
 
-        }
-        else {
-            const old = listElement.querySelector('.selected');
-            if (old != null) {
-                old.classList.remove('selected');
-                if (old.querySelector('.remove') != null) {
-                    old.querySelector('.remove').style.display = "none";
-                }
-            }
-            li.classList.add('selected');
-            if (li.querySelector('.remove') != null) {
-                li.querySelector('.remove').style.display = "inline-block";
-            }
-        }
-    }
-});
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -173,11 +120,6 @@ const pos = new Position(map);
 // ListPoint event listener
 const listElement = document.querySelector(`#listpoint`);
 listElement.addEventListener('click', (event) => {
-
-    // set view at position
-    if (event.target.matches('.position') || event.target.matches('.position span')) {
-        map.setView(pos.getCoordsArray(), 15);
-    }
 
     // click load button
     if (event.target.matches('form button')) {

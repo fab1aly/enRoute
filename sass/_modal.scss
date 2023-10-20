@@ -1,5 +1,7 @@
 #modal {
 
+
+
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -19,6 +21,21 @@
     align-items: center;
 
     .modal-content {
+
+        /* Could be more or less, depending on screen size */
+        animation-name: animatetop;
+        animation-duration: 2s;
+        /* Add Animation */
+        @keyframes animatetop {
+            from {
+                top: 0;
+                opacity: 0
+            }
+            to {
+                top: 60vh;
+                opacity: 1
+            }
+        }
 
         border: solid 1px var(--border-color);
         border-radius: 1rem;
@@ -93,20 +110,7 @@
             background-color: var(--info-color);
         }
 
-        /* Could be more or less, depending on screen size */
-        animation-name: animatetop;
-        animation-duration: 0.4s;
-        /* Add Animation */
-        @keyframes animatetop {
-            from {
-                top: 0;
-                opacity: 0
-            }
-            to {
-                top: 100rem;
-                opacity: 1
-            }
-        }
+
     }
 
     /* The Close Button */
