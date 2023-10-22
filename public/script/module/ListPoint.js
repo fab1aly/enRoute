@@ -16,9 +16,6 @@ export default class ListPoint {
             this.listElement = document.querySelector(`#listpoint`);
             this.ul = document.querySelector(`#listpoint ul`);
 
-            //init listener
-            this.displaySelected();
-            // this.resizeListpoint();
         }
 
     }
@@ -77,6 +74,12 @@ export default class ListPoint {
         this.displayPointsInMap();
         this.displayRouteSetTotal();
         this.displayListElement();
+
+        //init listener
+        this.displaySelected();
+        this.upPointInList();
+        this.downPointInList();
+        // this.resizeListpoint();
     }
 
     //display points in map
@@ -262,68 +265,162 @@ export default class ListPoint {
     ////////////////////////////////////////////////////////////////////////////
     // Add event listeners for toggle selected point and remove by cross
     displaySelected() {
-        const ul = this.listElement.querySelector(`ul`);
-        ul.addEventListener('click', (event) => {
+        const elements = this.ul.querySelectorAll('.label-box');
 
-            // function for set view
-            function setViewOnPoint(feature, map) {
-                map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
-            }
-            // function for toggle select li (route) in ul (routes)
-            function displaySelect(li, ul) {
-                if (li.classList.contains('selected') == false) {
-                    const old = ul.querySelector('.selected');
-                    if (old) {
-                        old.classList.remove('selected');
+        for (let element of elements) {
+            element.addEventListener('click', () => {
+
+                // function for set view
+                function setViewOnPoint(feature, map) {
+                    map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
+                }
+                // function for toggle select li (route) in ul (routes)
+                function displaySelect(li, ul) {
+                    if (li.classList.contains('selected') == false) {
+                        const old = ul.querySelector('.selected');
+                        if (old) {
+                            old.classList.remove('selected');
+                        }
+                        li.classList.add('selected');
                     }
-                    li.classList.add('selected');
+                    else {
+                        li.classList.remove('selected');
+                    }
                 }
-            }
 
-            // if click span(label), get li
-            let li;
-            if (event.target.matches('.label')) {
-                setViewOnPoint(event.target.feature, this.map);
-                li = event.target.closest('li');
-            }
-            else if (event.target.matches('li')) {
-                const span = event.target.querySelector('.label');
-                if (span) {
-                    setViewOnPoint(span.feature, this.map);
+                if (event.target.matches('.label')) {
+                    setViewOnPoint(event.target.feature, this.map);
                 }
-                li = event.target;
-            }
-            if (li) {
-                displaySelect(li, ul);
-            }
+                else if (event.target.matches('.label-box')) {
+                    const label = event.target.querySelector('.label');
+                    if (label) {
+                        setViewOnPoint(label.feature, this.map);
+                    }
+                }
+                const li = event.target.closest('li');
+                if (li) {
+                    displaySelect(li, this.ul);
+                }
 
-        });
+            });
+        }
     }
 
-    resizeListpoint() {
-        const hitbox = this.listElement.querySelector('.resize-hitbox');
-        hitbox.addEventListener('mousedown', (event) => {
-
-            const positionInitialeY = event.clientY;
-
-            const gestionnaireTouchMove = (e) => {
-                e.preventDefault();
-
-                const diff = (e.clientY - positionInitialeY);
-                this.listElement.style.height = Math.abs(this.listElement.clientHeight - diff) + 'px';
-            };
-
-            const gestionnaireTouchEnd = () => {
-                // Supprimer les gestionnaires d'événements lorsque le toucher se termine
-                document.removeEventListener('mousemove', gestionnaireTouchMove);
-                document.removeEventListener('mouseup', gestionnaireTouchEnd);
-            };
-
-            document.addEventListener('mousemove', gestionnaireTouchMove);
-            document.addEventListener('mouseup', gestionnaireTouchEnd);
-
-        });
+    // method for update (after up/down)
+    updateList() {
+        const labels = document.querySelectorAll('#listpoint ul .label');
+        const list = [];
+        if (labels) {
+            for (let label of labels) {
+                list.push(label.feature);
+            }
+        }
+        this.setList(list);
+        this.saveList();
+        this.displayPointsInMap();
+        this.displayRouteSetTotal();
     }
+
+    // Add event listeners for up point
+    upPointInList() {
+        const upButtons = this.ul.querySelectorAll('.up');
+        for (let upButton of upButtons) {
+            upButton.addEventListener('click', () => {
+
+                const liSelected = event.target.closest('li');
+                const liAbove = liSelected.previousElementSibling;
+
+                if (liAbove) {
+                    let distance = 0;
+                    let distance2 = 0;
+                    let id = null;
+                    const self = this; // Stocker la valeur de this
+
+                    function animate() {
+                        distance++;
+                        distance2 += liSelected.clientHeight / liAbove.clientHeight;
+                        liSelected.style.transform = `translateY(-${distance}px)`;
+                        liAbove.style.transform = `translateY(${distance2}px)`;
+                        if (distance < liAbove.clientHeight && distance2 < liSelected.clientHeight) {
+                            id = requestAnimationFrame(animate);
+                        }
+                        else {
+                            cancelAnimationFrame(id);
+                            liAbove.before(liSelected);
+                            liSelected.style.transform = ``;
+                            liAbove.style.transform = ``;
+
+                            self.updateList();
+                        }
+                    }
+                    animate();
+                }
+            });
+        }
+    }
+
+    // Add event listeners for up point
+    downPointInList() {
+        const downButtons = this.ul.querySelectorAll('.down');
+        for (let downButton of downButtons) {
+            downButton.addEventListener('click', () => {
+
+                const liSelected = event.target.closest('li');
+                const liBelow = liSelected.nextElementSibling;
+
+                if (liBelow) {
+                    let distance = 0;
+                    let distance2 = 0;
+                    let id = null;
+                    const self = this; // Stocker la valeur de this
+
+                    function animate() {
+                        distance++;
+                        distance2 += liSelected.clientHeight / liBelow.clientHeight;
+                        liSelected.style.transform = `translateY(${distance}px)`;
+                        liBelow.style.transform = `translateY(-${distance2}px)`;
+                        if (distance < liBelow.clientHeight && distance2 < liSelected.clientHeight) {
+                            id = requestAnimationFrame(animate);
+                        }
+                        else {
+                            cancelAnimationFrame(id);
+                            liBelow.after(liSelected);
+                            liSelected.style.transform = ``;
+                            liBelow.style.transform = ``;
+                            ///////
+                            self.updateList();
+                        }
+                    }
+                    animate();
+                }
+            });
+        }
+    }
+
+    // resizeListpoint() {
+    //     const hitbox = this.listElement.querySelector('.resize-hitbox');
+    //     hitbox.addEventListener('mousedown', (event) => {
+
+    //         const positionInitialeY = event.clientY;
+
+    //         const gestionnaireTouchMove = (e) => {
+    //             e.preventDefault();
+
+    //             const diff = (e.clientY - positionInitialeY);
+    //             this.listElement.style.height = Math.abs(this.listElement.clientHeight - diff) + 'px';
+    //         };
+
+    //         const gestionnaireTouchEnd = () => {
+    //             // Supprimer les gestionnaires d'événements lorsque le toucher se termine
+    //             document.removeEventListener('mousemove', gestionnaireTouchMove);
+    //             document.removeEventListener('mouseup', gestionnaireTouchEnd);
+    //         };
+
+    //         document.addEventListener('mousemove', gestionnaireTouchMove);
+    //         document.addEventListener('mouseup', gestionnaireTouchEnd);
+
+    //     });
+    // }
 
 
 

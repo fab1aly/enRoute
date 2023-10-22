@@ -12,7 +12,7 @@
     padding: .5rem;
 
 
-    max-height: 70vh;
+    max-height: 30vh;
 
     display: flex;
     flex-direction: column;
@@ -136,8 +136,7 @@
             }
             .up,
             .down {
-                animation: grow .1s ease-out;
-
+                // animation: grow .1s ease-out;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -214,6 +213,7 @@
 
     #listpoint {
         width: 40vw;
+        max-height: 60vh;
         left: auto;
         right: .5rem;
     }
@@ -222,7 +222,8 @@
 
     #listpoint {
         position: static;
-        width: auto; // grid-row-start: 4;
+        width: auto;
+        max-height: 60vh; // grid-row-start: 4;
         grid-row-end: end;
         grid-column-start: 2;
         grid-column-end: end;
@@ -242,7 +243,6 @@
                 }
             }
             .selected:hover {
-                border: solid 3px var(--border-color);
                 .remove {
                     display: inline;
                 }
