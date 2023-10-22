@@ -9,26 +9,16 @@
 }
 :root {
   font-size: 62.5%;
-  --text-color: #222;
-  --border-color: DimGray;
-  --bg-color: DarkSeaGreen;
-  --item-color: LightSteelBlue;
-  --button-color: Moccasin;
-  --info-color: IndianRed;
-  --select-color: Lightblue;
-  --sb-bg-color: Gainsboro;
-  --sb-item-color: WhiteSmoke;
-  --sb-select-color: AntiqueWhite;
 }
 :root body {
-  font-family: "Atkinson_Hyperlegible", sans-serif;
+  font-family: Atkinson_Hyperlegible, sans-serif;
   font-size: 1.6rem;
-  color: var(--text-color);
+  color: #222;
 }
 :root body a,
 :root body button {
-  color: var(--text-color);
-  font-family: Atkinson_Hyperlegible;
+  color: #222;
+  font-family: Atkinson_Hyperlegible, sans-serif;
 }
 :root body * {
   box-sizing: border-box;
@@ -56,20 +46,20 @@ header {
   left: 0;
   right: 0;
   border-radius: 0 0 1rem 1rem;
-  background-color: var(--select-color);
+  background-color: Lightblue;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.5rem;
   display: flex;
   justify-content: space-between;
 }
 header div {
-  background-color: var(--bg-color);
+  background-color: DarkSeaGreen;
   border-radius: 0 0 1rem 1rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
 }
 header nav {
-  background-color: var(--bg-color);
+  background-color: DarkSeaGreen;
   border-radius: 0 0 1rem 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
@@ -80,7 +70,7 @@ header nav a h1 {
   font-size: 2rem;
 }
 header nav aside {
-  background-color: var(--info-color);
+  background-color: IndianRed;
   border-radius: 0.5rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   height: 3.8rem;
@@ -108,7 +98,7 @@ header nav menu {
   opacity: 0;
   visibility: hidden;
   transition: transform 0.5s ease-in-out;
-  background-color: var(--item-color);
+  background-color: LightSteelBlue;
   border-radius: 0.5rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
@@ -117,10 +107,10 @@ header nav menu {
 header nav menu li {
   margin: 0.5rem;
   padding: 0.5rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
   border-radius: 0.5rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: var(--button-color);
+  background-color: Moccasin;
   width: fit-content;
   list-style: none;
 }
@@ -188,7 +178,7 @@ header nav menu li a {
   width: max-content;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 1rem;
-  background-color: var(--sb-bg-color);
+  background-color: Gainsboro;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -203,7 +193,7 @@ header nav menu li a {
 #searchbar span input {
   height: 2.5rem;
   flex-grow: 1;
-  background-color: var(--sb-item-color);
+  background-color: WhiteSmoke;
   border-radius: 0.5rem 0 0 0.5rem;
   border: none;
   padding: 1rem 0 1rem 0.5rem;
@@ -212,20 +202,20 @@ header nav menu li a {
 #searchbar span span {
   width: 2.5rem;
   height: 2.5rem;
-  background-color: var(--sb-item-color);
+  background-color: WhiteSmoke;
   border-radius: 0 0.5rem 0.5rem 0;
   font-size: 2rem;
-  color: var(--sb-bg-color);
+  color: Gainsboro;
 }
 #searchbar ul {
-  background-color: var(--sb-bg-color);
+  background-color: Gainsboro;
   /*result*/
   /*result label*/
 }
 #searchbar ul li {
   min-height: 2.5rem;
   max-height: 4rem;
-  background-color: var(--sb-item-color);
+  background-color: WhiteSmoke;
   border-radius: 0.8rem;
   margin: 0.3rem 0rem;
   padding: 0.7rem 0.5rem;
@@ -239,8 +229,8 @@ header nav menu li a {
   margin-bottom: 0;
 }
 #searchbar ul li:hover {
-  background-color: var(--sb-select-color);
-  border: solid 1px var(--border-color);
+  background-color: AntiqueWhite;
+  border: solid 1px DimGray;
   min-height: 2rem;
   max-height: 3.4rem;
   padding: 0.62rem 0.42rem;
@@ -280,11 +270,11 @@ header nav menu li a {
   min-width: 30vw;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 1rem;
-  background-color: var(--sb-bg-color);
+  background-color: Gainsboro;
   padding: 0.5rem;
 }
 #routes ul {
-  background-color: var(--sb-bg-color);
+  background-color: Gainsboro;
   overflow-y: auto;
   max-height: 38vh;
   min-height: 0rem;
@@ -293,7 +283,7 @@ header nav menu li a {
 #routes ul li {
   min-height: 2.5rem;
   max-height: 4rem;
-  background-color: var(--sb-item-color);
+  background-color: WhiteSmoke;
   border-radius: 0.8rem;
   margin: 0.5rem 0rem;
   padding: 0.7rem 0.3rem;
@@ -309,17 +299,17 @@ header nav menu li a {
   padding-right: 0.5rem;
 }
 #routes ul li:hover {
-  background-color: var(--sb-select-color);
+  background-color: AntiqueWhite;
 }
 #routes ul .selected {
   height: 3.5rem;
-  border: solid 3px var(--border-color);
-  background-color: var(--sb-select-color);
+  border: solid 3px DimGray;
+  background-color: AntiqueWhite;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 0.72rem 0;
 }
 #routes ul .selected .remove {
-  color: var(--border-color);
+  color: DimGray;
 }
 
 @media screen and (min-width: 1024px) and (min-height: 600px) {
@@ -349,7 +339,7 @@ header nav menu li a {
   bottom: 0;
   left: 1rem;
   right: 1rem;
-  background-color: var(--bg-color);
+  background-color: DarkSeaGreen;
   border-radius: 1rem 1rem 0 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.5rem;
@@ -364,15 +354,15 @@ header nav menu li a {
   top: -1.5rem;
   height: 2.5rem;
   width: 100%;
-  background-color: var(--info-color);
+  background-color: IndianRed;
 }
 #listpoint .position {
   display: none;
   width: 100%;
   height: 3rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
   border-radius: 1rem;
-  background-color: var(--button-color);
+  background-color: Moccasin;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem 0;
   padding: 0.5rem;
@@ -400,9 +390,9 @@ header nav menu li a {
 }
 #listpoint ul li .label-box {
   min-height: 3rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
   border-radius: 1rem;
-  background-color: var(--item-color);
+  background-color: LightSteelBlue;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
   align-items: center;
@@ -419,13 +409,13 @@ header nav menu li a {
   padding: 0 0.5rem;
 }
 #listpoint ul li .label-box:hover {
-  border: solid 1px var(--border-color);
-  background-color: var(--select-color);
+  border: solid 1px DimGray;
+  background-color: Lightblue;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 #listpoint ul li.selected .label-box {
-  border: solid 3px var(--border-color);
-  background-color: var(--select-color);
+  border: solid 3px DimGray;
+  background-color: Lightblue;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 #listpoint ul li.selected .label-box .label {
@@ -448,7 +438,7 @@ header nav menu li a {
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  color: var(--border-color);
+  color: DimGray;
 }
 #listpoint ul li.selected .down {
   padding-top: 0.2rem;
@@ -457,7 +447,7 @@ header nav menu li a {
   padding-down: 0.2rem;
 }
 #listpoint ul li.selected:hover .label-box {
-  border: solid 3px var(--border-color);
+  border: solid 3px DimGray;
 }
 #listpoint ul li.selected:first-child .up {
   display: none;
@@ -468,9 +458,9 @@ header nav menu li a {
 #listpoint .total {
   height: 3.5rem;
   width: 100%;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
   border-radius: 1rem;
-  background-color: var(--info-color);
+  background-color: IndianRed;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem 0 0 0;
   padding: 0.5rem;
@@ -488,9 +478,9 @@ header nav menu li a {
   display: inline;
 }
 #listpoint .total form button {
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
   border-radius: 1rem;
-  background-color: var(--button-color);
+  background-color: Moccasin;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.25rem 1rem;
 }
@@ -516,12 +506,16 @@ header nav menu li a {
   }
   #listpoint ul li:hover .remove {
     display: inline;
+    color: DimGray !important;
   }
-  #listpoint ul .selected .remove {
-    display: none;
+  #listpoint ul li:hover .remove:hover {
+    color: #222 !important;
   }
-  #listpoint ul .selected:hover .remove {
-    display: inline;
+  #listpoint ul li.selected .remove {
+    display: none !important;
+  }
+  #listpoint ul li.selected:hover .remove {
+    display: inline !important;
   }
 }
 #modal {
@@ -539,17 +533,18 @@ header nav menu li a {
   display: none;
   justify-content: center;
   align-items: center;
-  /* The Close Button */
 }
 #modal .modal-content {
   /* Could be more or less, depending on screen size */
   animation-name: animatetop;
-  animation-duration: 2s;
+  animation-duration: 0.5s;
   /* Add Animation */
-  border: solid 1px var(--border-color);
+  background-color: DarkSeaGreen;
   border-radius: 1rem;
-  background-color: var(--bg-color);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -565,11 +560,17 @@ header nav menu li a {
     opacity: 1;
   }
 }
+#modal .modal-content .cross {
+  color: DimGray;
+}
+#modal .modal-content .cross:hover {
+  color: #222;
+}
 #modal .modal-content fieldset {
-  background-color: var(--item-color);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: LightSteelBlue;
   border-radius: 0.5rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
   display: flex;
@@ -577,59 +578,47 @@ header nav menu li a {
   align-content: center;
 }
 #modal .modal-content fieldset legend {
-  background-color: var(--info-color);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: IndianRed;
   border-radius: 0.5rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
 }
 #modal .modal-content fieldset input {
-  background-color: var(--sb-item-color);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: WhiteSmoke;
   border-radius: 0.5rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
 }
 #modal .modal-content fieldset p {
-  background-color: var(--button-color);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: Moccasin;
   border-radius: 0.5rem;
-  border: solid 1px var(--border-color);
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
 }
 #modal .modal-content button {
-  border: solid 1px var(--border-color);
+  background-color: Moccasin;
   border-radius: 0.5rem;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: var(--button-color);
   margin: 0.5rem;
   padding: 0.5rem;
   width: fit-content;
 }
 #modal .modal-content .remove {
-  background-color: var(--info-color);
-}
-#modal .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-#modal .close:hover,
-#modal .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+  background-color: IndianRed;
 }
 
 #sign-container {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: var(--button-color);
+  background-color: Moccasin;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -640,55 +629,61 @@ header nav menu li a {
   top: 30vh;
   left: 15vw;
   right: 15vw;
-  border: solid 1px var(--border-color);
+  background-color: DarkSeaGreen;
   border-radius: 1rem;
-  background-color: var(--bg-color);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 #sign-container .sign-form fieldset {
+  background-color: LightSteelBlue;
+  border-radius: 0.5rem;
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-content: center;
-  background-color: var(--item-color);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  border-radius: 0.5rem;
-  border: solid 1px var(--border-color);
-  margin: 0.5rem;
-  padding: 0.5rem;
 }
 #sign-container .sign-form fieldset legend {
-  border: solid 1px var(--border-color);
+  background-color: IndianRed;
   border-radius: 0.5rem;
-  background-color: var(--info-color);
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
 }
 #sign-container .sign-form input {
+  background-color: WhiteSmoke;
   border-radius: 0.5rem;
-  background-color: var(--sb-item-color);
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   margin: 0.5rem;
   padding: 0.5rem;
+  border: solid 2px #222;
 }
 #sign-container .sign-form button {
-  border: solid 1px var(--border-color);
+  background-color: Moccasin;
   border-radius: 0.5rem;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: var(--button-color);
   margin: 0.5rem;
   padding: 0.5rem;
   width: fit-content;
 }
 #sign-container .delete-user {
-  border: solid 1px var(--border-color);
+  background-color: IndianRed;
   border-radius: 0.5rem;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: var(--info-color);
+  margin: 0.5rem;
+  padding: 0.5rem;
   margin: 2rem 0.5rem;
   padding: 0.5rem;
   text-decoration: none;

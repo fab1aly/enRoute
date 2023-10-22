@@ -1,0 +1,21 @@
+:root {
+
+    font-size: 62.5%;
+
+    body {
+        font-family: $font-stack;
+        font-size: 1.6rem;
+        color: $text-color;
+
+        a,
+        button {
+            color: $text-color;
+            font-family: $font-stack;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+    }
+}

@@ -1,0 +1,65 @@
+#sign-container {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: $button-color;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .sign-form {
+        position: static;
+        top: 30vh;
+        left: 15vw;
+        right: 15vw;
+
+        @include theme($bg-color, 1rem);
+        padding: 1rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        fieldset {
+            @include theme($item-color, .5rem);
+
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+
+            legend {
+                @include theme($info-color, .5rem);
+            }
+        }
+
+        input {
+            @include theme($sb-item-color, .5rem);
+            border: solid 2px $text-color;
+        }
+
+        button {
+            @include theme($button-color, .5rem);
+
+            width: fit-content;
+        }
+    }
+
+    .delete-user {
+        @include theme($info-color, .5rem);
+
+        margin: 2rem .5rem;
+        padding: .5rem;
+
+        text-decoration: none;
+    }
+
+    .error {
+        margin: 2rem;
+        color: red;
+    }
+}

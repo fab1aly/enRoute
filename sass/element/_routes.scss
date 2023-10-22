@@ -9,13 +9,13 @@
 
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     border-radius: 1rem;
-    background-color: var(--sb-bg-color);
+    background-color: $sb-bg-color;
 
     padding: .5rem;
 
     ul {
 
-        background-color: var(--sb-bg-color); // margin: .5rem .3rem;
+        background-color: $sb-bg-color; // margin: .5rem .3rem;
         overflow-y: auto;
         max-height: 38vh;
 
@@ -27,7 +27,7 @@
             min-height: 2.5rem;
             max-height: 4rem;
 
-            background-color: var(--sb-item-color);
+            background-color: $sb-item-color;
             border-radius: .8rem;
 
             margin: .5rem 0rem;
@@ -49,21 +49,21 @@
         }
 
         li:hover {
-            background-color: var(--sb-select-color);
+            background-color: $sb-select-color;
         }
 
         .selected {
             height: 3.5rem;
 
-            border: solid 3px var(--border-color);
-            background-color: var(--sb-select-color);
+            border: solid 3px $border-color;
+            background-color: $sb-select-color;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
 
             padding: .72rem 0;
 
             .remove {
-                color: var(--border-color);
+                color: $border-color;
 
             }
 

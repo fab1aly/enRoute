@@ -1,39 +1,26 @@
-:root {
+$font-stack: Atkinson_Hyperlegible,
+sans-serif;
 
-    font-size: 62.5%;
+$text-color: #222;
+$border-color: DimGray;
 
+$bg-color: DarkSeaGreen;
+$item-color: LightSteelBlue;
+$button-color: Moccasin;
+$info-color: IndianRed;
+$select-color: Lightblue;
 
-    --text-color: #222;
-
-    --border-color: DimGray;
-
-    --bg-color: DarkSeaGreen;
-    --item-color: LightSteelBlue;
-    --button-color: Moccasin;
-    --info-color: IndianRed;
-    --select-color: Lightblue;
-
-    --sb-bg-color: Gainsboro;
-    --sb-item-color: WhiteSmoke;
-    --sb-select-color: AntiqueWhite;
+$sb-bg-color: Gainsboro;
+$sb-item-color: WhiteSmoke;
+$sb-select-color: AntiqueWhite;
 
 
-    body {
-        font-family: 'Atkinson_Hyperlegible', sans-serif;
-        font-size: 1.6rem;
-        color: var(--text-color);
+@mixin theme($color, $radius) {
+    background-color: $color;
+    border-radius: $radius;
+    border: solid 1px $border-color;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
-        a,
-        button {
-            color: var(--text-color);
-            font-family: Atkinson_Hyperlegible;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-    }
-
-
-
+    margin: .5rem;
+    padding: .5rem;
 }
