@@ -4,29 +4,21 @@ export default class ListPoint {
      * @param {string} name The name of the list point.
      * @param {string} divId The ID of the div element where the list point will be displayed.
      */
-    constructor(map = null, name = "local_list", listpoint = [], divId = "listpoint") {
+    constructor(map = null, name = "local_list", listpoint = []) {
 
         this.list = listpoint;
         this.nameList = name;
 
-        // this.listElement = document.querySelector(`#${divId}`);
-        // this.ul = document.querySelector(`#${divId} ul`);
-
         this.map = map;
         if (this.map) {
-            // init layer point group 
-            this.pointLayerGroup = L.layerGroup()
-            this.pointLayerGroup.addTo(this.map);
-            // init layer line group
-            this.lineLayerGroup = L.layerGroup()
-            this.lineLayerGroup.addTo(this.map);
 
             // select elements
-            this.listElement = document.querySelector(`#${divId}`);
-            this.ul = document.querySelector(`#${divId} ul`);
+            this.listElement = document.querySelector(`#listpoint`);
+            this.ul = document.querySelector(`#listpoint ul`);
 
             //init listener
-            this.displayRemoveSelected()
+            this.displaySelected();
+            // this.resizeListpoint();
         }
 
     }
@@ -82,36 +74,87 @@ export default class ListPoint {
     //init display
     displayInit() {
 
-        this.displayList();
-        this.displayPoints();
+        this.displayPointsInMap();
         this.displayRouteSetTotal();
+        this.displayListElement();
     }
 
     //display points in map
-    displayPoints() {
+    displayPointsInMap() {
 
-        // clean map
-        this.map.removeLayer(this.pointLayerGroup);
-        // make new group
-        this.pointLayerGroup = L.layerGroup()
-
-        // init layer point group 
+        // clean map, init layer point group 
+        if (!this.pointLayerGroup) {
+            this.pointLayerGroup = L.layerGroup();
+        }
+        else {
+            this.map.removeLayer(this.pointLayerGroup);
+            this.pointLayerGroup.clearLayers();
+        }
         this.pointLayerGroup.addTo(this.map);
 
-        for (let point of this.list) {
-            // Create a marker for point
-            const marker = L.marker([point.geometry.coordinates[1], point.geometry.coordinates[0]]);
-            // Add the marker to the layer group
-            this.pointLayerGroup.addLayer(marker);
+        // start marker
+        const startIcon = L.icon({
+            className: 'icon-start',
+            iconUrl: './image/icons8-LightGreen-marker-A-48.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+        });
+        // end marker
+        const endIcon = L.icon({
+            className: 'icon-end',
+            iconUrl: './image/icons8-Tomato-marker-B-48.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+        });
+        // itermediate marker
+        const intermedIcon = L.icon({
+            className: 'icon-intermed',
+            iconUrl: './image/icons8-SkyBlue-marker-48.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+        });
+
+        for (let [index, point] of this.list.entries()) {
+
+            if (index == 0) {
+                const marker = L.marker([point.geometry.coordinates[1],
+                        point.geometry.coordinates[0]
+                    ], { icon: startIcon })
+                    .bindPopup(point.properties.label);
+                // Add the marker to the layer group
+                this.pointLayerGroup.addLayer(marker);
+            }
+
+            else if (index == this.list.length - 1) {
+                const marker = L.marker([point.geometry.coordinates[1],
+                        point.geometry.coordinates[0]
+                    ], { icon: endIcon })
+                    .bindPopup(point.properties.label);
+                // Add the marker to the layer group
+                this.pointLayerGroup.addLayer(marker);
+            }
+
+            else {
+                const marker = L.marker([point.geometry.coordinates[1],
+                        point.geometry.coordinates[0]
+                    ], { icon: intermedIcon })
+                    .bindPopup(point.properties.label);
+                // Add the marker to the layer group
+                this.pointLayerGroup.addLayer(marker);
+            }
         }
 
         // Add the layer group to the map
         this.pointLayerGroup.addTo(this.map);
-
     }
 
     //display route in map and set total element with 
     displayRouteSetTotal() {
+
+        // clean map, init layer line group 
         if (!this.lineLayerGroup) {
             this.lineLayerGroup = L.layerGroup();
         }
@@ -119,7 +162,6 @@ export default class ListPoint {
             this.map.removeLayer(this.lineLayerGroup);
             this.lineLayerGroup.clearLayers();
         }
-
         this.lineLayerGroup.addTo(this.map);
 
         let duration = 0;
@@ -165,7 +207,7 @@ export default class ListPoint {
             totalElement.textContent = `Total : ${durationText} / ${Math.floor(distance)/1000}km`;
         };
 
-        const totalElement = document.querySelector("#listpoint .total span");
+        const totalElement = this.listElement.querySelector(".total span");
         totalElement.textContent = `Total : calcul en cours ...`;
 
         displayRoutes();
@@ -173,41 +215,53 @@ export default class ListPoint {
     }
 
     // display points element
-    displayList() {
-        // clean ul
+    displayListElement() {
+
+        // clean ul element
         this.ul.replaceChildren();
+        // this.ul.innerHTML = '';
 
         if (this.list.length > 0) {
             // for display points in list
             for (let [index, point] of this.list.entries()) {
 
-                if (point == null || point == undefined) {
+                // remove point if null or undefined 
+                if (!point) {
+                    // if (point == null || point == undefined) {
                     this.removePoint(index);
-                }
-                const template = this.listElement.querySelector(`template`);
-
-                const li = template.content.cloneNode(true);
-                li.feature = point; //for save geojson data
-
-                // console.log(li)
-                // li.textContent = point.properties.label;
-                const label = li.querySelector('.label');
-                label.textContent = point.properties.label;
-                label.feature = point; //for save geojson
-
-                const remove = li.querySelector(`.remove`);
-                if (remove != null) {
-                    remove.setAttribute("data-index", index);
+                    continue;
                 }
 
-                this.ul.appendChild(li);
+                else {
+                    const template = this.listElement.querySelector(`template`);
+
+                    const li = template.content.cloneNode(true);
+                    li.feature = point; //for save geojson data ==> not work ! why ?
+                    // console.log(li)
+
+                    // edit span label
+                    const label = li.querySelector('.label');
+                    label.feature = point; //for save geojson
+                    label.textContent = point.properties.label;
+                    label.setAttribute('data-index', index);
+
+                    // add listener for remove button
+                    const remove = li.querySelector(`.remove`);
+                    if (remove != null) {
+                        remove.addEventListener('click', () => {
+                            this.removePoint(index);
+                        });
+                    }
+
+                    this.ul.appendChild(li);
+                }
             }
         }
     }
 
     ////////////////////////////////////////////////////////////////////////////
     // Add event listeners for toggle selected point and remove by cross
-    displayRemoveSelected() {
+    displaySelected() {
         const ul = this.listElement.querySelector(`ul`);
         ul.addEventListener('click', (event) => {
 
@@ -225,82 +279,157 @@ export default class ListPoint {
                     li.classList.add('selected');
                 }
             }
-            // if click span, get li
+
+            // if click span(label), get li
             let li;
-            if (event.target.matches('span')) {
-                li = event.target.closest('li');
+            if (event.target.matches('.label')) {
                 setViewOnPoint(event.target.feature, this.map);
+                li = event.target.closest('li');
             }
             else if (event.target.matches('li')) {
-                li = event.target;
                 const span = event.target.querySelector('.label');
                 if (span) {
                     setViewOnPoint(span.feature, this.map);
                 }
+                li = event.target;
             }
             if (li) {
                 displaySelect(li, ul);
             }
 
-            // remove point by cross
-            if (event.target.matches('.remove i')) {
-                // console.log(event.target.dataset.index);
-                const li = event.target.closest('.remove');
-                this.removePoint(li.dataset.index);
-            }
         });
     }
 
-    // Add event listeners for drag and drop
-    dragAndDrop() {
-        const sortableList = this.ul;
-        // console.log(sortableList)
+    resizeListpoint() {
+        const hitbox = this.listElement.querySelector('.resize-hitbox');
+        hitbox.addEventListener('mousedown', (event) => {
 
-        if (this.ul.querySelectorAll('.point').length > 0) {
-            const items = sortableList.querySelectorAll('.point');
+            const positionInitialeY = event.clientY;
 
-            for (let item of items) {
-                item.addEventListener("dragstart", () => {
-                    console.log('drag');
-                    // Adding dragging class to item after a delay
-                    setTimeout(() => item.classList.add("dragging"), 0);
-                });
-                // Removing dragging class from item on dragend event
-                item.addEventListener("dragend", () => {
-
-                    // update the list 
-                    this.list = [];
-                    for (let li of this.ul.querySelectorAll(`.point`)) {
-                        this.list.push(li.feature);
-                    }
-                    this.saveList();
-
-                    // update the remove button
-                    for (let [index, button] of this.ul.querySelectorAll(`.point button`).entries()) {
-                        button.setAttribute("data-index", index);
-                    }
-
-                    // Removing dragging class from item
-                    item.classList.remove("dragging");
-                });
-            }
-            const initSortableList = (e) => {
+            const gestionnaireTouchMove = (e) => {
                 e.preventDefault();
-                const draggingItem = this.ul.querySelector(".dragging");
 
-                // Getting all items except currently dragging and making array of them
-                let siblings = [...sortableList.querySelectorAll(".point:not(.dragging)")];
-                // Finding the sibling after which the dragging item should be placed
-                let nextSibling = siblings.find(sibling => {
-                    return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-                });
-                // Inserting the dragging item before the found sibling
-                sortableList.insertBefore(draggingItem, nextSibling);
+                const diff = (e.clientY - positionInitialeY);
+                this.listElement.style.height = Math.abs(this.listElement.clientHeight - diff) + 'px';
             };
 
-            sortableList.addEventListener("dragover", initSortableList);
-            sortableList.addEventListener("dragenter", e => e.preventDefault());
-        }
+            const gestionnaireTouchEnd = () => {
+                // Supprimer les gestionnaires d'événements lorsque le toucher se termine
+                document.removeEventListener('mousemove', gestionnaireTouchMove);
+                document.removeEventListener('mouseup', gestionnaireTouchEnd);
+            };
+
+            document.addEventListener('mousemove', gestionnaireTouchMove);
+            document.addEventListener('mouseup', gestionnaireTouchEnd);
+
+        });
     }
+
+
+
+
+    // Add event listeners for drag and drop
+    // dragAndDrop() {
+    //     const sortableList = this.ul;
+    //     // console.log(sortableList)
+
+    //     if (this.ul.querySelectorAll('.point').length > 0) {
+    //         const items = sortableList.querySelectorAll('.point');
+
+    //         for (let item of items) {
+    //             item.addEventListener("dragstart", () => {
+    //                 console.log('drag');
+    //                 // Adding dragging class to item after a delay
+    //                 setTimeout(() => item.classList.add("dragging"), 0);
+    //             });
+    //             // Removing dragging class from item on dragend event
+    //             item.addEventListener("dragend", () => {
+
+    //                 // update the list 
+    //                 this.list = [];
+    //                 for (let span of this.ul.querySelectorAll(`.point .label`)) {
+    //                     this.list.push(span.feature);
+    //                 }
+    //                 this.saveList();
+    //                 this.displayInit();
+
+    //                 // update the remove button
+    //                 for (let [index, button] of this.ul.querySelectorAll(`.point button`).entries()) {
+    //                     button.setAttribute("data-index", index);
+    //                 }
+
+    //                 // Removing dragging class from item
+    //                 item.classList.remove("dragging");
+    //             });
+    //         }
+    //         const initSortableList = (e) => {
+    //             e.preventDefault();
+    //             const draggingItem = this.ul.querySelector(".dragging");
+
+    //             // Getting all items except currently dragging and making array of them
+    //             let siblings = [...sortableList.querySelectorAll(".point:not(.dragging)")];
+    //             // Finding the sibling after which the dragging item should be placed
+    //             let nextSibling = siblings.find(sibling => {
+    //                 return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+    //             });
+    //             // Inserting the dragging item before the found sibling
+    //             sortableList.insertBefore(draggingItem, nextSibling);
+    //         };
+
+    //         sortableList.addEventListener("dragover", initSortableList);
+    //         sortableList.addEventListener("dragenter", e => e.preventDefault());
+    //     }
+    // }
+
+
+    //     // Add event listeners for drag and drop
+    //     dragAndDrop() {
+    //         const sortableList = this.ul;
+
+    //         if (sortableList.querySelectorAll('.point').length > 0) {
+    //             const items = sortableList.querySelectorAll('.point');
+
+    //             for (let item of items) {
+    //                 item.addEventListener("touchstart", () => {
+    //                     // Add dragging class after a delay to avoid selection issues
+    //                     setTimeout(() => item.classList.add("dragging"), 0);
+    //                 });
+
+    //                 item.addEventListener("touchend", () => {
+    //                     // Update the list order based on current DOM positions
+    //                     this.list = Array.from(sortableList.querySelectorAll('.point')).map(li => li.feature);
+    //                     this.saveList();
+
+    //                     // Update remove button data-index attributes
+    //                     for (let [index, button] of sortableList.querySelectorAll(`.point .remove`).entries()) {
+    //                         button.setAttribute("data-index", index);
+    //                     }
+
+    //                     // Remove dragging class
+    //                     item.classList.remove("dragging");
+    //                 });
+    //             }
+
+    //             const initSortableList = (e) => {
+    //                 e.preventDefault();
+    //                 const draggingItem = sortableList.querySelector(".dragging");
+
+    //                 // Get all items except the dragging one
+    //                 const siblings = [...sortableList.querySelectorAll(".point:not(.dragging)")];
+
+    //                 // Find the sibling after which the dragging item should be placed
+    //                 const nextSibling = siblings.find(sibling => {
+    //                     return e.touches[0].clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+    //                 });
+
+    //                 // Insert the dragging item before the found sibling
+    //                 sortableList.insertBefore(draggingItem, nextSibling);
+    //             };
+
+    //             sortableList.addEventListener("touchmove", initSortableList);
+    //             sortableList.addEventListener("touchenter", e => e.preventDefault());
+    //         }
+    //     }
+
 
 }

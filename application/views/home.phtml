@@ -1,16 +1,15 @@
 
-<!-- Make sure you put this AFTER Leaflet's CSS -->
+<!-- Leaflet Script -->
  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
     
 <!--Script-->
-    <script defer type="module" src="./script/module/Position.js"></script>
-    <script defer type="module" src="./script/module/ListPoint.js"></script>
-    <script defer type="module" src="./script/module/SearchBar.js"></script>
+    <script type="module" src="./script/module/Position.js"></script>
+    <script type="module" src="./script/module/ListPoint.js"></script>
+    <script type="module" src="./script/module/SearchBar.js"></script>
     
-    <script defer type="module" src="./script/home.js"></script>
-    <!--<script defer type="text/javascript" src="script/map.js"></script>-->
+    <script type="module" src="./script/home.js"></script>
 
 
 <div id="searchbar" class="searchbar">
@@ -23,31 +22,32 @@
 
 <div id="listpoint">
 
-    <!--<div class="drag-bar"></div>-->
+    <!--<div class="resize-hitbox"></div>-->
 
     <div class="position">
         <span>Votre position</span>
     </div>
-
-
-    <ul>
-        <!--list of point-->
-    </ul>
-    <template> <!--template of point-->
-        <li class="point" draggable="true">
-            
-            <span class='label'>
-                <!--label of point-->
-            </span>
-            <span class="remove" data-index="">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </span>
+    
+    <!--list of point-->
+    <ul></ul>
+    
+    <!--template of point-->
+    <template> 
+        <li class="point">
+            <div class="up"><i class="fa-solid fa-angles-up"></i></div>
+            <div class="label-box">
+                <span class='label'></span>
+                <span class="remove">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </span>
+            </div>
+            <div class="down"><i class="fa-solid fa-angles-down"></i></div>
         </li>
     </template>
 
     <div class="total">
         <span></span>
-        
+    <!--display save button if user connected-->
     <?php if(isset($_SESSION['user'])): ?>
         <form method="post" action="./routes-process"> 
             <input type="hidden" name="listpoint" value="">
@@ -56,6 +56,7 @@
         </form>
     <?php endif; ?>
     </div>
+
 </div>
 
 <div id="modal" class="modal">
@@ -67,7 +68,7 @@
         
         <fieldset>
             <legend>Attention</legend>
-            <input type="text" name="" placeholder="Nommer cette route">
+            <input type="text" name="name" placeholder="Nommer cette route">
         </fieldset>
         
         <button>Sauver</button>
@@ -76,5 +77,5 @@
 </div>
 
 <div id="map"></div>
-<script type="text/javascript" src="script/map.js"></script>
+<script src="script/map.js"></script>
 

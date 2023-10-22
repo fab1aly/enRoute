@@ -9,12 +9,10 @@
      crossorigin=""></script>
     
 <!--Script-->
-    <script defer type="module" src="./script/module/Position.js"></script>
-    <script defer type="module" src="./script/module/ListPoint.js"></script>
+    <script type="module" src="./script/module/Position.js"></script>
+    <script type="module" src="./script/module/ListPoint.js"></script>
+    <script type="module" src="./script/routes.js"></script>
 
-    <!--<script defer type="module" src="./script/map.js"></script>-->
-    <script defer type="module" src="./script/routes.js"></script>
-    <!--<script defer type="text/javascript" src="script/map.js"></script>-->
 
 <div id='routes'>
         <ul>
@@ -86,7 +84,7 @@
         
     
         <form method="post" action="./home-process"> 
-            <input id="load_input"type="hidden" name="list_uniq_id" value="">
+            <input id="load_input" type="hidden" name="list_uniq_id" value="">
             
             <button type="button">Charger</button>
         </form>
@@ -98,5 +96,5 @@
 </div>
 
 <div id="map"></div>
-<script type="text/javascript" src="script/map.js"></script>
+<script src="script/map.js"></script>
 

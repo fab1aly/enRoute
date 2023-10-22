@@ -14,7 +14,7 @@
         
             });
         
-        // Plan IGN avec une transparence de 50%
+        // Plan IGN avec une transparence de 70%
         var PlanIGN = L.tileLayer('https://wxs.ign.fr/{ignApiKey}/geoportail/wmts?' +
             '&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM' +
             '&LAYER={ignLayer}&STYLE={style}&FORMAT={format}' +

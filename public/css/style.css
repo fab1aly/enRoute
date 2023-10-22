@@ -148,6 +148,12 @@ header nav menu li a {
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
+}
+#map .leaflet-control-layers.leaflet-control.leaflet-control-layers-expanded {
+  margin: 0;
+  font-size: 1rem;
+}
+#map .leaflet-control {
   transform: scale(0.9);
 }
 #map .leaflet-control-attribution {
@@ -251,26 +257,19 @@ header nav menu li a {
     grid-row-start: 2;
     grid-column-start: 2;
     grid-column-end: end;
-    align-self: end;
+    align-self: start;
   }
   #searchbar ul {
-    transform: translateY(1.3rem);
+    background-color: transparent;
     border-radius: 1rem;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   #searchbar ul li {
     height: 2.5rem;
-    margin: 0.4rem 0.5rem;
+    margin: 0.4rem 0rem;
     border-radius: 1rem;
     padding: 1rem 0.5rem;
     display: flex;
     align-items: center;
-  }
-  #searchbar ul li:first-child {
-    margin-top: 0.5rem;
-  }
-  #searchbar ul li:last-child {
-    margin-bottom: 0.5rem;
   }
 }
 #routes {
@@ -354,11 +353,18 @@ header nav menu li a {
   border-radius: 1rem 1rem 0 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.5rem;
-  max-height: 30vh;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+}
+#listpoint .resize-hitbox {
+  position: absolute;
+  top: -1.5rem;
+  height: 2.5rem;
+  width: 100%;
+  background-color: var(--info-color);
 }
 #listpoint .position {
   display: none;
@@ -379,41 +385,86 @@ header nav menu li a {
 #listpoint ul {
   overflow-y: auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 #listpoint ul li {
+  width: 100%;
+  padding: 0.2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+#listpoint ul li .up,
+#listpoint ul li .down {
+  display: none;
+}
+#listpoint ul li .label-box {
+  min-height: 3rem;
   border: solid 1px var(--border-color);
   border-radius: 1rem;
   background-color: var(--item-color);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  font-size: 1.4rem;
-  min-height: 3rem;
-  max-height: 4.5rem;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
-#listpoint ul li .remove {
-  display: none;
+#listpoint ul li .label-box .label {
+  width: 100%;
+  height: auto;
+  font-size: 1.4rem;
+  user-select: none;
+  padding: 0.5rem 1rem;
 }
-#listpoint ul li:hover {
+#listpoint ul li .label-box .remove {
+  display: none;
+  padding: 0 0.5rem;
+}
+#listpoint ul li .label-box:hover {
   border: solid 1px var(--border-color);
   background-color: var(--select-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-#listpoint ul .selected {
+#listpoint ul li.selected .label-box {
   border: solid 3px var(--border-color);
   background-color: var(--select-color);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  margin: 0.52rem 0;
+}
+#listpoint ul li.selected .label-box .label {
   padding: 0.8rem;
 }
-#listpoint ul .selected .remove {
+#listpoint ul li.selected .label-box .remove {
   display: inline;
 }
-#listpoint ul .selected:hover {
+@keyframes grow {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 0.5rem;
+  }
+}
+#listpoint ul li.selected .up,
+#listpoint ul li.selected .down {
+  animation: grow 0.1s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--border-color);
+}
+#listpoint ul li.selected .down {
+  padding-top: 0.2rem;
+}
+#listpoint ul li.selected .up {
+  padding-down: 0.2rem;
+}
+#listpoint ul li.selected:hover .label-box {
   border: solid 3px var(--border-color);
+}
+#listpoint ul li.selected:first-child .up {
+  display: none;
+}
+#listpoint ul li.selected:last-child .down {
+  display: none;
 }
 #listpoint .total {
   height: 3.5rem;

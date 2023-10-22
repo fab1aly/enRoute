@@ -57,11 +57,29 @@ export default class Position {
 
         // remove old position layer
         this.map.removeLayer(this.positionLayerGroup);
-        // make marker and circle
-        this.positionMarker = L.marker(this.getCoordsArray())
+
+        // make marker
+        const selfIcon = L.icon({
+            className: 'icon-self',
+            iconUrl: './image/icons8-Gold-marker-Location-48.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
+        });
+        // you can set .my-div-icon styles in CSS
+        this.positionMarker = L.marker(this.getCoordsArray(), { icon: selfIcon })
             .bindPopup("Vous étes à " + this.getRadius() + " métres de ce point");
-        this.positionCircle = L.circle(this.getCoordsArray(), this.getRadius());
-        // make new group
+
+        // make circle
+        var selfCircle = L.circle(this.getCoordsArray(), {
+            color: 'DarkGoldenrod',
+            fillColor: 'Gold',
+            fillOpacity: 0.3,
+            radius: this.getRadius(),
+        });
+        this.positionCircle = selfCircle;
+
+        // make new group,  add marker and circle
         this.positionLayerGroup = L.layerGroup();
         this.positionLayerGroup.addLayer(this.positionMarker);
         this.positionLayerGroup.addLayer(this.positionCircle);

@@ -39,18 +39,16 @@ export default class SearchBar {
         const url = "https://api-adresse.data.gouv.fr/search/?";
         const addressPlus = "&q=" + address.replaceAll(' ', '+');
 
-        if (this.position !== null) {
+        const latText = this.position.getLat();
+        const lonText = this.position.getLon();
 
-            
-            const latText = await this.position.getLat();
-            const lonText = await this.position.getLon();
-            
+        if (latText && lonText) {
             const posText = '&lat=' + latText + '&lon=' + lonText;
             // console.log(posText)
-
             const response = await fetch(url + addressPlus + posText);
             return response.json();
         }
+        
         else {
             const response = await fetch(url + addressPlus);
             return response.json();
