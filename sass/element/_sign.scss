@@ -58,8 +58,12 @@
         text-decoration: none;
     }
 
-    .error {
+    p.error {
         margin: 2rem;
         color: red;
+    }
+    p.info {
+        margin: 2rem;
+        color: green;
     }
 }

@@ -5,19 +5,18 @@
     left: 1rem;
     right: 1rem;
 
+    max-height: 30vh;
+
     background-color: $bg-color;
     border-radius: 1rem 1rem 0 0;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     padding: .5rem;
 
-    max-height: 30vh;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-
 
     .resize-hitbox {
         position: absolute;
@@ -36,11 +35,7 @@
         width: 100%;
         height: 3rem;
 
-        border: solid 1px $border-color;
-        border-radius: 1rem;
-        background-color: $button-color;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-
+        @include theme($button-color, 1rem);
         margin: .5rem 0;
         padding: .5rem;
 
@@ -61,7 +56,7 @@
         display: flex;
         flex-direction: column;
 
-        li {
+        li.point {
             // point
             width: 100%;
 
@@ -79,11 +74,9 @@
 
                 min-height: 3rem;
 
-                border: solid 1px $border-color;
-                border-radius: 1rem;
-                background-color: $item-color;
-                box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-                rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                @include theme($item-color, 1rem);
+                margin: 0;
+                padding: 0;
 
                 display: flex;
                 align-items: center;
@@ -110,6 +103,7 @@
         }
 
         li.selected {
+            z-index: 1;
 
             .label-box {
                 border: solid 3px $border-color;
@@ -124,18 +118,31 @@
                     display: inline;
                 }
             }
-
-            @keyframes grow {
+            @keyframes growUp {
                 0% {
                     height: 0;
+                    padding-bottom: 0;
                 }
                 100% {
-                    height: .5rem;
+                    height: 1rem;
+                    padding-bottom: .2rem;
                 }
             }
+            @keyframes growDown {
+                0% {
+                    height: 0;
+                    padding-top: 0;
+                }
+                100% {
+                    height: 1rem;
+                    padding-top: .2rem;
+                }
+            }
+
             .up,
             .down {
-                // animation: grow .1s ease-out;
+                animation: none;
+                height: 1rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -143,18 +150,20 @@
                 font-size: 1rem;
                 color: $border-color;
             }
+            .up {
+                padding-bottom: .2rem;
+            }
             .down {
                 padding-top: .2rem;
             }
-            .up {
-                padding-down: .2rem;
-            }
+
         }
         li.selected:hover {
             .label-box {
                 border: solid 3px $border-color;
             }
         }
+
         li.selected:first-child {
             .up {
                 display: none;
@@ -168,17 +177,14 @@
     }
 
     .total {
-        //total
+
         height: 3.5rem;
         width: 100%;
 
-        border: solid 1px $border-color;
-        border-radius: 1rem;
-        background-color: $info-color;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
+        @include theme($info-color, 1rem);
         margin: .5rem 0 0 0;
-        padding: .5rem;
+
 
         font-size: 1.4rem;
         user-select: none;

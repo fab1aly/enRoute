@@ -18,9 +18,9 @@ if (window.localStorage.getItem('local_list')) {
 
 // console.log(local_list);
 
-// display list
+// init list
 local_list.displayInit();
-// local_list.dragAndDrop();
+local_list.eventListenerInit();
 
 ////////////////////////////////////////////////////////////////////////////////
 // ListPoint event listener (SAVE)
@@ -78,12 +78,12 @@ const searchBar = new SearchBar(local_list, pos);
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// set view at position on load
-navigator.geolocation.getCurrentPosition(function(e) {
-    map.setView([e.coords.latitude, e.coords.longitude], 13);
-    // myMap.setView([e.coords.latitude, e.coords.longitude], ((myMap.getZoom() >= 11) ? myMap.getZoom() : 11));
-    // console.log(e);
-});
+// set view at position on load if no point in list
+if (!local_list.getList().length) {
+    navigator.geolocation.getCurrentPosition(function(e) {
+        map.setView([e.coords.latitude, e.coords.longitude], 13);
+    });
+}
 
 
 

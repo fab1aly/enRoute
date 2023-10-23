@@ -60,6 +60,7 @@ session_start();
                     $user->persist();
                     
 // unset($_SESSION['user']);
+                    $_SESSION['info'] = 'Inscription réssuie, veuillez vous connecter.';
                     
                     header('Location: ./sign-in'); //redirction sign-in if valid
                     exit;
@@ -72,7 +73,7 @@ session_start();
             }
         }
 
-        public function signIn() : void // connexion
+        public function signIn() : void // connection
 		{
 session_start();
 			//	display form (GET)
@@ -125,17 +126,17 @@ session_start();
 			}
 		}
 
-        public function signOut() : void // deconnexion
+        public function signOut() : void // deconnection
 		{
 session_start();
 			
 			unset($_SESSION['user']);
 
-			header('Location: ./sign-in');
+			header('Location: ./');
 			exit;
 		}
 
-		public function signForget() : void // oubli
+		public function signForget() : void // password reset
 		{
 session_start();
 // var_dump($_SESSION['user']->getId());
@@ -267,7 +268,7 @@ session_start();
             }
         }
 
-        public function profilProcess ()
+        public function profilProcess () // profil update
         {
 session_start();
             if (array_key_exists('user', $_SESSION))
@@ -355,18 +356,4 @@ session_start();
 		
 		}
 
-
-// 		public function userDelete() : void
-// 		{
-// session_start();
-// // var_dump($_SESSION['user']->getId());
-			
-// 			$usersManager = new UsersManager;
-// 			$usersManager->deleteUser($_SESSION['user']->getId());
-// 			$_SESSION['user']->logout();
-
-// 			header('Location: ./');
-// 			exit;
-// 		}
-		
     }

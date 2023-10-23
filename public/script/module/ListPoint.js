@@ -16,13 +16,30 @@ export default class ListPoint {
             this.listElement = document.querySelector(`#listpoint`);
             this.ul = document.querySelector(`#listpoint ul`);
 
+            // bbox (dimension view of total point)
+            this.bbox = [
+                [],
+                []
+            ];
+
         }
 
     }
+    getBbox() {
+        return this.bbox
+    }
+    setViewOnAllPoint(time = 1000) {
+        if (this.list.length) {
+            setTimeout(() => {
+                this.map.fitBounds(this.bbox);
+            }, time);
+        }
+
+    }
+
     getList() {
         return this.list;
     }
-
     setList(list) {
         this.list = list;
     }
@@ -33,8 +50,10 @@ export default class ListPoint {
         this.saveList();
         this.displayInit();
 
+        const li = this.ul.querySelector('li:last-child');
+        li.classList.add('selected');
         this.ul.scrollTop = this.ul.scrollHeight;
-        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 15);
+        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
     }
 
     //remove point in list by index
@@ -70,19 +89,59 @@ export default class ListPoint {
     ////////////////////////////////////////////////////////////////////////////
     //init display
     displayInit() {
-
-        this.displayPointsInMap();
-        this.displayRouteSetTotal();
-        this.displayListElement();
-
-        //init listener
-        this.displaySelected();
-        this.upPointInList();
-        this.downPointInList();
-        // this.resizeListpoint();
+        if (this.list !== []) {
+            this.displayPointsInMap();
+            this.displayRouteSetTotal();
+            this.displayListElement();
+        }
     }
 
-    //display points in map
+    // display points element
+    displayListElement() {
+
+        // clean ul element
+        this.ul.replaceChildren();
+        // this.ul.innerHTML = '';
+
+        if (this.list.length > 0) {
+            // for display points in list
+            for (let [index, point] of this.list.entries()) {
+
+                // remove point if null or undefined 
+                if (!point) {
+                    // if (point == null || point == undefined) {
+                    this.removePoint(index);
+                    continue;
+                }
+
+                else {
+                    const template = this.listElement.querySelector(`template`);
+
+                    const li = template.content.cloneNode(true);
+                    li.feature = point; //for save geojson data ==> not work ! why ?
+                    // console.log(li)
+
+                    // edit span label
+                    const label = li.querySelector('.label');
+                    label.feature = point; //for save geojson
+                    label.textContent = point.properties.label;
+                    label.setAttribute('data-index', index);
+
+                    // add listener for remove button
+                    const remove = li.querySelector(`.remove`);
+                    if (remove != null) {
+                        remove.addEventListener('click', () => {
+                            this.removePoint(index);
+                        });
+                    }
+
+                    this.ul.appendChild(li);
+                }
+            }
+        }
+    }
+
+    // display points in map
     displayPointsInMap() {
 
         // clean map, init layer point group 
@@ -154,7 +213,7 @@ export default class ListPoint {
         this.pointLayerGroup.addTo(this.map);
     }
 
-    //display route in map and set total element with 
+    // display route in map and set total element with 
     displayRouteSetTotal() {
 
         // clean map, init layer line group 
@@ -169,6 +228,11 @@ export default class ListPoint {
 
         let duration = 0;
         let distance = 0;
+        this.bbox = [
+            [],
+            []
+        ];
+
 
         const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
             const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
@@ -176,7 +240,7 @@ export default class ListPoint {
             const start = `&start=${pointStart.geometry.coordinates}`;
             const end = `&end=${pointEnd.geometry.coordinates}`;
             const format = "&geometryFormat=geojson";
-            const other = "&getBbox=false&getSteps=false";
+            const other = "&getBbox=true&getSteps=false";
 
             try {
                 const response = await fetch(url + utils + start + end + format + other);
@@ -187,6 +251,35 @@ export default class ListPoint {
 
                 duration += data.duration || 0;
                 distance += data.distance || 0;
+
+                // update bbox for set view on total point
+                if (typeof this.bbox[0][1] === 'undefined') {
+                    this.bbox[0][1] = data.portions[0].bbox[0];
+                }
+                else if (data.portions[0].bbox[0] < this.bbox[0][1]) {
+                    this.bbox[0][1] = data.portions[0].bbox[0];
+                }
+
+                if (typeof this.bbox[0][0] === 'undefined') {
+                    this.bbox[0][0] = data.portions[0].bbox[1];
+                }
+                else if (data.portions[0].bbox[1] < this.bbox[0][0]) {
+                    this.bbox[0][0] = data.portions[0].bbox[1];
+                }
+
+                if (typeof this.bbox[1][1] === 'undefined') {
+                    this.bbox[1][1] = data.portions[0].bbox[2];
+                }
+                else if (data.portions[0].bbox[2] > this.bbox[1][1]) {
+                    this.bbox[1][1] = data.portions[0].bbox[2];
+                }
+
+                if (typeof this.bbox[1][0] === 'undefined') {
+                    this.bbox[1][0] = data.portions[0].bbox[3];
+                }
+                else if (data.portions[0].bbox[3] > this.bbox[1][0]) {
+                    this.bbox[1][0] = data.portions[0].bbox[3];
+                }
 
             }
             catch (error) {
@@ -215,54 +308,26 @@ export default class ListPoint {
 
         displayRoutes();
         this.lineLayerGroup.addTo(this.map);
-    }
 
-    // display points element
-    displayListElement() {
 
-        // clean ul element
-        this.ul.replaceChildren();
-        // this.ul.innerHTML = '';
-
-        if (this.list.length > 0) {
-            // for display points in list
-            for (let [index, point] of this.list.entries()) {
-
-                // remove point if null or undefined 
-                if (!point) {
-                    // if (point == null || point == undefined) {
-                    this.removePoint(index);
-                    continue;
-                }
-
-                else {
-                    const template = this.listElement.querySelector(`template`);
-
-                    const li = template.content.cloneNode(true);
-                    li.feature = point; //for save geojson data ==> not work ! why ?
-                    // console.log(li)
-
-                    // edit span label
-                    const label = li.querySelector('.label');
-                    label.feature = point; //for save geojson
-                    label.textContent = point.properties.label;
-                    label.setAttribute('data-index', index);
-
-                    // add listener for remove button
-                    const remove = li.querySelector(`.remove`);
-                    if (remove != null) {
-                        remove.addEventListener('click', () => {
-                            this.removePoint(index);
-                        });
-                    }
-
-                    this.ul.appendChild(li);
-                }
-            }
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    //init listener
+    eventListenerInit() {
+
+
+        this.setViewOnAllPoint();
+
+
+        //init listener
+        this.displaySelected();
+        this.upPointInList();
+        this.downPointInList();
+        this.totalListner();
+        // this.resizeListpoint();
+    }
+
     // Add event listeners for toggle selected point and remove by cross
     displaySelected() {
         const elements = this.ul.querySelectorAll('.label-box');
@@ -276,15 +341,33 @@ export default class ListPoint {
                 }
                 // function for toggle select li (route) in ul (routes)
                 function displaySelect(li, ul) {
-                    if (li.classList.contains('selected') == false) {
+                    if (li.classList.contains('selected')) {
+                        li.classList.remove('selected');
+                    }
+                    else {
                         const old = ul.querySelector('.selected');
                         if (old) {
                             old.classList.remove('selected');
                         }
                         li.classList.add('selected');
-                    }
-                    else {
-                        li.classList.remove('selected');
+
+                        // play animation grow on cross (up/down)
+                        const up = li.querySelector('.up');
+                        if (li.querySelector('.up')) {
+                            up.style.animation = "growUp .1s ease-in";
+                            setTimeout(() => {
+                                up.style.animation = "";
+                            }, 101);
+                        }
+
+                        const down = li.querySelector('.down');
+                        if (li.querySelector('.down')) {
+                            down.style.animation = "growDown .1s ease-in";
+                            setTimeout(() => {
+                                down.style.animation = "";
+                            }, 101);
+                        }
+
                     }
                 }
 
@@ -300,25 +383,13 @@ export default class ListPoint {
                 const li = event.target.closest('li');
                 if (li) {
                     displaySelect(li, this.ul);
+
+
+
                 }
 
             });
         }
-    }
-
-    // method for update (after up/down)
-    updateList() {
-        const labels = document.querySelectorAll('#listpoint ul .label');
-        const list = [];
-        if (labels) {
-            for (let label of labels) {
-                list.push(label.feature);
-            }
-        }
-        this.setList(list);
-        this.saveList();
-        this.displayPointsInMap();
-        this.displayRouteSetTotal();
     }
 
     // Add event listeners for up point
@@ -331,17 +402,17 @@ export default class ListPoint {
                 const liAbove = liSelected.previousElementSibling;
 
                 if (liAbove) {
-                    let distance = 0;
-                    let distance2 = 0;
+                    let distanceAbove = 0;
+                    let distanceSelected = 0;
                     let id = null;
                     const self = this; // Stocker la valeur de this
 
                     function animate() {
-                        distance++;
-                        distance2 += liSelected.clientHeight / liAbove.clientHeight;
-                        liSelected.style.transform = `translateY(-${distance}px)`;
-                        liAbove.style.transform = `translateY(${distance2}px)`;
-                        if (distance < liAbove.clientHeight && distance2 < liSelected.clientHeight) {
+                        distanceAbove++;
+                        distanceSelected += liSelected.clientHeight / liAbove.clientHeight;
+                        liSelected.style.transform = `translateY(-${distanceAbove}px)`;
+                        liAbove.style.transform = `translateY(${distanceSelected}px)`;
+                        if (distanceAbove < liAbove.clientHeight && distanceSelected < liSelected.clientHeight) {
                             id = requestAnimationFrame(animate);
                         }
                         else {
@@ -359,7 +430,7 @@ export default class ListPoint {
         }
     }
 
-    // Add event listeners for up point
+    // Add event listeners for down point CLEAN !!!!
     downPointInList() {
         const downButtons = this.ul.querySelectorAll('.down');
         for (let downButton of downButtons) {
@@ -369,17 +440,58 @@ export default class ListPoint {
                 const liBelow = liSelected.nextElementSibling;
 
                 if (liBelow) {
-                    let distance = 0;
-                    let distance2 = 0;
+                    let distanceBelow = 0;
+                    let distanceSelected = 0;
                     let id = null;
                     const self = this; // Stocker la valeur de this
 
+                    // const up = liSelected.querySelector('.up');
+                    // if (liSelected.parentNode.firstElementChild == liSelected) {
+
+                    //     up.style.display = `flex`;
+                    //     up.style.height = `0px`;
+                    //     up.style.paddingBottom = `0px`;
+                    // }
+
                     function animate() {
-                        distance++;
-                        distance2 += liSelected.clientHeight / liBelow.clientHeight;
-                        liSelected.style.transform = `translateY(${distance}px)`;
-                        liBelow.style.transform = `translateY(-${distance2}px)`;
-                        if (distance < liBelow.clientHeight && distance2 < liSelected.clientHeight) {
+
+
+                        // if (distance <= 5) {
+                        //     console.log(liSelected.parentNode.firstElementChild)
+                        //     // play animation grow on cross (up/down)
+                        //     if (liSelected.parentNode.firstElementChild == liSelected) {
+                        //         up.style.height = `${distance}px`;
+                        //         // up.style.padding-bottom: .2rem;
+
+                        //     }
+                        //     // if (liSelected.parentNode.lastChild === liSelected) {
+                        //     //     const down = liSelected.querySelector('.down');
+                        //     //     down.style.height = `${distance}px`;
+                        //     //     console.log('ok')
+
+                        //     // }
+                        // }
+                        // if (distance <= 2) {
+                        //     console.log(liSelected.parentNode.firstElementChild)
+                        //     // play animation grow on cross (up/down)
+                        //     if (liSelected.parentNode.firstElementChild == liSelected) {
+                        //         up.style.paddingBottom = `${distance}px`;
+                        //         // up.style.padding-bottom: .2rem;
+
+                        //     }
+                        //     // if (liSelected.parentNode.lastChild === liSelected) {
+                        //     //     const down = liSelected.querySelector('.down');
+                        //     //     down.style.height = `${distance}px`;
+                        //     //     console.log('ok')
+
+                        //     // }
+                        // }
+
+                        distanceBelow++;
+                        distanceSelected += liSelected.clientHeight / liBelow.clientHeight;
+                        liSelected.style.transform = `translateY(${distanceBelow}px)`;
+                        liBelow.style.transform = `translateY(-${distanceSelected}px)`;
+                        if (distanceBelow < liBelow.clientHeight && distanceSelected < liSelected.clientHeight) {
                             id = requestAnimationFrame(animate);
                         }
                         else {
@@ -387,7 +499,7 @@ export default class ListPoint {
                             liBelow.after(liSelected);
                             liSelected.style.transform = ``;
                             liBelow.style.transform = ``;
-                            ///////
+
                             self.updateList();
                         }
                     }
@@ -396,6 +508,31 @@ export default class ListPoint {
             });
         }
     }
+
+    // method for update list (after up/down)
+    updateList() {
+        const labels = document.querySelectorAll('#listpoint ul .label');
+        const list = [];
+        if (labels) {
+            for (let label of labels) {
+                list.push(label.feature);
+            }
+        }
+        this.setList(list);
+        this.saveList();
+        this.displayPointsInMap();
+        this.displayRouteSetTotal();
+    }
+
+    // set view on all point
+    totalListner() {
+        const total = this.listElement.querySelector('.total span');
+        total.addEventListener('click', () => {
+            this.map.flyToBounds(this.getBbox());
+        });
+    }
+
+
 
     // resizeListpoint() {
     //     const hitbox = this.listElement.querySelector('.resize-hitbox');

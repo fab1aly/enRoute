@@ -5,13 +5,18 @@
 		$error = $_SESSION['error'];
 		unset($_SESSION['error']);
 	}
+	if(array_key_exists('info', $_SESSION))
+	{
+		$info = $_SESSION['info'];
+		unset($_SESSION['info']);
+	}
 
 ?>
 
 <div id="sign-container">
     <form id="sign_in" class="sign-form" method="post" action="./sign-in">
         <fieldset>
-            <legend>Connection</legend>
+            <legend>Connexion</legend>
             
             <input type="email" name="email" placeholder="Adresse électronique" 
                 <?= isset($_SESSION['formSignData']['email']) ? 
@@ -29,6 +34,10 @@
     
     <?php if(isset($error)): ?>
     	<p class="error"><?= $error ?></p>
+    <?php endif ?>
+    
+    <?php if(isset($info)): ?>
+    	<p class="info"><?= $info ?></p>
     <?php endif ?>
     
 </div>

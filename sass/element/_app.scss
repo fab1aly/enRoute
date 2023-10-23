@@ -10,9 +10,19 @@
     #app {
         height: 100vh;
 
-        display: grid;
-        grid-template-columns: 70vw auto;
-        grid-template-rows: 5.8rem 3.8rem 15rem auto;
-        gap: .5rem .5rem;
+        display: flex;
+        flex-direction: column;
+
+
+        main {
+            height: 100%;
+
+            display: grid;
+            grid-template-columns: 70vw auto;
+            grid-template-rows: 5.8rem 3.8rem 15rem auto;
+            gap: .5rem .5rem;
+        }
     }
+
+
 }

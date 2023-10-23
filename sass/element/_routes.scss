@@ -1,7 +1,7 @@
 #routes {
 
     position: absolute;
-    top: 6rem;
+    top: 6.1rem;
     right: .5rem;
 
     max-width: 80vw;
@@ -39,7 +39,7 @@
             align-items: center;
 
             .label {
-                margin-right: 1rem;
+                margin-left: 1rem;
             }
 
             .remove {
@@ -85,6 +85,7 @@
     #routes {
         position: static;
         width: auto;
+        min-width: unset;
 
         grid-row-start: 2; // grid-row-end: end;
         grid-column-start: 2;
@@ -93,8 +94,6 @@
 
         margin-right: .5rem; // height: 100%;
         display: flex;
-
-
 
         ul {
             // height: 100%;
@@ -105,20 +104,14 @@
             li {
                 height: 2.5rem;
 
-
-
                 border-radius: 1rem;
                 padding: .7rem .5rem;
                 margin: .4rem .5rem;
 
-
-
             }
-
         }
 
         form {}
-
 
     }
 }

@@ -6,20 +6,22 @@
     width: 100%;
     height: 100%;
 
+    .leaflet-pane.leaflet-popup-pane {
+        font-size: 1.2rem;
+    }
+
     .leaflet-top {
-        top: 5rem;
+        top: 5.1rem;
 
         display: flex;
         flex-direction: column-reverse;
         align-items: flex-start;
     }
-    .leaflet-control-layers.leaflet-control.leaflet-control-layers-expanded {
+    .leaflet-control-layers-expanded {
         margin: 0;
         font-size: 1rem;
     }
-
     .leaflet-control {
-
         transform: scale(.9);
     }
 
@@ -50,14 +52,6 @@
 
         .leaflet-control-attribution {
             display: block;
-        } // .icon-self {
-        //     height: 58rem;
-        //     width: 25rem;
-        //     span {
-        //         background-color: var(--button-color);
-        //     }
-        // }
+        }
     }
-
-
 }

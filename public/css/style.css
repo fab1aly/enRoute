@@ -33,6 +33,11 @@
 @media screen and (min-width: 1024px) and (min-height: 600px) {
   #app {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  #app main {
+    height: 100%;
     display: grid;
     grid-template-columns: 70vw auto;
     grid-template-rows: 5.8rem 3.8rem 15rem auto;
@@ -120,11 +125,7 @@ header nav menu li a {
 
 @media screen and (min-width: 1024px) and (min-height: 600px) {
   header {
-    position: static;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: end;
+    width: 100vw;
   }
 }
 #map {
@@ -133,13 +134,16 @@ header nav menu li a {
   width: 100%;
   height: 100%;
 }
+#map .leaflet-pane.leaflet-popup-pane {
+  font-size: 1.2rem;
+}
 #map .leaflet-top {
-  top: 5rem;
+  top: 5.1rem;
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
 }
-#map .leaflet-control-layers.leaflet-control.leaflet-control-layers-expanded {
+#map .leaflet-control-layers-expanded {
   margin: 0;
   font-size: 1rem;
 }
@@ -248,6 +252,7 @@ header nav menu li a {
     grid-column-start: 2;
     grid-column-end: end;
     align-self: start;
+    margin-right: 0.5rem;
   }
   #searchbar ul {
     background-color: transparent;
@@ -255,8 +260,8 @@ header nav menu li a {
   }
   #searchbar ul li {
     height: 2.5rem;
-    margin: 0.4rem 0rem;
     border-radius: 1rem;
+    margin: 0.4rem 0rem;
     padding: 1rem 0.5rem;
     display: flex;
     align-items: center;
@@ -264,7 +269,7 @@ header nav menu li a {
 }
 #routes {
   position: absolute;
-  top: 6rem;
+  top: 6.1rem;
   right: 0.5rem;
   max-width: 80vw;
   min-width: 30vw;
@@ -292,7 +297,7 @@ header nav menu li a {
   align-items: center;
 }
 #routes ul li .label {
-  margin-right: 1rem;
+  margin-left: 1rem;
 }
 #routes ul li .remove {
   color: transparent;
@@ -316,6 +321,7 @@ header nav menu li a {
   #routes {
     position: static;
     width: auto;
+    min-width: unset;
     grid-row-start: 2;
     grid-column-start: 2;
     grid-column-end: end;
@@ -339,11 +345,11 @@ header nav menu li a {
   bottom: 0;
   left: 1rem;
   right: 1rem;
+  max-height: 30vh;
   background-color: DarkSeaGreen;
   border-radius: 1rem 1rem 0 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   padding: 0.5rem;
-  max-height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -360,10 +366,12 @@ header nav menu li a {
   display: none;
   width: 100%;
   height: 3rem;
-  border: solid 1px DimGray;
+  background: Moccasin;
   border-radius: 1rem;
-  background-color: Moccasin;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
   margin: 0.5rem 0;
   padding: 0.5rem;
   font-size: 1.4rem;
@@ -378,40 +386,47 @@ header nav menu li a {
   display: flex;
   flex-direction: column;
 }
-#listpoint ul li {
+#listpoint ul li.point {
   width: 100%;
   padding: 0.2rem 0;
   display: flex;
   flex-direction: column;
 }
-#listpoint ul li .up,
-#listpoint ul li .down {
+#listpoint ul li.point .up,
+#listpoint ul li.point .down {
   display: none;
 }
-#listpoint ul li .label-box {
+#listpoint ul li.point .label-box {
   min-height: 3rem;
-  border: solid 1px DimGray;
+  background: LightSteelBlue;
   border-radius: 1rem;
-  background-color: LightSteelBlue;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
 }
-#listpoint ul li .label-box .label {
+#listpoint ul li.point .label-box .label {
   width: 100%;
   height: auto;
   font-size: 1.4rem;
   user-select: none;
   padding: 0.5rem 1rem;
 }
-#listpoint ul li .label-box .remove {
+#listpoint ul li.point .label-box .remove {
   display: none;
   padding: 0 0.5rem;
 }
-#listpoint ul li .label-box:hover {
+#listpoint ul li.point .label-box:hover {
   border: solid 1px DimGray;
   background-color: Lightblue;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+#listpoint ul li.selected {
+  z-index: 1;
 }
 #listpoint ul li.selected .label-box {
   border: solid 3px DimGray;
@@ -424,27 +439,41 @@ header nav menu li a {
 #listpoint ul li.selected .label-box .remove {
   display: inline;
 }
-@keyframes grow {
+@keyframes growUp {
   0% {
     height: 0;
+    padding-bottom: 0;
   }
   100% {
-    height: 0.5rem;
+    height: 1rem;
+    padding-bottom: 0.2rem;
+  }
+}
+@keyframes growDown {
+  0% {
+    height: 0;
+    padding-top: 0;
+  }
+  100% {
+    height: 1rem;
+    padding-top: 0.2rem;
   }
 }
 #listpoint ul li.selected .up,
 #listpoint ul li.selected .down {
+  animation: none;
+  height: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
   color: DimGray;
 }
+#listpoint ul li.selected .up {
+  padding-bottom: 0.2rem;
+}
 #listpoint ul li.selected .down {
   padding-top: 0.2rem;
-}
-#listpoint ul li.selected .up {
-  padding-down: 0.2rem;
 }
 #listpoint ul li.selected:hover .label-box {
   border: solid 3px DimGray;
@@ -458,12 +487,13 @@ header nav menu li a {
 #listpoint .total {
   height: 3.5rem;
   width: 100%;
-  border: solid 1px DimGray;
+  background: IndianRed;
   border-radius: 1rem;
-  background-color: IndianRed;
+  border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  margin: 0.5rem 0 0 0;
+  margin: 0.5rem;
   padding: 0.5rem;
+  margin: 0.5rem 0 0 0;
   font-size: 1.4rem;
   user-select: none;
   display: flex;
@@ -539,7 +569,7 @@ header nav menu li a {
   animation-name: animatetop;
   animation-duration: 0.5s;
   /* Add Animation */
-  background-color: DarkSeaGreen;
+  background: DarkSeaGreen;
   border-radius: 1rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -567,7 +597,7 @@ header nav menu li a {
   color: #222;
 }
 #modal .modal-content fieldset {
-  background-color: LightSteelBlue;
+  background: LightSteelBlue;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -578,7 +608,7 @@ header nav menu li a {
   align-content: center;
 }
 #modal .modal-content fieldset legend {
-  background-color: IndianRed;
+  background: IndianRed;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -586,7 +616,7 @@ header nav menu li a {
   padding: 0.5rem;
 }
 #modal .modal-content fieldset input {
-  background-color: WhiteSmoke;
+  background: WhiteSmoke;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -594,7 +624,7 @@ header nav menu li a {
   padding: 0.5rem;
 }
 #modal .modal-content fieldset p {
-  background-color: Moccasin;
+  background: WhiteSmoke;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -602,7 +632,7 @@ header nav menu li a {
   padding: 0.5rem;
 }
 #modal .modal-content button {
-  background-color: Moccasin;
+  background: Moccasin;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -629,7 +659,7 @@ header nav menu li a {
   top: 30vh;
   left: 15vw;
   right: 15vw;
-  background-color: DarkSeaGreen;
+  background: DarkSeaGreen;
   border-radius: 1rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -641,7 +671,7 @@ header nav menu li a {
   align-items: flex-end;
 }
 #sign-container .sign-form fieldset {
-  background-color: LightSteelBlue;
+  background: LightSteelBlue;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -652,7 +682,7 @@ header nav menu li a {
   align-content: center;
 }
 #sign-container .sign-form fieldset legend {
-  background-color: IndianRed;
+  background: IndianRed;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -660,7 +690,7 @@ header nav menu li a {
   padding: 0.5rem;
 }
 #sign-container .sign-form input {
-  background-color: WhiteSmoke;
+  background: WhiteSmoke;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -669,7 +699,7 @@ header nav menu li a {
   border: solid 2px #222;
 }
 #sign-container .sign-form button {
-  background-color: Moccasin;
+  background: Moccasin;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -678,7 +708,7 @@ header nav menu li a {
   width: fit-content;
 }
 #sign-container .delete-user {
-  background-color: IndianRed;
+  background: IndianRed;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -688,9 +718,13 @@ header nav menu li a {
   padding: 0.5rem;
   text-decoration: none;
 }
-#sign-container .error {
+#sign-container p.error {
   margin: 2rem;
   color: red;
+}
+#sign-container p.info {
+  margin: 2rem;
+  color: green;
 }
 
 /*# sourceMappingURL=style.css.map */

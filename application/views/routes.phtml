@@ -1,9 +1,6 @@
 <!--<?php var_dump($_POST);?>-->
 
-
-
-
-<!-- Make sure you put this AFTER Leaflet's CSS -->
+<!-- Leaflet Script -->
  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
@@ -57,41 +54,31 @@
 
 <div id="listpoint">
 
-
     <!--<div class="drag-bar"></div>-->
-
 
     <div class="position">
         <span>Votre position</span>
     </div>
 
+    <ul></ul><!--list of point-->
 
-    <ul>
-        <!--list of point-->
-    </ul>
     <template> <!--template of point-->
         <li class="point">
-            <!--<div class="up"><i class="fa-solid fa-angles-up"></i></div>-->
             <div class="label-box">
                 <span class='label'></span>
-                <!--<span class="remove">-->
-                <!--    <i class="fa-solid fa-circle-xmark"></i>-->
-                <!--</span>-->
+                
             </div>
-            <!--<div class="down"><i class="fa-solid fa-angles-down"></i></div>-->
         </li>
     </template>
 
     <div class="total">
         <span></span>
-        
-    
+
         <form method="post" action="./home-process"> 
             <input id="load_input" type="hidden" name="list_uniq_id" value="">
             
             <button type="button">Charger</button>
         </form>
-    
     </div>
 
 

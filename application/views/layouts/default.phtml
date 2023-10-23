@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="author" content="Fabien Aly">
+    <meta
+        name="description"
+        content="L'application d'itinéraire enRoute vous aide à organiser vos trajets entre différents points de passage.">
+<!--Favicon-->
+    <link rel="icon" href="image/icons8-SkyBlue-marker-48.png">
 <!--CSS-->
     <link rel="stylesheet" href="css/style.css" type="text/css" >
-
 <!--Script Fontawesome-->
     <script src="https://kit.fontawesome.com/fdc6c3e4a2.js" crossorigin="anonymous"></script>
 
     <title><?= $title?></title>
 </head>
-<body>
 
+<body>
 <div id="app">
     <header>
         
@@ -44,7 +48,7 @@
                         <a href="./sign-up">Inscription</a>
                     </li>
                     <li class="">
-                        <a href="./sign-in">Connection</a>
+                        <a href="./sign-in">Connexion</a>
                     </li>
                 </menu>
                 <aside>Menu</aside>
@@ -84,8 +88,10 @@ nav.style.width = aside.offsetWidth+10+'px';
 
     </header>
     
-    <?= $viewContent?>
+    <main>
+        <?= $viewContent?>
+    </main>
+
 </div>
-    
 </body>
 </html>

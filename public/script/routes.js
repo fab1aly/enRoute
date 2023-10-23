@@ -45,6 +45,7 @@ if (list_routes.querySelector('li')) {
     const first_route_list = JSON.parse(li.dataset.value);
     route = new ListPoint(map, 'route', first_route_list);
     route.displayInit();
+    route.eventListenerInit();
 }
 
 
@@ -69,6 +70,7 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
         const list_point = JSON.parse(li.dataset.value);
         route.setList(list_point);
         route.displayInit();
+        route.setViewOnAllPoint();
     }
 
     // remove route
