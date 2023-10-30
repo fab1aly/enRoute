@@ -1,7 +1,6 @@
 #sign-container {
 
     position: absolute;
-
     width: 100%;
     height: 100%;
 
@@ -14,10 +13,8 @@
 
     .sign-form {
         position: static;
-        top: 30vh;
-        left: 15vw;
+        top: 30vh; // left: 15vw;
         right: 15vw;
-
         @include theme($bg-color, 1rem);
         padding: 1rem;
 
@@ -34,6 +31,13 @@
 
             legend {
                 @include theme($info-color, .5rem);
+
+                display: flex;
+                align-items: center;
+
+                i {
+                    margin: 0 .5rem;
+                }
             }
         }
 
@@ -46,6 +50,14 @@
             @include theme($button-color, .5rem);
 
             width: fit-content;
+            padding-left: 1rem;
+
+            display: flex;
+            align-items: center;
+
+            i {
+                margin: 0 .5rem;
+            }
         }
     }
 
@@ -53,9 +65,16 @@
         @include theme($info-color, .5rem);
 
         margin: 2rem .5rem;
-        padding: .5rem;
+        padding: .5rem 1rem;
 
         text-decoration: none;
+
+        display: flex;
+        align-items: center;
+
+        i {
+            margin: 0 .5rem;
+        }
     }
 
     p.error {
@@ -65,5 +84,16 @@
     p.info {
         margin: 2rem;
         color: green;
+    }
+
+
+    @media screen and (min-width: 1024px) and (min-height: 600px) {}
+
+}
+
+@media (prefers-color-scheme: dark) {
+
+    #sign-container {
+        background-color: $border-color;
     }
 }

@@ -79,43 +79,41 @@
         
         public function setNewUsername (int $id, string $username) : void
         {
-            $query = "UPDATE Users SET username = :username WHERE id= $id";
+            $query = "UPDATE Users SET username = :username WHERE id= :id";
             
             $sth = self::$dbh->prepare($query);
-            $sth->bindValue(':username', $username, PDO::PARAM_STR);
+            $sth->bindValue(':id', $id);
+            $sth->bindValue(':username', $username);
             $sth->execute();
-            
-            $sth->fetch();
         }
         
         public function setNewEmail (int $id, string $email) : void
         {
-            $query = "UPDATE Users SET email = :email WHERE id= $id";
+            $query = "UPDATE Users SET email = :email WHERE id= :id";
             
             $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':id', $id);
             $sth->bindValue(':email', $email, PDO::PARAM_STR);
             $sth->execute();
-            
-            $sth->fetch();
         }
         
         public function setNewPassword (int $id, string $password) : void
         {
-            $query = "UPDATE Users SET password = :password WHERE id= $id";
+            $query = "UPDATE Users SET password = :password WHERE id= :id";
             
             $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':id', $id);
             $sth->bindValue(':password', password_hash($password,PASSWORD_DEFAULT), PDO::PARAM_STR);
             $sth->execute();
-            
-            $sth->fetch();
         }
         
         public function deleteUser (int $id) : void
         {
-            $query = "DELETE FROM `Users` WHERE id= $id";
+            $query = "DELETE FROM `Users` WHERE id= :id";
             
-            $sth = self::$dbh->query($query);
-            $sth->fetch();
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':id', $id);
+            $sth->execute();
         }
         
         public function getEmailIsKnown (string $email) : bool

@@ -29,7 +29,7 @@ export default class ListPoint {
         return this.bbox
     }
     setViewOnAllPoint(time = 1000) {
-        if (this.list.length) {
+        if (this.list.length >= 2) {
             setTimeout(() => {
                 this.map.fitBounds(this.bbox);
             }, time);
@@ -49,11 +49,17 @@ export default class ListPoint {
         this.list.push(feature);
         this.saveList();
         this.displayInit();
+        // this.eventListenerInit();
 
         const li = this.ul.querySelector('li:last-child');
         li.classList.add('selected');
         this.ul.scrollTop = this.ul.scrollHeight;
         this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
+
+        if (this.getList().length >= 2) {
+            const info = document.querySelector(`#listpoint div.info`);
+            info.style.display = 'none';
+        }
     }
 
     //remove point in list by index
@@ -93,17 +99,32 @@ export default class ListPoint {
             this.displayPointsInMap();
             this.displayRouteSetTotal();
             this.displayListElement();
+
+            this.eventListenerInit();
         }
+
     }
 
     // display points element
     displayListElement() {
+
+        // display info if new (list empty)
+        const info = document.querySelector(`#listpoint div.info`);
+        if (info) {
+            if (this.getList().length < 2) {
+                info.style.display = 'block';
+            }
+            else {
+                info.style.display = 'none';
+            }
+        }
 
         // clean ul element
         this.ul.replaceChildren();
         // this.ul.innerHTML = '';
 
         if (this.list.length > 0) {
+
             // for display points in list
             for (let [index, point] of this.list.entries()) {
 
@@ -129,10 +150,8 @@ export default class ListPoint {
 
                     // add listener for remove button
                     const remove = li.querySelector(`.remove`);
-                    if (remove != null) {
-                        remove.addEventListener('click', () => {
-                            this.removePoint(index);
-                        });
+                    if (remove) {
+                        remove.setAttribute('data-index', index);
                     }
 
                     this.ul.appendChild(li);
@@ -226,89 +245,110 @@ export default class ListPoint {
         }
         this.lineLayerGroup.addTo(this.map);
 
-        let duration = 0;
-        let distance = 0;
-        this.bbox = [
-            [],
-            []
-        ];
+        if (this.getList().length >= 2) {
 
 
-        const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
-            const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
-            const utils = "resource=bdtopo-osrm&profile=car&optimization=fastest";
-            const start = `&start=${pointStart.geometry.coordinates}`;
-            const end = `&end=${pointEnd.geometry.coordinates}`;
-            const format = "&geometryFormat=geojson";
-            const other = "&getBbox=true&getSteps=false";
+            // const info = document.querySelector(`#listpoint div.info`);
+            // info.style.display = 'none';
 
-            try {
-                const response = await fetch(url + utils + start + end + format + other);
-                const data = await response.json();
+            let duration = 0;
+            let distance = 0;
+            this.bbox = [
+                [],
+                []
+            ];
 
-                const line = L.geoJSON(data.geometry);
-                this.lineLayerGroup.addLayer(line);
 
-                duration += data.duration || 0;
-                distance += data.distance || 0;
+            const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
+                const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
+                const utils = "resource=bdtopo-osrm&profile=car&optimization=fastest";
+                const start = `&start=${pointStart.geometry.coordinates}`;
+                const end = `&end=${pointEnd.geometry.coordinates}`;
+                const format = "&geometryFormat=geojson";
+                const other = "&getBbox=true&getSteps=false";
 
-                // update bbox for set view on total point
-                if (typeof this.bbox[0][1] === 'undefined') {
-                    this.bbox[0][1] = data.portions[0].bbox[0];
+                try {
+                    const response = await fetch(url + utils + start + end + format + other);
+                    const data = await response.json();
+
+                    const line = L.geoJSON(data.geometry);
+                    this.lineLayerGroup.addLayer(line);
+
+                    duration += data.duration || 0;
+                    distance += data.distance || 0;
+
+                    // update bbox for set view on total point
+                    if (typeof this.bbox[0][1] === 'undefined') {
+                        this.bbox[0][1] = data.portions[0].bbox[0];
+                    }
+                    else if (data.portions[0].bbox[0] < this.bbox[0][1]) {
+                        this.bbox[0][1] = data.portions[0].bbox[0];
+                    }
+
+                    if (typeof this.bbox[0][0] === 'undefined') {
+                        this.bbox[0][0] = data.portions[0].bbox[1];
+                    }
+                    else if (data.portions[0].bbox[1] < this.bbox[0][0]) {
+                        this.bbox[0][0] = data.portions[0].bbox[1];
+                    }
+
+                    if (typeof this.bbox[1][1] === 'undefined') {
+                        this.bbox[1][1] = data.portions[0].bbox[2];
+                    }
+                    else if (data.portions[0].bbox[2] > this.bbox[1][1]) {
+                        this.bbox[1][1] = data.portions[0].bbox[2];
+                    }
+
+                    if (typeof this.bbox[1][0] === 'undefined') {
+                        this.bbox[1][0] = data.portions[0].bbox[3];
+                    }
+                    else if (data.portions[0].bbox[3] > this.bbox[1][0]) {
+                        this.bbox[1][0] = data.portions[0].bbox[3];
+                    }
+
                 }
-                else if (data.portions[0].bbox[0] < this.bbox[0][1]) {
-                    this.bbox[0][1] = data.portions[0].bbox[0];
+                catch (error) {
+                    console.error('Erreur :', error);
+                }
+            };
+
+            const displayRoute = async() => {
+                for (let i = 0; i < this.list.length - 1; i++) {
+                    await fetchDataAndAddToMap(this.list[i], this.list[i + 1]);
                 }
 
-                if (typeof this.bbox[0][0] === 'undefined') {
-                    this.bbox[0][0] = data.portions[0].bbox[1];
-                }
-                else if (data.portions[0].bbox[1] < this.bbox[0][0]) {
-                    this.bbox[0][0] = data.portions[0].bbox[1];
-                }
-
-                if (typeof this.bbox[1][1] === 'undefined') {
-                    this.bbox[1][1] = data.portions[0].bbox[2];
-                }
-                else if (data.portions[0].bbox[2] > this.bbox[1][1]) {
-                    this.bbox[1][1] = data.portions[0].bbox[2];
+                //format time 
+                let durationText = Math.floor(duration / 60) + "h" + Math.floor(duration % 60) + "min";
+                if (duration < 59) {
+                    durationText = Math.floor(duration) + "min";
                 }
 
-                if (typeof this.bbox[1][0] === 'undefined') {
-                    this.bbox[1][0] = data.portions[0].bbox[3];
-                }
-                else if (data.portions[0].bbox[3] > this.bbox[1][0]) {
-                    this.bbox[1][0] = data.portions[0].bbox[3];
-                }
+                //set total element
+                const totalElement = document.querySelector("#listpoint .total span span.label");
+                totalElement.textContent = ` Total : ${durationText} / ${Math.floor(distance / 1000)}km`;
+            };
 
+            const totalLabel = this.listElement.querySelector("#listpoint .total span span.label");
+            totalLabel.textContent = ` Total : calcul en cours ...`;
+
+            displayRoute();
+            this.lineLayerGroup.addTo(this.map);
+
+            const saveButton = this.listElement.querySelector("#listpoint .total form button");
+            if (saveButton) {
+                saveButton.style.display = 'inline';
             }
-            catch (error) {
-                console.error('Erreur :', error);
+        }
+
+        else {
+            const totalLabel = this.listElement.querySelector("#listpoint .total span span.label");
+            totalLabel.textContent = ` Total : 0min / 0km`;
+
+            const saveButton = this.listElement.querySelector("#listpoint .total form button");
+            if (saveButton) {
+                saveButton.style.display = 'none';
             }
-        };
-
-        const displayRoutes = async() => {
-            for (let i = 0; i < this.list.length - 1; i++) {
-                await fetchDataAndAddToMap(this.list[i], this.list[i + 1]);
-            }
-
-            //format time 
-            let durationText = Math.floor(duration / 60) + "h" + Math.floor(duration % 60) + "min";
-            if (duration < 59) {
-                durationText = Math.floor(duration) + "min";
-            }
-
-            //set total element
-            const totalElement = document.querySelector("#listpoint .total span");
-            totalElement.textContent = `Total : ${durationText} / ${Math.floor(distance)/1000}km`;
-        };
-
-        const totalElement = this.listElement.querySelector(".total span");
-        totalElement.textContent = `Total : calcul en cours ...`;
-
-        displayRoutes();
-        this.lineLayerGroup.addTo(this.map);
-
+        }
 
     }
 
@@ -316,16 +356,26 @@ export default class ListPoint {
     //init listener
     eventListenerInit() {
 
-
-        this.setViewOnAllPoint();
-
+        // this.setViewOnAllPoint();
 
         //init listener
+        this.removeListener();
         this.displaySelected();
         this.upPointInList();
         this.downPointInList();
         this.totalListner();
         // this.resizeListpoint();
+    }
+
+    // for remove by click cross
+    removeListener() {
+        const elements = this.ul.querySelectorAll('.remove');
+        for (let element of elements) {
+            element.addEventListener('click', () => {
+                const span = event.target.closest('span.remove');
+                this.removePoint(span.dataset.index);
+            });
+        }
     }
 
     // Add event listeners for toggle selected point and remove by cross
@@ -374,18 +424,9 @@ export default class ListPoint {
                 if (event.target.matches('.label')) {
                     setViewOnPoint(event.target.feature, this.map);
                 }
-                else if (event.target.matches('.label-box')) {
-                    const label = event.target.querySelector('.label');
-                    if (label) {
-                        setViewOnPoint(label.feature, this.map);
-                    }
-                }
                 const li = event.target.closest('li');
                 if (li) {
                     displaySelect(li, this.ul);
-
-
-
                 }
 
             });

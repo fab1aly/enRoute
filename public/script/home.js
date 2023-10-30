@@ -15,12 +15,11 @@ const local_list = new ListPoint(map, 'local_list');
 if (window.localStorage.getItem('local_list')) {
     local_list.loadList();
 }
-
 // console.log(local_list);
 
 // init list
 local_list.displayInit();
-local_list.eventListenerInit();
+local_list.setViewOnAllPoint();
 
 ////////////////////////////////////////////////////////////////////////////////
 // ListPoint event listener (SAVE)

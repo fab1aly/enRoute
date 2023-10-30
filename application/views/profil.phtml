@@ -12,14 +12,14 @@
         
         <fieldset>
             <!--<?php var_dump($user_info);?>-->
-            <legend>nom d'utilisateur : </legend>
+            <legend>Nom d'utilisateur</legend>
             
             <input type="text" name="new_username" placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
             
         </fieldset>
     
         <fieldset>
-            <legend>email : </legend>
+            <legend>Email</legend>
             
             <input type="email" name="new_email" placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
             
@@ -33,10 +33,10 @@
             
         </fieldset>
         
-        <button type="submit" >Mettre à jour</button>
+        <button type="submit" ><span>Mettre à jour</span><i class="fa-solid fa-arrows-rotate"></i></button>
     </form>
     
-    <a class="delete-user" href="./profil-delete">Supprimer votre compte</a>
+    <a class="delete-user" href="./profil-delete"><i class="fa-solid fa-trash"></i> Supprimer votre compte</a>
 
     <?php if(isset($error)): ?>
 		<p class="error"><?= $error ?></p>

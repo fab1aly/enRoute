@@ -7,7 +7,7 @@ $border-color: DimGray;
 $bg-color: DarkSeaGreen;
 $item-color: LightSteelBlue;
 $button-color: Moccasin;
-$info-color: IndianRed;
+$info-color: Tomato;
 $select-color: Lightblue;
 
 $sb-bg-color: Gainsboro;
@@ -20,8 +20,19 @@ $sb-select-color: AntiqueWhite;
 
     border-radius: $radius;
     border: solid 1px $border-color;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
 
     margin: .5rem;
     padding: .5rem;
+
+    @media (prefers-color-scheme: dark) {
+
+        background: $text-color;
+        border: solid 1px $color1; // box-shadow: rgba($color1, 0.35) 0px -50px 36px -28px inset; 
+        box-shadow: rgba($color1, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    }
+
+
+
 }

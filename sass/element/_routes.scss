@@ -1,36 +1,44 @@
 #routes {
 
     position: absolute;
-    top: 6.1rem;
+    top: 6.2rem;
     right: .5rem;
 
     max-width: 80vw;
     min-width: 30vw;
 
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    border-radius: 1rem;
-    background-color: $sb-bg-color;
+    @include theme($sb-bg-color, 1rem);
+    border: none;
 
-    padding: .5rem;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
 
     ul {
 
-        background-color: $sb-bg-color; // margin: .5rem .3rem;
-        overflow-y: auto;
-        max-height: 38vh;
-
-        min-height: 0rem;
+        min-height: 0;
         max-height: 20vh;
+
+        @include theme($sb-bg-color, .5rem);
+        box-shadow: none;
+        border: none;
+
+        margin: 0;
+        padding: 0;
+
+        overflow-y: auto;
 
         li {
 
             min-height: 2.5rem;
             max-height: 4rem;
 
-            background-color: $sb-item-color;
-            border-radius: .8rem;
+            @include theme($sb-item-color, .8rem);
+            box-shadow: none;
+            border: none;
 
-            margin: .5rem 0rem;
+
             padding: .7rem .3rem;
 
 
@@ -38,33 +46,43 @@
             justify-content: space-between;
             align-items: center;
 
+            .share {
+                padding-left: 1rem;
+                color: transparent;
+            }
+
             .label {
-                margin-left: 1rem;
+                margin: 0 auto;
             }
 
             .remove {
                 color: transparent;
-                padding-right: .5rem;
+                padding-right: 1rem;
             }
         }
 
         li:hover {
-            background-color: $sb-select-color;
+            @include theme($sb-select-color, .8rem);
+            box-shadow: none;
+            border: none;
+
+            padding: .7rem .3rem;
+
         }
 
-        .selected {
+        .selected,
+        .selected:hover {
             height: 3.5rem;
 
-            border: solid 3px $border-color;
-            background-color: $sb-select-color;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            @include theme($sb-select-color, .8rem);
+            border-width: 3px;
 
 
             padding: .72rem 0;
 
+            .share,
             .remove {
                 color: $border-color;
-
             }
 
         }
@@ -84,21 +102,17 @@
 
     #routes {
         position: static;
-        width: auto;
-        min-width: unset;
+        width: 30vw;
+        height: fit-content;
 
-        grid-row-start: 2; // grid-row-end: end;
-        grid-column-start: 2;
-        grid-column-end: end;
-        align-self: start;
 
-        margin-right: .5rem; // height: 100%;
+        margin: .5rem; // height: 100%;
         display: flex;
 
         ul {
             // height: 100%;
             // min-height: 5.7rem;
-            max-height: 15rem;
+            max-height: 30vh;
             width: 100%;
 
             li {

@@ -11,16 +11,25 @@ function displaySelect(li, ul) {
     }
 }
 
-// function for add uniqid to load form input
-function setUniqidInLoadForm(li) {
-    const input = document.querySelector('#listpoint form input');
-    input.setAttribute('value', li.dataset.uniqid);
-}
 
 // function for set modal info
-function setInputAndModal(li) {
-    const modal_info = document.querySelector('#modal p');
-    modal_info.textContent = 'Effacer : ' + li.dataset.name;
+function setModals(li) {
+
+    const input_load_form = document.querySelector('#listpoint form input');
+    if (input_load_form) {
+        input_load_form.setAttribute('value', li.dataset.uniqid);
+    }
+
+    const modal_remove_namelist = document.querySelector('#modal_remove p');
+    if (modal_remove_namelist) {
+        modal_remove_namelist.textContent = li.dataset.name;
+    }
+
+    const modal_share_link = document.querySelector('#modal_share p');
+    if (modal_share_link) {
+        modal_share_link.textContent = "enRoute.fr/route?id=" + li.dataset.uniqid;
+    }
+
 }
 
 
@@ -38,14 +47,15 @@ if (list_routes.querySelector('li')) {
     // select last li
     const li = document.querySelector('#routes ul li:last-child');
     displaySelect(li, list_routes);
-    setUniqidInLoadForm(li);
-    setInputAndModal(li);
+    // setUniqidInLoadForm(li);
+    // setModals(li);
 
     //display li list point
     const first_route_list = JSON.parse(li.dataset.value);
     route = new ListPoint(map, 'route', first_route_list);
     route.displayInit();
     route.eventListenerInit();
+    route.setViewOnAllPoint();
 }
 
 
@@ -57,15 +67,13 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
     let li;
     if (event.target.matches('span')) {
         li = event.target.closest('li');
-        // Utilisez event.target.parentElement pour accéder à l'élément li parent
     }
     else if (event.target.matches('li')) {
         li = event.target;
     }
     if (li) {
         displaySelect(li, list_routes);
-        setUniqidInLoadForm(li);
-        setInputAndModal(li);
+        setModals(li);
 
         const list_point = JSON.parse(li.dataset.value);
         route.setList(list_point);
@@ -80,7 +88,37 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
         const input = document.querySelector('#routes form input');
         input.setAttribute('value', li.dataset.uniqid);
 
+        const modal = document.querySelector("#modal");
         modal.style.display = "flex";
+
+        const legend = modal.querySelector("fieldset legend");
+        legend.textContent = "Attention";
+        const span = modal.querySelector("fieldset span");
+        span.textContent = "Voulez-vous supprimer cette route ?";
+        const p = modal.querySelector("fieldset p");
+        p.textContent = li.dataset.name;
+        const button = modal.querySelector("button");
+        button.style.display = "inline";
+
+    }
+
+    // share route
+    if (event.target.matches('.share i')) {
+
+        const li = event.target.closest('li');
+
+        const modal = document.querySelector("#modal");
+        modal.style.display = "flex";
+
+        const legend = modal.querySelector("fieldset legend");
+        legend.textContent = "Partage";
+        const span = modal.querySelector("fieldset span");
+        span.textContent = " Voici un lien pour partager cette route ";
+        const p = modal.querySelector("fieldset p");
+        p.textContent = "enRoute.fr/route?id=" + li.dataset.uniqid;
+        const button = modal.querySelector("button");
+        button.style.display = "none";
+
     }
 });
 
@@ -91,27 +129,34 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
 
 ////////////////////////////////////////////////////////////////////////////////
 // modal listner
-const modal = document.querySelector("#modal");
+const modal = document.querySelector(".modal");
 
 // When clicks on the button, remove list (submit)
 const button = document.querySelector("#modal button");
-button.addEventListener('click', () => {
-    document.querySelector('#routes form').submit();
-});
+if (button) {
+    button.addEventListener('click', () => {
+        document.querySelector('#routes form').submit();
+    });
+}
 
 // When clicks on cross (x) <span> , close the modal
 const cross = document.querySelector("#modal .cross i");
-cross.addEventListener('click', () => {
-    modal.style.display = "none";
-});
+if (cross) {
+    cross.addEventListener('click', () => {
+        const modal = document.querySelector("#modal");
+        modal.style.display = "none";
+    });
+}
 
 // When clicks anywhere outside of the modal, close it
 const header = document.querySelector("header");
 document.addEventListener('click', () => {
     if (event.target == modal || event.target.closest('header') == header) {
+        const modal = document.querySelector("#modal");
         modal.style.display = "none";
     }
 });
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -121,13 +166,15 @@ const pos = new Position(map);
 
 // ListPoint event listener
 const listElement = document.querySelector(`#listpoint`);
-listElement.addEventListener('click', (event) => {
+if (listElement) {
+    listElement.addEventListener('click', (event) => {
+        // click load button
+        if (event.target.matches('form button')) {
+            document.querySelector('#listpoint form').submit();
+        }
+    });
+}
 
-    // click load button
-    if (event.target.matches('form button')) {
-        document.querySelector('#listpoint form').submit();
-    }
-});
 
 
 // });

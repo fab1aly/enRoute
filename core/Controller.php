@@ -2,7 +2,7 @@
 
 	abstract class Controller
 	{
-		protected function renderView(string $view, array $data = [], ?string $layout = 'default.phtml'): void
+		protected function renderView(string $view, array $data = [], ?string $layout = 'base.phtml'): void
 		{
 			extract($data);
 

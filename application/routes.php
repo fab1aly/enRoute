@@ -6,6 +6,7 @@
 		'/' => 'HomeController::home',
 		'/home-process' => 'HomeController::homeProcess',
 
+		'/route' => 'RouteController::route',
 		'/routes' => 'RouteController::routes',
 		'/routes-process' => 'RouteController::routesProcess',
 

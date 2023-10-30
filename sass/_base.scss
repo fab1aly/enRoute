@@ -11,11 +11,35 @@
         button {
             color: $text-color;
             font-family: $font-stack;
+
+            text-decoration: none;
+        }
+
+        input {
+            outline: none;
+            color: $text-color;
+        }
+
+        li {
+            list-style: none;
         }
 
         * {
             box-sizing: border-box;
         }
 
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            color: $sb-select-color;
+            a,
+            button {
+                color: $sb-select-color;
+            }
+            input {
+                color: $sb-select-color;
+            }
+        }
     }
 }

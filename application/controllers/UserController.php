@@ -175,8 +175,6 @@ session_start();
                             $sth->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
                             $sth->execute();
                             
-                            $sth->fetch();
-                            
                             $_SESSION['error'] = "E-mail envoyé";
                             header('Location: ./sign-in');
                 	        exit;
@@ -339,8 +337,10 @@ session_start();
             			$usersManager->deleteUser($_SESSION['user']->getId());
             			
             			unset($_SESSION['user']);
+            			
+            			$_SESSION['info'] = 'Suppression de votre compte réussi.';
             
-            			header('Location: ./');
+            			header('Location: ./sign-up');
             			exit;
         			}
         			else

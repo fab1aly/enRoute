@@ -48,7 +48,7 @@ export default class SearchBar {
             const response = await fetch(url + addressPlus + posText);
             return response.json();
         }
-        
+
         else {
             const response = await fetch(url + addressPlus);
             return response.json();
@@ -56,6 +56,7 @@ export default class SearchBar {
     }
 
     displayResults(results) {
+        this.resultsList.style.display = "block";
         this.resultsList.innerHTML = "";
         for (let result of results.features) {
             const span = document.createElement('span');
@@ -69,6 +70,7 @@ export default class SearchBar {
 
     clearResults() {
         this.resultsList.replaceChildren();
+        this.resultsList.style.display = "none";
     }
 
     handleResultClick(target) {
@@ -99,8 +101,5 @@ export default class SearchBar {
 ////////////////////////////////////////////////////////////////////////////////
 // ////////////////////////
 // // Utilisation de la classe SearchBar avec les éléments DOM appropriés
-// const inputElement = document.querySelector('#searchbar input');
-// const resultsList = document.querySelector('#searchbar ul');
-// const map = {} // Remplacez ceci par votre objet de carte
 
-// const searchBar = new SearchBar(inputElement, resultsList, map);
+// const searchBar = new SearchBar(listElement, position);

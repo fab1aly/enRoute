@@ -11,50 +11,37 @@
 
 <div id='routes'>
     <ul>
-        <?php foreach ($lists as $list):?>
-          
         <li 
             data-name="<?=htmlspecialchars($list['name'])?>"
             data-uniqid="<?=htmlspecialchars($list['uniq_id'])?>"
             data-value="<?=htmlspecialchars($list['listpoint'])?>"
         >
-            <span class="share">
-                <i class="fa-solid fa-share-from-square"></i>
-            </span>
-            
             <span class='label'><?=htmlspecialchars($list['name'])?></span>
-            
-            <span class="remove" data-index="" >
-                <i class="fa-solid fa-circle-xmark"></i>
-            </span>
         </li>
-          
-        <?php endforeach;?>   
     </ul>
-
     <form method='post' action='./routes-process'>
         <input type="hidden" name="uniq_id_list_remove" value="">
     </form>
+    
 </div>
 
-<div id="modal" class="modal">
+<!--<div id="modal" class="modal">-->
   
-    <div  class="modal-content">
-        <span class="cross">
-            <i class="fa-solid fa-circle-xmark"></i>
-        </span>
+<!--    <div  class="modal-content">-->
+<!--        <span class="cross">-->
+<!--            <i class="fa-solid fa-circle-xmark"></i>-->
+<!--        </span>-->
         
-        <fieldset>
-            <legend></legend>
-            <span></span>
-            <p></p>
-        </fieldset>
+<!--        <fieldset>-->
+<!--            <legend>Attention</legend>-->
+<!--            <span>Voulez-vous supprimer cette route ?</span>-->
+<!--            <p></p>-->
+<!--        </fieldset>-->
         
-        <button class='remove'><i class="fa-solid fa-trash"></i> Supprimer</button>
-    </div>
+<!--        <button class='remove'><i class="fa-solid fa-trash"></i> Supprimer</button>-->
+<!--    </div>-->
  
-</div>
-
+<!--</div>-->
 
 <div id="listpoint">
 
@@ -85,8 +72,6 @@
         </form>
     </div>
 
-
-    
 </div>
 
 <div id="map"></div>

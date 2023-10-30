@@ -65,15 +65,29 @@
                 @include theme($sb-item-color, .5rem);
             }
 
+            span {
+                margin: .5rem auto;
+                font-size: 1.4rem;
+            }
+
             p {
                 @include theme($sb-item-color, .5rem);
+                width: fit-content;
+                margin: .5rem auto;
             }
         }
 
         button {
             @include theme($button-color, .5rem);
-
             width: fit-content;
+            padding-left: 1rem;
+
+            display: flex;
+            align-items: center;
+
+            i {
+                margin: 0 .5rem;
+            }
         }
 
         .remove {

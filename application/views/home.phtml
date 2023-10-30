@@ -25,7 +25,17 @@
     <!--<div class="resize-hitbox"></div>-->
 
     <div class="position">
-        <span>Votre position</span>
+        <span><i class="fa-solid fa-location-crosshairs"></i> Votre position</span>
+    </div>
+    
+    <div class="info">
+        <p class="icon"><i class="fa-solid fa-map-location-dot"></i></p>
+        <p class="label">
+            Rechercher quelques adresses.<br>Ajoutez-les, organisez-les ...<br>
+            <?php if(isset($_SESSION['user'])==false): ?>
+            Créer un compte pour garder<br>et partager cette route.
+            <?php endif; ?>
+        </p>
     </div>
     
     <!--list of point-->
@@ -46,13 +56,14 @@
     </template>
 
     <div class="total">
-        <span></span>
+        <span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
+    
     <!--display save button if user connected-->
     <?php if(isset($_SESSION['user'])): ?>
         <form method="post" action="./routes-process"> 
             <input type="hidden" name="listpoint" value="">
             <input type="hidden" name="name" value=''>
-            <button type="button">Sauver</button>
+            <button type="button">Sauver <i class="fa-solid fa-download"></i></button>
         </form>
     <?php endif; ?>
     </div>
@@ -67,11 +78,11 @@
         </span>
         
         <fieldset>
-            <legend>Attention</legend>
+            <legend>Route</legend>
             <input type="text" name="name" placeholder="Nommer cette route">
         </fieldset>
         
-        <button>Sauver</button>
+        <button><span>Valider</span><i class="fa-solid fa-circle-check"></i></button>
     </div>
  
 </div>

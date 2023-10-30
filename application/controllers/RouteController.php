@@ -10,7 +10,31 @@
         // {
         //     session_start();
         // }
-        
+
+		public function route ()
+		{
+session_start();
+// var_dump($_GET);
+// exit;
+
+        //	 (GET)
+			if($_SERVER['REQUEST_METHOD'] == 'GET')
+			{
+				if (array_key_exists('id', $_GET))
+                {
+                    $listsManager = new ListsManager;
+                    $list = $listsManager->getList($_GET['id']);
+                    
+                    $this->renderView('route.phtml',['title' => 'Route', 'list' => $list]);
+                }
+                else
+                {
+                    header('Location: ./'); //redirction vers home
+                    exit; 
+                }
+			}
+
+		}
 
         public function routes () : void
 		{
@@ -34,7 +58,7 @@ session_start();
                 }
 			}
 		}
-		
+
 		public function routesProcess ()
 		{
 session_start();
@@ -74,4 +98,5 @@ session_start();
                     exit; 
                 }
 		}
+
     }
