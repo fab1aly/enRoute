@@ -71,7 +71,7 @@
 header {
   position: fixed;
   z-index: 1000;
-  top: 0;
+  top: -2px;
   width: 100vw;
   height: 60px;
   background: Lightblue;
@@ -83,6 +83,9 @@ header {
   border: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (prefers-color-scheme: dark) {
   header {
@@ -91,8 +94,9 @@ header {
     box-shadow: rgba(173, 216, 230, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
 }
-header div.title {
-  height: -webkit-fill-available;
+header a.title {
+  position: relative;
+  width: 100%;
   background: DarkSeaGreen;
   border-radius: 0 0 1rem 1rem;
   border: solid 1px DimGray;
@@ -101,65 +105,55 @@ header div.title {
   padding: 0.5rem;
   border: none;
   padding: 0;
+  margin-top: 0;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 @media (prefers-color-scheme: dark) {
-  header div.title {
+  header a.title {
     background: #222;
     border: solid 1px DarkSeaGreen;
     box-shadow: rgba(143, 188, 143, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
 }
-header div.title a {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-header div.title a img {
+header a.title img {
+  position: fixed;
+  z-index: 2;
+  left: 0.5rem;
   height: 4.5rem;
 }
-header div.title a h1 {
-  flex-grow: 2;
+header a.title h1 {
   text-align: center;
   color: AntiqueWhite;
   font-size: 4rem;
   font-weight: bold;
   font-style: italic;
+  line-height: 5rem;
 }
 header nav {
   position: fixed;
-  top: 0;
-  right: 0;
-  background: DarkSeaGreen;
-  border-radius: 0 0 1rem 0;
-  border: solid 1px DimGray;
-  box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
-  margin: 0.5rem;
-  padding: 0.5rem;
-  box-shadow: none;
-  border: none;
-  padding: 0;
+  top: 0.2rem;
+  right: 0.5rem;
+  height: 4.8rem;
   overflow: hidden;
   display: flex;
   justify-content: end;
-}
-@media (prefers-color-scheme: dark) {
-  header nav {
-    background: #222;
-    border: solid 1px DarkSeaGreen;
-    box-shadow: rgba(143, 188, 143, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  }
+  align-items: center;
 }
 header nav aside {
-  position: fixed;
   z-index: 1;
-  right: 0.5rem;
-  height: 3.8rem;
+  transform: translateX(1px);
+  height: 4rem;
+  background-color: DarkSeaGreen;
+  border: solid DarkSeaGreen 5px;
+  border-width: 0 5px 0 0;
+  border-radius: 5px 5px 5px 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 header nav aside span {
-  width: 100%;
   height: 100%;
   background: Tomato;
   border-radius: 0.5rem;
@@ -168,6 +162,7 @@ header nav aside span {
   margin: 0.5rem;
   padding: 0.5rem;
   user-select: none;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,10 +175,9 @@ header nav aside span {
   }
 }
 header nav menu {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(-0.5rem);
-  transition: transform 0.5s ease-in-out;
+  animation: disappearance 1s ease-in-out;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
   background: LightSteelBlue;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
@@ -193,6 +187,14 @@ header nav menu {
   border: none;
   padding: 0;
   display: flex;
+}
+@keyframes disappearance {
+  from {
+    transform: translateX(0.5rem);
+  }
+  to {
+    transform: translateX(25.5rem);
+  }
 }
 @media (prefers-color-scheme: dark) {
   header nav menu {
@@ -217,17 +219,16 @@ header nav menu li {
     box-shadow: rgba(255, 228, 181, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
 }
-header nav menu.menu-visible {
-  opacity: 1;
-  visibility: visible;
-  animation: slideInFromRight 0.5s ease-in-out;
+header nav:hover menu {
+  animation: appearance 1s ease-in-out;
+  animation-fill-mode: forwards;
 }
-@keyframes slideInFromRight {
+@keyframes appearance {
   from {
-    transform: translateX(100%);
+    transform: translateX(25.5rem);
   }
   to {
-    transform: translateX(0);
+    transform: translateX(0rem);
   }
 }
 
@@ -235,8 +236,9 @@ header nav menu.menu-visible {
   header {
     position: static;
   }
-  header div.title {
-    height: 50px;
+  header nav menu,
+  header nav:hover menu {
+    animation: none;
   }
 }
 #map {
@@ -305,7 +307,7 @@ header nav menu.menu-visible {
   position: absolute;
   top: 6.3rem;
   right: 0.5rem;
-  max-width: 80vw;
+  max-width: 75vw;
   width: max-content;
   background: Gainsboro;
   border-radius: 1rem;
@@ -331,7 +333,11 @@ header nav menu.menu-visible {
 #searchbar span {
   display: flex;
   align-items: center;
+  /*glass*/
   /*cross*/
+}
+#searchbar span span.glass {
+  display: none;
 }
 #searchbar span input {
   height: 2.5rem;
@@ -354,7 +360,7 @@ header nav menu.menu-visible {
     box-shadow: rgba(245, 245, 245, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
 }
-#searchbar span span {
+#searchbar span span.cross {
   width: 2.5rem;
   height: 2.5rem;
   background: WhiteSmoke;
@@ -371,7 +377,7 @@ header nav menu.menu-visible {
   color: Gainsboro;
 }
 @media (prefers-color-scheme: dark) {
-  #searchbar span span {
+  #searchbar span span.cross {
     background: #222;
     border: solid 1px WhiteSmoke;
     box-shadow: rgba(245, 245, 245, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
@@ -452,6 +458,34 @@ header nav menu.menu-visible {
 @media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
   #searchbar {
     width: 35vw;
+    /*glass*/
+  }
+  #searchbar span input {
+    border-radius: 0;
+  }
+  #searchbar span span.glass {
+    display: inline;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: WhiteSmoke;
+    border-radius: 0.5rem 0 0 0.5rem;
+    border: solid 1px DimGray;
+    box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 0.25rem;
+    font-size: 2rem;
+    color: Gainsboro;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) and (prefers-color-scheme: dark) {
+  #searchbar span span.glass {
+    background: #222;
+    border: solid 1px WhiteSmoke;
+    box-shadow: rgba(245, 245, 245, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
 }
 @media screen and (min-width: 1024px) and (min-height: 600px) {

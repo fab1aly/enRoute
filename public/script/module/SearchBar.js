@@ -4,11 +4,14 @@ export default class SearchBar {
 
     constructor(list, position = null) {
 
-        this.inputElement = document.querySelector('#searchbar input');
-        this.crossElement = document.querySelector('#searchbar span span');
-        this.resultsList = document.querySelector('#searchbar ul');
+
         this.list = list;
         this.position = position;
+
+        this.glassElement = document.querySelector('#searchbar .glass');
+        this.inputElement = document.querySelector('#searchbar input');
+        this.crossElement = document.querySelector('#searchbar .cross');
+        this.resultsList = document.querySelector('#searchbar ul');
 
         // event listener for input search
         this.inputElement.addEventListener("input", async() => {
@@ -22,16 +25,21 @@ export default class SearchBar {
             }
         });
 
-        // event listener for delete input at click cross
-        this.crossElement.addEventListener("click", () => {
-            this.inputElement.value = "";
-            this.clearResults();
+        // event listener for set input at click glass
+        this.glassElement.addEventListener("click", () => {
+            this.inputElement.focus();
         });
 
         // event listener for click result
         this.resultsList.addEventListener("click", (event) => {
             this.handleResultClick(event.target);
             this.inputElement.value = "";
+        });
+
+        // event listener for delete input at click cross
+        this.crossElement.addEventListener("click", () => {
+            this.inputElement.value = "";
+            this.clearResults();
         });
     }
 

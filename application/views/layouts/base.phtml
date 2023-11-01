@@ -21,12 +21,12 @@
 <div id="app">
     <header>
         
-        <div class="title">
-            <a href='./'>
+        
+            <a href='./' class="title">
                 <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo">
                 <h1>enRoute</h1>
             </a>
-        </div>
+        
         
         <nav class="">
         <?php if(isset($_SESSION['user'])): ?>
@@ -68,17 +68,17 @@ function myFunction() {
     // aside.addEventListener('click', () => {
 console.log('ok')
 
-    if (menu.classList.contains('menu-visible')) {
-        console.log('visible')
-        menu.classList.remove('menu-visible');
+    // if (menu.classList.contains('menu-visible')) {
+    //     console.log('visible')
+    //     menu.classList.remove('menu-visible');
         
-        nav.style.width = aside.offsetWidth+10+'px';
-    } else {
-        console.log(aside.offsetWidth)
-        menu.classList.add('menu-visible');
-        nav.style.width = menu.clientWidth+5+aside.clientWidth+10+'px';
-        menu.style.marginRight = aside.clientWidth+'px';
-    }
+    //     nav.style.width = aside.offsetWidth+10+'px';
+    // } else {
+    //     console.log(aside.offsetWidth)
+    //     menu.classList.add('menu-visible');
+    //     nav.style.width = menu.clientWidth+5+aside.clientWidth+10+'px';
+    //     menu.style.marginRight = aside.clientWidth+'px';
+    // }
 
 // });
 }
@@ -86,7 +86,7 @@ console.log('ok')
 // Pour empêcher l'élément aside de bouger, nous pouvons lui ajouter une position absolue et le positionner à droite de la fenêtre :
 // aside.style.position = 'absolute';
 // aside.style.right = '.5rem';
-nav.style.width = aside.clientWidth+'px';
+// nav.style.width = aside.clientWidth+'px';
 </script>
 
     </header>

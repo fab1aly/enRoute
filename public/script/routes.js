@@ -12,7 +12,7 @@ function displaySelect(li, ul) {
 }
 
 
-// function for set modal info
+// function for set modal info and input  ///////  RE-WORKING !!!  ///////////
 function setModals(li) {
 
     const input_load_form = document.querySelector('#listpoint form input');
@@ -56,6 +56,10 @@ if (list_routes.querySelector('li')) {
     route.displayInit();
     route.eventListenerInit();
     route.setViewOnAllPoint();
+
+    // add id list in form load
+    const input = document.querySelector('.total form input');
+    input.value = li.dataset.uniqid;
 }
 
 

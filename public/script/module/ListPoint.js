@@ -16,7 +16,7 @@ export default class ListPoint {
             this.listElement = document.querySelector(`#listpoint`);
             this.ul = document.querySelector(`#listpoint ul`);
 
-            // bbox (dimension view of total point)
+            // bbox (view dimension of total point)
             this.bbox = [
                 [],
                 []
@@ -247,17 +247,12 @@ export default class ListPoint {
 
         if (this.getList().length >= 2) {
 
-
-            // const info = document.querySelector(`#listpoint div.info`);
-            // info.style.display = 'none';
-
             let duration = 0;
             let distance = 0;
             this.bbox = [
                 [],
                 []
             ];
-
 
             const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
                 const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
