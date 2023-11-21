@@ -61,10 +61,10 @@
     
     <!--display save button if user connected-->
     <?php if(isset($_SESSION['user'])): ?>
-        <form method="post" action="./routes-process"> 
-            <input type="hidden" name="listpoint" value="">
-            <input type="hidden" name="name" value=''>
-            <button type="button">Sauver <i class="fa-solid fa-download"></i></button>
+        <form id="save_form" method="post" action="./routes-process"> 
+            <input id="save_listpoint" type="hidden" name="listpoint" value="">
+            <input id="save_listname" type="hidden" name="name" value=''>
+            <button id="save_button" type="button">Sauver <i class="fa-solid fa-download"></i></button>
         </form>
     <?php endif; ?>
     </div>

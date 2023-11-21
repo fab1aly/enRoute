@@ -1,8 +1,9 @@
 export default class ListPoint {
     /**
      * Creates a new list point.
+     * @param {object} map The map to use.
      * @param {string} name The name of the list point.
-     * @param {string} divId The ID of the div element where the list point will be displayed.
+     * @param {array} listpoint The list of point.
      */
     constructor(map = null, name = "local_list", listpoint = []) {
 
@@ -21,18 +22,17 @@ export default class ListPoint {
                 [],
                 []
             ];
-
         }
+    }
 
-    }
     getBbox() {
-        return this.bbox
+        return this.bbox;
     }
-    setViewOnAllPoint(time = 1000) {
+    setViewOnAllPoint(wait = 1000) {
         if (this.list.length >= 2) {
             setTimeout(() => {
                 this.map.fitBounds(this.bbox);
-            }, time);
+            }, wait);
         }
 
     }
@@ -49,17 +49,12 @@ export default class ListPoint {
         this.list.push(feature);
         this.saveList();
         this.displayInit();
-        // this.eventListenerInit();
 
+        // set display and view on point 
         const li = this.ul.querySelector('li:last-child');
         li.classList.add('selected');
         this.ul.scrollTop = this.ul.scrollHeight;
-        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
-
-        if (this.getList().length >= 2) {
-            const info = document.querySelector(`#listpoint div.info`);
-            info.style.display = 'none';
-        }
+        this.map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 13);
     }
 
     //remove point in list by index
@@ -108,7 +103,7 @@ export default class ListPoint {
     // display points element
     displayListElement() {
 
-        // display info if new (list empty)
+        // display info if new (list empty or 1)
         const info = document.querySelector(`#listpoint div.info`);
         if (info) {
             if (this.getList().length < 2) {
@@ -148,7 +143,7 @@ export default class ListPoint {
                     label.textContent = point.properties.label;
                     label.setAttribute('data-index', index);
 
-                    // add listener for remove button
+                    // add index for remove button listener
                     const remove = li.querySelector(`.remove`);
                     if (remove) {
                         remove.setAttribute('data-index', index);
@@ -382,7 +377,7 @@ export default class ListPoint {
 
                 // function for set view
                 function setViewOnPoint(feature, map) {
-                    map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 14);
+                    map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 13);
                 }
                 // function for toggle select li (route) in ul (routes)
                 function displaySelect(li, ul) {
@@ -441,13 +436,16 @@ export default class ListPoint {
                     let distanceAbove = 0;
                     let distanceSelected = 0;
                     let id = null;
-                    const self = this; // Stocker la valeur de this
+                    const self = this; // Stocker la valeur this
 
                     function animate() {
+
                         distanceAbove++;
                         distanceSelected += liSelected.clientHeight / liAbove.clientHeight;
+
                         liSelected.style.transform = `translateY(-${distanceAbove}px)`;
                         liAbove.style.transform = `translateY(${distanceSelected}px)`;
+
                         if (distanceAbove < liAbove.clientHeight && distanceSelected < liSelected.clientHeight) {
                             id = requestAnimationFrame(animate);
                         }
@@ -466,7 +464,7 @@ export default class ListPoint {
         }
     }
 
-    // Add event listeners for down point CLEAN !!!!
+    // Add event listeners for down point
     downPointInList() {
         const downButtons = this.ul.querySelectorAll('.down');
         for (let downButton of downButtons) {
@@ -479,54 +477,16 @@ export default class ListPoint {
                     let distanceBelow = 0;
                     let distanceSelected = 0;
                     let id = null;
-                    const self = this; // Stocker la valeur de this
-
-                    // const up = liSelected.querySelector('.up');
-                    // if (liSelected.parentNode.firstElementChild == liSelected) {
-
-                    //     up.style.display = `flex`;
-                    //     up.style.height = `0px`;
-                    //     up.style.paddingBottom = `0px`;
-                    // }
+                    const self = this; // Stocker la valeur this
 
                     function animate() {
 
-
-                        // if (distance <= 5) {
-                        //     console.log(liSelected.parentNode.firstElementChild)
-                        //     // play animation grow on cross (up/down)
-                        //     if (liSelected.parentNode.firstElementChild == liSelected) {
-                        //         up.style.height = `${distance}px`;
-                        //         // up.style.padding-bottom: .2rem;
-
-                        //     }
-                        //     // if (liSelected.parentNode.lastChild === liSelected) {
-                        //     //     const down = liSelected.querySelector('.down');
-                        //     //     down.style.height = `${distance}px`;
-                        //     //     console.log('ok')
-
-                        //     // }
-                        // }
-                        // if (distance <= 2) {
-                        //     console.log(liSelected.parentNode.firstElementChild)
-                        //     // play animation grow on cross (up/down)
-                        //     if (liSelected.parentNode.firstElementChild == liSelected) {
-                        //         up.style.paddingBottom = `${distance}px`;
-                        //         // up.style.padding-bottom: .2rem;
-
-                        //     }
-                        //     // if (liSelected.parentNode.lastChild === liSelected) {
-                        //     //     const down = liSelected.querySelector('.down');
-                        //     //     down.style.height = `${distance}px`;
-                        //     //     console.log('ok')
-
-                        //     // }
-                        // }
-
                         distanceBelow++;
                         distanceSelected += liSelected.clientHeight / liBelow.clientHeight;
+
                         liSelected.style.transform = `translateY(${distanceBelow}px)`;
                         liBelow.style.transform = `translateY(-${distanceSelected}px)`;
+
                         if (distanceBelow < liBelow.clientHeight && distanceSelected < liSelected.clientHeight) {
                             id = requestAnimationFrame(animate);
                         }
@@ -564,7 +524,9 @@ export default class ListPoint {
     totalListner() {
         const total = this.listElement.querySelector('.total span');
         total.addEventListener('click', () => {
-            this.map.flyToBounds(this.getBbox());
+            if (this.list.length >= 2) {
+                this.map.flyToBounds(this.getBbox());
+            }
         });
     }
 

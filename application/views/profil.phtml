@@ -28,7 +28,18 @@
         <fieldset>
             <legend>Mot de passe</legend>
             
-            <input type="password" name="new_password" placeholder="nouveau mdp">
+            <input id="password" type="password" name="new_password" placeholder="nouveau mdp"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$">
+            <div id="tooltip-pw" class="profil">
+                <span class="maj">Une Majuscule</span>
+                <span class="min">une minuscule</span>
+                <span class="num">1 chiffre</span>
+                <span class="spe">un spécial (!?..) </span>
+                <span class="num8">8 caractères</span>
+                <div class="arrow"></div>
+            </div>
+            <script type="text/javascript" src="script/sign.js"></script>
+            
             <input type="password" name="new_password_confirm" placeholder="vérifier mdp">
             
         </fieldset>
