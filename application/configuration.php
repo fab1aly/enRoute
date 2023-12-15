@@ -4,9 +4,9 @@
 	[
 		'database' =>
 		[
-			'dsn' => 'mysql:dbname=fabienaly_enRoute;host=db.3wa.io;charset=utf8',
-			'username' => 'fabienaly',
-			'password' => '34552673ed834bd59ec25da0ccb5025c',
+			'dsn' => 'mysql:dbname=enroutk118;host=enroutk118.mysql.db;charset=utf8',
+			'username' => 'enroutk118',
+			'password' => 'dsjs6MZa8YpWeM',
 			'options' =>
 			[
 				PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
