@@ -1,4 +1,4 @@
 .gitconfig
 .vscode/
 terminal.txt
-application/configuration.php
+/application/configuration.php
