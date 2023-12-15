@@ -19,7 +19,7 @@
             <span class='label'><?=htmlspecialchars($list['name'])?></span>
         </li>
     </ul>
-    <form method='post' action='./routes-process'>
+    <form id="remove_form" method='post' action='./routes-process'>
         <input type="hidden" name="uniq_id_list_remove" value="">
     </form>
     
@@ -65,7 +65,7 @@
     <div class="total">
         <span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
 
-        <form method="post" action="./home-process"> 
+        <form id="load_form" method="post" action="./home-process"> 
             <input id="load_input" type="hidden" name="list_uniq_id" value="">
             
             <button type="button"><i class="fa-solid fa-upload"></i> Charger</button>

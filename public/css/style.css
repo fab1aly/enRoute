@@ -72,7 +72,7 @@ header {
   position: fixed;
   z-index: 1000;
   top: -2px;
-  width: 100vw;
+  width: 100%;
   height: 60px;
   background: Lightblue;
   border-radius: 0 0 1rem 1rem;
@@ -130,6 +130,7 @@ header a.title h1 {
   font-weight: bold;
   font-style: italic;
   line-height: 5rem;
+  text-shadow: 0 0 3px #222;
 }
 header nav {
   position: fixed;
@@ -293,8 +294,7 @@ header nav:hover menu {
 }
 @media screen and (min-width: 1024px) and (min-height: 600px) {
   #map .leaflet-top {
-    top: auto;
-    transform: none;
+    top: 0;
   }
 }
 @media screen and (min-width: 1024px) and (min-height: 600px) {
@@ -671,7 +671,7 @@ header nav:hover menu {
   bottom: 0;
   left: 1rem;
   right: 1rem;
-  max-height: 30vh;
+  max-height: 35vh;
   background: DarkSeaGreen;
   border-radius: 1rem 1rem 0 0;
   border: solid 1px DimGray;
@@ -1158,6 +1158,7 @@ header nav:hover menu {
   }
 }
 #sign-container .sign-form fieldset {
+  position: relative;
   background: LightSteelBlue;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
@@ -1195,7 +1196,7 @@ header nav:hover menu {
 #sign-container .sign-form fieldset legend i {
   margin: 0 0.5rem;
 }
-#sign-container .sign-form input {
+#sign-container .sign-form fieldset input {
   background: WhiteSmoke;
   border-radius: 0.5rem;
   border: solid 1px DimGray;
@@ -1205,11 +1206,46 @@ header nav:hover menu {
   border: solid 2px #222;
 }
 @media (prefers-color-scheme: dark) {
-  #sign-container .sign-form input {
+  #sign-container .sign-form fieldset input {
     background: #222;
     border: solid 1px WhiteSmoke;
     box-shadow: rgba(245, 245, 245, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   }
+}
+#sign-container .sign-form fieldset #tooltip-pw {
+  position: absolute;
+  top: -1.6rem;
+  left: 3.5rem;
+  background: #222;
+  border-radius: 0.5rem;
+  border: solid 1px DimGray;
+  box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  color: WhiteSmoke;
+  display: none;
+  flex-direction: column;
+  align-content: center;
+}
+@media (prefers-color-scheme: dark) {
+  #sign-container .sign-form fieldset #tooltip-pw {
+    background: #222;
+    border: solid 1px #222;
+    box-shadow: rgba(34, 34, 34, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  }
+}
+#sign-container .sign-form fieldset #tooltip-pw .arrow {
+  position: absolute;
+  bottom: -7px;
+  left: 5rem;
+  height: 0;
+  width: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #222;
+}
+#sign-container .sign-form fieldset #tooltip-pw.profil {
+  top: -9.3rem;
 }
 #sign-container .sign-form button {
   background: Moccasin;
@@ -1264,6 +1300,7 @@ header nav:hover menu {
   margin: 2rem;
   color: green;
 }
+
 @media (prefers-color-scheme: dark) {
   #sign-container {
     background-color: DimGray;

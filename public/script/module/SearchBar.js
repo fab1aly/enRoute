@@ -16,7 +16,7 @@ export default class SearchBar {
         // event listener for input search
         this.inputElement.addEventListener("input", async() => {
             const inputValue = this.inputElement.value;
-            if (inputValue.length >= 8) {
+            if (inputValue.length >= 7) {
                 const results = await this.searchAddress(inputValue);
                 this.displayResults(results);
             }
@@ -97,17 +97,9 @@ export default class SearchBar {
     }
 
     addPointToList(feature) {
-        // Ajoutez ici la logique pour ajouter le point sur la carte
-        console.log("Ajouter le point sur la carte : ", feature.properties.label);
+        console.log("Ajouter du point dans la liste : ", feature.properties.label);
         this.list.addPoint(feature);
 
 
     }
 }
-
-
-////////////////////////////////////////////////////////////////////////////////
-// ////////////////////////
-// // Utilisation de la classe SearchBar avec les éléments DOM appropriés
-
-// const searchBar = new SearchBar(listElement, position);

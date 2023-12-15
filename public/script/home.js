@@ -1,11 +1,5 @@
 // document.addEventListener('DOMContentLoaded', function() {
 
-// function headerAjust() {
-//     const header_height = document.querySelector('header').offsetHeight;
-//     // console.log(header_height);
-//     document.querySelector('#searchbar').style.top = header_height + 10 + "px";
-// }
-
 ////////////////////////////////////////////////////////////////////////////////
 // init local_list
 import ListPoint from "./module/ListPoint.js";
@@ -22,16 +16,14 @@ local_list.displayInit();
 local_list.setViewOnAllPoint();
 
 ////////////////////////////////////////////////////////////////////////////////
-// ListPoint event listener (SAVE)
-const listElement = document.querySelector(`#listpoint`);
-listElement.addEventListener('click', (event) => {
-
-    // save list in db (open modal)
-    if (event.target.matches('#listpoint form button')) {
+// Save list in db (open modal)
+const save_button = document.querySelector(`#listpoint #save_button`);
+if (save_button) {
+    save_button.addEventListener('click', () => {
+        const modal = document.querySelector("#modal");
         modal.style.display = "flex";
-    }
-
-});
+    });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Modal listner
@@ -42,24 +34,18 @@ const button = document.querySelector("#modal button");
 button.addEventListener('click', () => {
 
     const listpoint = JSON.stringify(local_list.getList());
-    document.querySelector('#listpoint form :nth-child(1)').value = listpoint;
+    document.querySelector('#listpoint #save_listpoint').value = listpoint;
 
     const input = document.querySelector("#modal input");
-    document.querySelector('#listpoint form :nth-child(2)').value = input.value;
+    document.querySelector('#listpoint #save_listname').value = input.value;
 
-    document.querySelector('#listpoint form').submit();
+    document.querySelector('#listpoint #save_form').submit();
 });
 
-// When clicks on cross (x) <span> , close the modal
+// When clicks on cross (x) or modal , close the modal
 const cross = document.querySelector("#modal .cross i");
-cross.addEventListener('click', () => {
-    modal.style.display = "none";
-});
-
-// When clicks anywhere outside of the modal, close it
-const header = document.querySelector("header");
 document.addEventListener('click', () => {
-    if (event.target == modal || event.target.closest('header') == header) {
+    if (event.target == modal || event.target == cross) {
         modal.style.display = "none";
     }
 });

@@ -108,7 +108,7 @@ export default class Position {
             // set view at position
             if (event.target.matches('.position') ||
                 event.target.matches('.position span')) {
-                this.map.setView(this.getCoordsArray(), 15);
+                this.map.setView(this.getCoordsArray(), 14);
             }
         });
     }

@@ -1,9 +1,9 @@
 // document.addEventListener('DOMContentLoaded', function() {
 
 // function for toggle select li (route) in ul (routes)
-function displaySelect(li, ul) {
+function displaySelect(li) {
     if (li.classList.contains('selected') == false) {
-        const old = ul.querySelector('.selected');
+        const old = document.querySelector('#routes ul .selected');
         if (old) {
             old.classList.remove('selected');
         }
@@ -12,29 +12,9 @@ function displaySelect(li, ul) {
 }
 
 
-// function for set modal info and input  ///////  RE-WORKING !!!  ///////////
-function setModals(li) {
-
-    const input_load_form = document.querySelector('#listpoint form input');
-    if (input_load_form) {
-        input_load_form.setAttribute('value', li.dataset.uniqid);
-    }
-
-    const modal_remove_namelist = document.querySelector('#modal_remove p');
-    if (modal_remove_namelist) {
-        modal_remove_namelist.textContent = li.dataset.name;
-    }
-
-    const modal_share_link = document.querySelector('#modal_share p');
-    if (modal_share_link) {
-        modal_share_link.textContent = "enRoute.fr/route?id=" + li.dataset.uniqid;
-    }
-
-}
-
 
 ////////////////////////////////////////////////////////////////////////////////
-// on start display last route
+// on start init ListPoint and display last route
 import ListPoint from "./module/ListPoint.js";
 const list_routes = document.querySelector('#routes ul');
 let route;
@@ -47,25 +27,22 @@ if (list_routes.querySelector('li')) {
     // select last li
     const li = document.querySelector('#routes ul li:last-child');
     displaySelect(li, list_routes);
-    // setUniqidInLoadForm(li);
-    // setModals(li);
 
-    //display li list point
-    const first_route_list = JSON.parse(li.dataset.value);
-    route = new ListPoint(map, 'route', first_route_list);
+    // init ListPoint
+    const route_list = JSON.parse(li.dataset.value);
+    route = new ListPoint(map, 'route', route_list);
+
+    // display li ListPoint
     route.displayInit();
     route.eventListenerInit();
     route.setViewOnAllPoint();
 
-    // add id list in form load
-    const input = document.querySelector('.total form input');
-    input.value = li.dataset.uniqid;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // routes ul listener
-document.querySelector('#routes ul').addEventListener('click', (event) => {
+document.querySelector('#routes ul').addEventListener('click', () => {
 
     // select routes (li)
     let li;
@@ -77,24 +54,30 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
     }
     if (li) {
         displaySelect(li, list_routes);
-        setModals(li);
 
+        // edit route ListPoint
         const list_point = JSON.parse(li.dataset.value);
         route.setList(list_point);
         route.displayInit();
         route.setViewOnAllPoint();
+
+        // add id list in load form 
+        const input = document.querySelector('#load_form input');
+        input.value = li.dataset.uniqid;
     }
 
     // remove route
     if (event.target.matches('.remove i')) {
         const li = event.target.closest('li');
 
-        const input = document.querySelector('#routes form input');
-        input.setAttribute('value', li.dataset.uniqid);
+        const input = document.querySelector('#remove_form input');
+        input.value = li.dataset.uniqid;
 
+        // display modal
         const modal = document.querySelector("#modal");
         modal.style.display = "flex";
 
+        // display modal
         const legend = modal.querySelector("fieldset legend");
         legend.textContent = "Attention";
         const span = modal.querySelector("fieldset span");
@@ -108,12 +91,13 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
 
     // share route
     if (event.target.matches('.share i')) {
-
         const li = event.target.closest('li');
 
+        // display modal
         const modal = document.querySelector("#modal");
         modal.style.display = "flex";
 
+        // edit modal
         const legend = modal.querySelector("fieldset legend");
         legend.textContent = "Partage";
         const span = modal.querySelector("fieldset span");
@@ -127,36 +111,33 @@ document.querySelector('#routes ul').addEventListener('click', (event) => {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
+// #load_form event listener
+const listElement = document.querySelector(`#listpoint`);
+if (listElement) {
+    listElement.addEventListener('click', () => {
+        // click load button
+        if (event.target.matches('#load_form button')) {
+            document.querySelector('#load_form').submit();
+        }
+    });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
-// modal listner
+// Modal listner
 const modal = document.querySelector(".modal");
 
 // When clicks on the button, remove list (submit)
 const button = document.querySelector("#modal button");
 if (button) {
     button.addEventListener('click', () => {
-        document.querySelector('#routes form').submit();
+        document.querySelector('#remove_form').submit();
     });
 }
 
-// When clicks on cross (x) <span> , close the modal
+// When clicks on cross (x) or modal , close the modal
 const cross = document.querySelector("#modal .cross i");
-if (cross) {
-    cross.addEventListener('click', () => {
-        const modal = document.querySelector("#modal");
-        modal.style.display = "none";
-    });
-}
-
-// When clicks anywhere outside of the modal, close it
-const header = document.querySelector("header");
 document.addEventListener('click', () => {
-    if (event.target == modal || event.target.closest('header') == header) {
-        const modal = document.querySelector("#modal");
+    if (event.target == modal || event.target == cross) {
         modal.style.display = "none";
     }
 });
@@ -168,16 +149,7 @@ document.addEventListener('click', () => {
 import Position from "./module/Position.js";
 const pos = new Position(map);
 
-// ListPoint event listener
-const listElement = document.querySelector(`#listpoint`);
-if (listElement) {
-    listElement.addEventListener('click', (event) => {
-        // click load button
-        if (event.target.matches('form button')) {
-            document.querySelector('#listpoint form').submit();
-        }
-    });
-}
+
 
 
 
