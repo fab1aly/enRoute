@@ -168,12 +168,8 @@ session_start();
                     
                         if (mail($_POST['email'], $subject, $message, $headers))
                         {
-                            $query = "UPDATE Users SET password = :password WHERE email= :email";
-            
-                            $sth = self::$dbh->prepare($query);
-                            $sth->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
-                            $sth->bindValue(':password', $hashedPassword, PDO::PARAM_STR);
-                            $sth->execute();
+							$usersManager = new UsersManager;
+							$usersManager->setNewPasswordByEmail($_POST['email'], $password);
                             
                             $_SESSION['error'] = "E-mail envoyé";
                             header('Location: ./sign-in');

@@ -106,6 +106,16 @@
             $sth->bindValue(':password', password_hash($password,PASSWORD_DEFAULT), PDO::PARAM_STR);
             $sth->execute();
         }
+
+        public function setNewPasswordByEmail(string $email, string $password): void
+        {
+            $query = "UPDATE Users SET password = :password WHERE email= :email";
+
+            $sth = self::$dbh->prepare($query);
+            $sth->bindValue(':email', $email);
+            $sth->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
+            $sth->execute();
+        }
         
         public function deleteUser (int $id) : void
         {
