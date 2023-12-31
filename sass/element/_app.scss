@@ -5,13 +5,6 @@
 
     background-color: $button-color;
 
-    display: flex;
-    justify-content: center;
-
-    main {
-        height: 100%;
-    }
-
 }
 
 @media (prefers-color-scheme: dark) {
