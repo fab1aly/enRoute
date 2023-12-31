@@ -1,6 +1,6 @@
 .gitconfig
 .vscode/
-.tmp.driveupload/
+.tmp*/
 
 terminal.txt
 /application/configuration.php
