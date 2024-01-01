@@ -74,11 +74,13 @@
 
                 font-size: 0rem;
             }
+
             100% {
 
                 font-size: 1.8rem;
             }
         }
+
         p.icon {
             animation: growInfoIcon .7s ease-in;
             font-size: 1.8rem;
@@ -89,11 +91,13 @@
 
                 font-size: 0rem;
             }
+
             100% {
 
                 font-size: 1.3rem;
             }
         }
+
         p.label {
             animation: growInfoLabel .7s ease-in;
             font-size: 1.3rem;
@@ -149,6 +153,7 @@
                     padding: 0 .5rem;
                 }
             }
+
             .label-box:hover {
                 @include theme($select-color, 1rem);
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -181,18 +186,22 @@
                 0% {
                     height: 0; // padding-bottom: 0;
                 }
+
                 100% {
                     height: 1rem; // padding-bottom: .2rem;
                 }
             }
+
             @keyframes growDown {
                 0% {
                     height: 0; // padding-top: 0;
                 }
+
                 100% {
                     height: 1rem; // padding-top: .3rem;
                 }
             }
+
             .up,
             .down {
                 animation: none;
@@ -202,19 +211,23 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
                 i {
                     font-size: 1rem;
                     color: $border-color;
                 }
             }
+
             .up {
                 padding: .1rem 0 .2rem 0;
             }
+
             .down {
                 padding-top: .3rem;
             }
 
         }
+
         li.selected:hover {
             .label-box {
                 border: solid 3px $border-color;
@@ -226,6 +239,7 @@
                 display: none;
             }
         }
+
         li.selected:last-child {
             .down {
                 display: none;
@@ -277,7 +291,7 @@
         left: auto;
         right: .5rem;
 
-        width: 40vw;
+        width: 55vw;
         max-height: 60vh;
     }
 }
@@ -300,20 +314,23 @@
             li:hover {
                 .remove {
                     display: inline;
-                    color: $border-color!important;
+                    color: $border-color !important;
                 }
+
                 .remove:hover {
-                    color: $text-color!important;
+                    color: $text-color !important;
                 }
             }
+
             li.selected {
                 .remove {
-                    display: none!important;
+                    display: none !important;
                 }
             }
+
             li.selected:hover {
                 .remove {
-                    display: inline!important;
+                    display: inline !important;
                 }
             }
         }
