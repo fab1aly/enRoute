@@ -953,9 +953,10 @@ header nav:hover menu {
 @media screen and (min-width: 425px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
   #listpoint {
     left: auto;
-    right: 0.5rem;
-    width: 42.5rem;
+    right: 1rem;
+    width: 40.5rem;
     max-height: 60vh;
+    margin-left: 1rem;
   }
 }
 /*desktop*/

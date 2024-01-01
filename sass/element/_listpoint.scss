@@ -4,9 +4,9 @@
     bottom: 0;
     right: 1rem;
     left: 1rem;
-    
 
-    
+
+
 
     @include theme($bg-color, 1rem 1rem 0 0);
     border: none;
@@ -290,10 +290,12 @@
 
     #listpoint {
         left: auto;
-        right: .5rem;
+        right: 1rem;
 
-        width: 42.5rem;
+        width: 40.5rem;
         max-height: 60vh;
+
+        margin-left: 1rem;
     }
 }
 
