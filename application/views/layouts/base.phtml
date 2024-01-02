@@ -105,11 +105,16 @@
     function windowAjust() {
         const $app = document.querySelector("#app")
         $app.style.height = window.innerHeight + "px"
+
+        const $map = document.querySelector("#map")
+        $map.style.height = window.innerHeight + "px"
+
         requestAnimationFrame(windowAjust);
     }
-    requestAnimationFrame(windowAjust);
+    // requestAnimationFrame(windowAjust);
 
 if ("serviceWorker" in navigator) {
+    console.log("hello worker !");
   navigator.serviceWorker.register("script/service.js");
 }
 </script>

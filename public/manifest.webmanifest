@@ -2,11 +2,18 @@
     "lang": "fr",
     "name": "enRoute.ovh",
     "short_name": "enRoute",
-    "start_url": "./?utm_source=web_app_manifest",
-    "display": "standalone",
-    "background_color": "Moccasin",
-    "theme_color": "LightSteelBlue",
     "description": "L'application qui vous aide à trouver la meilleure route !",
+    "categories": [
+        "navigation"
+    ],
+
+    "start_url": "./",
+
+    "display": "standalone",
+    
+    "theme_color": "Lightblue",
+    "background_color": "Moccasin",
+
     "icons": [
         {
             "src": "image/icons8-SkyBlue-marker-48.png",
