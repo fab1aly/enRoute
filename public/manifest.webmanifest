@@ -1,0 +1,18 @@
+{
+    "lang": "fr",
+    "name": "enRoute.ovh",
+    "short_name": "enRoute",
+    "start_url": "./?utm_source=web_app_manifest",
+    "display": "standalone",
+    "background_color": "Moccasin",
+    "theme_color": "LightSteelBlue",
+    "description": "L'application qui vous aide à trouver la meilleure route !",
+    "icons": [
+        {
+            "src": "image/icons8-SkyBlue-marker-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }
+    ]
+    
+}

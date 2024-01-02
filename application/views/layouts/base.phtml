@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" >
 <!--Script Fontawesome-->
     <script src="https://kit.fontawesome.com/fdc6c3e4a2.js" crossorigin="anonymous"></script>
+<!-- PWA -->
+    <link rel="manifest" href="manifest.webmanifest" />
 
     <title><?= $title?></title>
 </head>
@@ -97,6 +99,20 @@
     <footer>
         copyright, bla bla, merci, rgpd, et autre ...
     </footer>
+
+<script>
+    // PATCH NEEDED  !!
+    function windowAjust() {
+        const $app = document.querySelector("#app")
+        $app.style.height = window.innerHeight + "px"
+        requestAnimationFrame(windowAjust);
+    }
+    requestAnimationFrame(windowAjust);
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("script/service.js");
+}
+</script>
 
 </div>
 </body>
