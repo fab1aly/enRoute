@@ -45,7 +45,9 @@
 }
 
 #app {
-  height: 100%;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  max-height: 100%;
   width: 100%;
   background-color: Moccasin;
 }
@@ -676,7 +678,7 @@ header nav:hover menu {
   }
 }
 #listpoint {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 1rem;
   left: 1rem;

@@ -101,17 +101,16 @@
     </footer>
 
 <script>
-    // PATCH NEEDED  !!
-    function windowAjust() {
-        const $app = document.querySelector("#app")
-        $app.style.height = window.innerHeight + "px"
-
-        const $map = document.querySelector("#map")
-        $map.style.height = window.innerHeight + "px"
-
-        requestAnimationFrame(windowAjust);
-    }
-    // requestAnimationFrame(windowAjust);
+    // test firefox
+    function resetHeight(){
+    // reset the body height to that of the inner browser
+    document.body.style.height = window.innerHeight + "px";
+    // document.querySelector("#map").style.height = window.innerHeight + "px";
+}
+// reset the height whenever the window's resized
+// window.addEventListener("resize", resetHeight);
+// called to initially set the height.
+// resetHeight();
 
 if ("serviceWorker" in navigator) {
     console.log("hello worker !");

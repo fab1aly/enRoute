@@ -1,6 +1,8 @@
 #app {
 
-    height: 100%;
+    height: -webkit-fill-available;
+    height: -moz-available;
+    max-height: 100%;
     width: 100%;
 
     background-color: $button-color;
