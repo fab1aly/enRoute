@@ -1,25 +1,28 @@
 {
     "lang": "fr",
-    "name": "enRoute.ovh",
+    "name": "enRoute.ovh ",
     "short_name": "enRoute",
+    "start_url": "./",
+    "display": "standalone",
+    "scope": "./",
+    "theme_color": "Lightblue",
+    "background_color": "Moccasin",
+    "icons": [
+        {
+            "src": "image/icons8-marker-768.png",
+            "sizes": "768x768",
+            "type": "image/png"
+        }
+    ],
     "description": "L'application qui vous aide à trouver la meilleure route !",
     "categories": [
         "navigation"
     ],
-
-    "start_url": "./",
-
-    "display": "standalone",
-    
-    "theme_color": "Lightblue",
-    "background_color": "Moccasin",
-
-    "icons": [
+    "screenshots": [
         {
-            "src": "image/icons8-SkyBlue-marker-48.png",
-            "sizes": "48x48",
-            "type": "image/png"
+            "src": "image/sc-enroute-405x756.jpg",
+            "sizes": "405x756",
+            "type": "image/jpg"
         }
     ]
-    
 }
