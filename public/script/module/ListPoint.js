@@ -90,7 +90,7 @@ export default class ListPoint {
     ////////////////////////////////////////////////////////////////////////////
     //init display
     displayInit() {
-        if (this.list !== []) {
+        if (this.list.length > 0) {
             this.displayPointsInMap();
             this.displayRouteSetTotal();
             this.displayListElement();
@@ -197,8 +197,8 @@ export default class ListPoint {
 
             if (index == 0) {
                 const marker = L.marker([point.geometry.coordinates[1],
-                        point.geometry.coordinates[0]
-                    ], { icon: startIcon })
+                point.geometry.coordinates[0]
+                ], { icon: startIcon })
                     .bindPopup(point.properties.label);
                 // Add the marker to the layer group
                 this.pointLayerGroup.addLayer(marker);
@@ -206,8 +206,8 @@ export default class ListPoint {
 
             else if (index == this.list.length - 1) {
                 const marker = L.marker([point.geometry.coordinates[1],
-                        point.geometry.coordinates[0]
-                    ], { icon: endIcon })
+                point.geometry.coordinates[0]
+                ], { icon: endIcon })
                     .bindPopup(point.properties.label);
                 // Add the marker to the layer group
                 this.pointLayerGroup.addLayer(marker);
@@ -215,8 +215,8 @@ export default class ListPoint {
 
             else {
                 const marker = L.marker([point.geometry.coordinates[1],
-                        point.geometry.coordinates[0]
-                    ], { icon: intermedIcon })
+                point.geometry.coordinates[0]
+                ], { icon: intermedIcon })
                     .bindPopup(point.properties.label);
                 // Add the marker to the layer group
                 this.pointLayerGroup.addLayer(marker);
@@ -249,8 +249,9 @@ export default class ListPoint {
                 []
             ];
 
-            const fetchDataAndAddToMap = async(pointStart, pointEnd) => {
-                const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
+            const fetchDataAndAddToMap = async (pointStart, pointEnd) => {
+                // const url = "https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?";
+                const url = "https://data.geopf.fr/navigation/itineraire?";
                 const utils = "resource=bdtopo-osrm&profile=car&optimization=fastest";
                 const start = `&start=${pointStart.geometry.coordinates}`;
                 const end = `&end=${pointEnd.geometry.coordinates}`;
@@ -302,20 +303,38 @@ export default class ListPoint {
                 }
             };
 
-            const displayRoute = async() => {
+            const displayRoute = async () => {
                 for (let i = 0; i < this.list.length - 1; i++) {
                     await fetchDataAndAddToMap(this.list[i], this.list[i + 1]);
                 }
 
                 //format time 
-                let durationText = Math.floor(duration / 60) + "h" + Math.floor(duration % 60) + "min";
-                if (duration < 59) {
-                    durationText = Math.floor(duration) + "min";
+                let durationText;
+                if (duration < 60) {
+                    durationText = Math.floor(duration) + "sec";
+                }
+                else if (duration < 3600) {
+                    durationText = Math.floor(duration / 60) + "min " + Math.floor(duration % 60) + "sec";
+                }
+                else {
+                    durationText =
+                        Math.floor(duration / 3600) + "h "
+                        + Math.floor((duration % 3600) / 60) + "min "
+                        // + Math.floor((duration % 3600**2) / 60) + "sec";
+                }
+
+                //format distance
+                let ditanceText;
+                if (distance >= 1000) {
+                    ditanceText = Math.floor(distance / 1000) + 'km';
+                }
+                else {
+                    ditanceText = distance + 'm';
                 }
 
                 //set total element
                 const totalElement = document.querySelector("#listpoint .total span span.label");
-                totalElement.textContent = ` Total : ${durationText} / ${Math.floor(distance / 1000)}km`;
+                totalElement.textContent = ` Total : ${durationText} / ${ditanceText}`;
             };
 
             const totalLabel = this.listElement.querySelector("#listpoint .total span span.label");
