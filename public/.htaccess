@@ -1,6 +1,10 @@
 Allow from all
 
+<!-- Options FollowSymLinks -->
+<!-- RewriteBase /Public/ -->
+
 RewriteEngine ON
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?route=$1 [QSA]
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]

@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,108 +8,107 @@
     <meta
         name="description"
         content="L'application d'itinéraire enRoute vous aide à organiser vos trajets entre différents points de passage.">
-<!--Favicon-->
+    <!--Favicon-->
     <link rel="icon" href="image/icons8-SkyBlue-marker-48.png">
-<!--CSS-->
-    <link rel="stylesheet" href="css/style.css" type="text/css" >
-<!--Script Fontawesome-->
+    <!--CSS-->
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!--Script Fontawesome-->
     <script src="https://kit.fontawesome.com/fdc6c3e4a2.js" crossorigin="anonymous"></script>
-<!-- PWA -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.webmanifest" />
 
-    <title><?= $title?></title>
+    <title><?= $title ?></title>
 </head>
 
 <body>
-<div id="app">
+    <div id="app">
 
-    <header>
+        <header>
 
             <a href='./' class="title">
                 <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo">
                 <h1>enRoute</h1>
             </a>
 
-        <nav class="">
-        <?php if(isset($_SESSION['user'])): ?>
-                <menu class=''>
-                    <li class="">
-                        <a href="./routes">Routes</a>
-                    </li>
-                    <li class="">
-                        <a href="./profil">Profil</a>
-                    </li>
-                    <li class="">
-                        <a href="./sign-out">Sortie</a>
-                    </li>
-                </menu>
-                <aside onclick="myFunction()"><span><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></span></aside>
-        <?php else: ?>
-                <menu class=''>
-                    <li class="">
-                        <a href="./sign-up">Inscription</a>
-                    </li>
-                    <li class="">
-                        <a href="./sign-in">Connexion</a>
-                    </li>
-                </menu>
-                <aside onclick="myFunction()"><span>Menu</span></aside>
-        <?php endif; ?>
-        </nav>
-<script>
-// document.querySelector('header aside').addEventListener('click', () => {
-//     document.querySelector('header menu').classList.toggle('menu-visible');
-// });
+            <nav class="">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <menu class=''>
+                        <li class="">
+                            <a href="./routes">Routes</a>
+                        </li>
+                        <li class="">
+                            <a href="./profil">Profil</a>
+                        </li>
+                        <li class="">
+                            <a href="./sign-out">Sortie</a>
+                        </li>
+                    </menu>
+                    <aside onclick="myFunction()"><span><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></span></aside>
+                <?php else: ?>
+                    <menu class=''>
+                        <li class="">
+                            <a href="./sign-up">Inscription</a>
+                        </li>
+                        <li class="">
+                            <a href="./sign-in">Connexion</a>
+                        </li>
+                    </menu>
+                    <aside onclick="myFunction()"><span>Menu</span></aside>
+                <?php endif; ?>
+            </nav>
+            <script>
+                // document.querySelector('header aside').addEventListener('click', () => {
+                //     document.querySelector('header menu').classList.toggle('menu-visible');
+                // });
 
-// const menu = document.querySelector('header menu');
-// const nav = document.querySelector('header nav');
-// const aside = document.querySelector('header aside');
+                // const menu = document.querySelector('header menu');
+                // const nav = document.querySelector('header nav');
+                // const aside = document.querySelector('header aside');
 
 
-// function myFunction() {
-    // aside.addEventListener('click', () => {
-// console.log('ok')
+                // function myFunction() {
+                // aside.addEventListener('click', () => {
+                // console.log('ok')
 
-    // if (menu.classList.contains('menu-visible')) {
-    //     console.log('visible')
-    //     menu.classList.remove('menu-visible');
-        
-    //     nav.style.width = aside.offsetWidth+10+'px';
-    // } else {
-    //     console.log(aside.offsetWidth)
-    //     menu.classList.add('menu-visible');
-    //     nav.style.width = menu.clientWidth+5+aside.clientWidth+10+'px';
-    //     menu.style.marginRight = aside.clientWidth+'px';
-    // }
+                // if (menu.classList.contains('menu-visible')) {
+                //     console.log('visible')
+                //     menu.classList.remove('menu-visible');
 
-// });
-// }
+                //     nav.style.width = aside.offsetWidth+10+'px';
+                // } else {
+                //     console.log(aside.offsetWidth)
+                //     menu.classList.add('menu-visible');
+                //     nav.style.width = menu.clientWidth+5+aside.clientWidth+10+'px';
+                //     menu.style.marginRight = aside.clientWidth+'px';
+                // }
 
-// Pour empêcher l'élément aside de bouger, nous pouvons lui ajouter une position absolue et le positionner à droite de la fenêtre :
-// aside.style.position = 'absolute';
-// aside.style.right = '.5rem';
-// nav.style.width = aside.clientWidth+'px';
-</script>
+                // });
+                // }
 
-    </header>
-    
-    <main>
-        <?= $viewContent?>
-    </main>
-    
-    <footer>
-        copyright, bla bla, merci, rgpd, et autre ...
-    </footer>
+                // Pour empêcher l'élément aside de bouger, nous pouvons lui ajouter une position absolue et le positionner à droite de la fenêtre :
+                // aside.style.position = 'absolute';
+                // aside.style.right = '.5rem';
+                // nav.style.width = aside.clientWidth+'px';
+            </script>
 
-<script>
+        </header>
 
-if ("serviceWorker" in navigator) {
-    console.log("hello worker !");
-  navigator.serviceWorker.register("script/service.js");
-}
+        <main>
+            <?= $viewContent ?>
+        </main>
 
-</script>
+        <footer>
+            copyright, bla bla, merci, rgpd, et autre ...
+        </footer>
 
-</div>
+        <script>
+            if ("serviceWorker" in navigator) {
+                console.log("hello worker !");
+                navigator.serviceWorker.register("script/service.js");
+            }
+        </script>
+
+    </div>
 </body>
+
 </html>
