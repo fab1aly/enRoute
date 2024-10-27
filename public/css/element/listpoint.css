@@ -342,9 +342,9 @@
         @media (prefers-color-scheme: dark) {
 
             background: var(--text-color);
-            border: solid 1px var(--item-color);
-            /* box-shadow: rgba(var(--item-color), 0.35) 0px -50px 36px -28px inset;  */
-            box-shadow: rgba(var(--item-color, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+            border: solid 1px var(--info-color);
+            /* box-shadow: rgba(var(--info-color), 0.35) 0px -50px 36px -28px inset;  */
+            box-shadow: rgba(var(--info-color, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
         }
 
         background: var(--info-color);

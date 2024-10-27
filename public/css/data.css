@@ -36,7 +36,7 @@
   --sb-select-color: AntiqueWhite;
 
   /* Theme */
-  @layer theme {
+  /* @layer theme {
 
     border: solid 1px var(--border-color);
     box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
@@ -48,10 +48,10 @@
 
       background: var(--text-color);
       border: solid 1px var(color1);
-      /* box-shadow: rgba(var(color1), 0.35) 0px -50px 36px -28px inset;  */
+      box-shadow: rgba(var(color1), 0.35) 0px -50px 36px -28px inset; 
       box-shadow: rgba(var(color1, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     }
-  }
+  } */
 
 
 

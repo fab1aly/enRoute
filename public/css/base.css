@@ -32,10 +32,12 @@
     @media (prefers-color-scheme: dark) {
         body {
             color: var(--sb-select-color);
+
             a,
             button {
                 color: var(--sb-select-color);
             }
+
             input {
                 color: var(--sb-select-color);
             }

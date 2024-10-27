@@ -3,7 +3,7 @@ header {
     position: fixed;
     z-index: 1000;
     top: -2px;
-    width: 100%;
+    width: 100vw;
     height: 60px;
 
     border: solid 1px var(--border-color);
@@ -15,9 +15,9 @@ header {
     @media (prefers-color-scheme: dark) {
 
         background: var(--text-color);
-        border: solid 1px var(--border-color);
-        /* box-shadow: rgba(var(color1), 0.35) 0px -50px 36px -28px inset;  */
-        box-shadow: rgba(var(--border-color, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        border: solid 1px var(--select-color);
+        /* box-shadow: rgba(var(--select-color), 0.35) 0px -50px 36px -28px inset;  */
+        box-shadow: rgba(var(--select-color, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     }
 
     background: var(--select-color);
@@ -97,9 +97,9 @@ header {
     @media (prefers-color-scheme: dark) {
 
       background: var(--text-color);
-      border: solid 1px var(color1);
-      box-shadow: rgba(var(color1), 0.35) 0px -50px 36px -28px inset; 
-      box-shadow: rgba(var(color1, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+      border: solid 1px var(--bg-color);
+      box-shadow: rgba(var(--bg-color), 0.35) 0px -50px 36px -28px inset; 
+      box-shadow: rgba(var(--bg-color, 0.25)) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     }
         background: var(--bg-color);
         border-radius: 0 0 1rem 1rem; */
@@ -256,6 +256,7 @@ header {
 
         }
     }
+
 }
 
 /* tablet */
