@@ -35,7 +35,7 @@
             $sth->execute();
             
             $sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'User');
-    // var_dump('ok '.$user);
+            // var_dump('ok '.$user);
             $user = $sth->fetch();
             
             //	Si un utilisateur a été trouvé (avec cette adresse électronique) et que le mot de passe est correct…
@@ -61,7 +61,7 @@
             $sth->execute();
             
             $sth->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'User');
-    // var_dump('ok '.$user);
+            // var_dump('ok '.$user);
             $user = $sth->fetch();
             
             //	Si un utilisateur a été trouvé (avec cette adresse électronique) et que le mot de passe est correct…
