@@ -8,15 +8,16 @@ export default class SearchBar {
         this.list = list;
         this.position = position;
 
-        this.glassElement = document.querySelector('#searchbar .glass');
-        this.inputElement = document.querySelector('#searchbar input');
-        this.crossElement = document.querySelector('#searchbar .cross');
+        this.glassElement = document.querySelector('#search_glass');
+        this.inputElement = document.querySelector('#search_input');
+        this.crossElement = document.querySelector('#search_cross');
         this.resultsList = document.querySelector('#searchbar ul');
 
+
         // event listener for input search
-        this.inputElement.addEventListener("input", async() => {
-            const inputValue = this.inputElement.value;
-            if (inputValue.length >= 7) {
+        this.inputElement.addEventListener("input", async () => {
+            const inputValue = this.inputElement.value; console.log("searchbar");
+            if (inputValue.length >= 5) {
                 const results = await this.searchAddress(inputValue);
                 this.displayResults(results);
             }
@@ -70,6 +71,7 @@ export default class SearchBar {
             const span = document.createElement('span');
             span.textContent = result.properties.label;
             const li = document.createElement('li');
+            li.classList.add('color-neutral-item-noborder');
             li.feature = result;
             li.appendChild(span);
             this.resultsList.appendChild(li);

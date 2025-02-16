@@ -21,40 +21,44 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="height-100vh bg-warning">
 
-        <header>
+        <header class="color-item border-none">
 
-            <a href='./' class="title">
-                <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo">
-                <h1>enRoute</h1>
-            </a>
+            <nav class="color-bg border-none">
 
-            <nav class="">
-                <?php if (isset($_SESSION['user'])): ?>
-                    <menu class=''>
-                        <li class="">
-                            <a href="./routes">Routes</a>
-                        </li>
-                        <li class="">
-                            <a href="./profil">Profil</a>
-                        </li>
-                        <li class="">
-                            <a href="./sign-out">Sortie</a>
-                        </li>
-                    </menu>
-                    <aside onclick="myFunction()"><span><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></span></aside>
-                <?php else: ?>
-                    <menu class=''>
-                        <li class="">
-                            <a href="./sign-up">Inscription</a>
-                        </li>
-                        <li class="">
-                            <a href="./sign-in">Connexion</a>
-                        </li>
-                    </menu>
-                    <aside onclick="myFunction()"><span>Menu</span></aside>
-                <?php endif; ?>
+                <a href='./' class="">
+                    <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo" class="" >    
+                </a>
+
+                <a href='./' class="">
+                    <h1 class="">enRoute</h1>
+               </a>
+
+            <?php if (isset($_SESSION['user'])): ?>
+                <menu class='color-item border-none'>
+                    <li class="">
+                        <a href="./routes">Routes</a>
+                    </li>
+                    <li class="">
+                        <a href="./profil">Profil</a>
+                    </li>
+                    <li class="">
+                        <a href="./sign-out">Sortie</a>
+                    </li>
+                </menu>
+                <aside class="color-info"onclick="myFunction()"><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></aside>
+            <?php else: ?>
+                <menu class="color-item border-none">
+                    <li class="color-button">
+                        <a href="./sign-up">Inscription</a>
+                    </li>
+                    <li class="color-button">
+                        <a href="./sign-in">Connexion</a>
+                    </li>
+                </menu>
+                <aside class="color-info" onclick="myFunction()">Menu</aside>
+            <?php endif; ?>
             </nav>
             <script>
                 // document.querySelector('header aside').addEventListener('click', () => {
@@ -93,12 +97,12 @@
 
         </header>
 
-        <main>
+        <main class="">
             <?= $viewContent ?>
         </main>
 
-        <footer>
-            copyright, bla bla, merci, rgpd, et autre ...
+        <footer class="color-item border-none">
+              copyright, bla bla, merci, rgpd, et autre ...
         </footer>
 
         <script>

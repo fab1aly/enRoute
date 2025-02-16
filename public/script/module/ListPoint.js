@@ -320,7 +320,7 @@ export default class ListPoint {
                     durationText =
                         Math.floor(duration / 3600) + "h "
                         + Math.floor((duration % 3600) / 60) + "min "
-                        // + Math.floor((duration % 3600**2) / 60) + "sec";
+                    // + Math.floor((duration % 3600**2) / 60) + "sec";
                 }
 
                 //format distance
@@ -333,27 +333,27 @@ export default class ListPoint {
                 }
 
                 //set total element
-                const totalElement = document.querySelector("#listpoint .total span span.label");
+                const totalElement = document.querySelector("#list_total span span.label");
                 totalElement.textContent = ` Total : ${durationText} / ${ditanceText}`;
             };
 
-            const totalLabel = this.listElement.querySelector("#listpoint .total span span.label");
+            const totalLabel = this.listElement.querySelector("#list_total span span.label");
             totalLabel.textContent = ` Total : calcul en cours ...`;
 
             displayRoute();
             this.lineLayerGroup.addTo(this.map);
 
-            const saveButton = this.listElement.querySelector("#listpoint .total form button");
+            const saveButton = this.listElement.querySelector("#list_total form button");
             if (saveButton) {
                 saveButton.style.display = 'inline';
             }
         }
 
         else {
-            const totalLabel = this.listElement.querySelector("#listpoint .total span span.label");
+            const totalLabel = this.listElement.querySelector("#list_total span span.label");
             totalLabel.textContent = ` Total : 0min / 0km`;
 
-            const saveButton = this.listElement.querySelector("#listpoint .total form button");
+            const saveButton = this.listElement.querySelector("#list_total form button");
             if (saveButton) {
                 saveButton.style.display = 'none';
             }
@@ -541,7 +541,7 @@ export default class ListPoint {
 
     // set view on all point
     totalListner() {
-        const total = this.listElement.querySelector('.total span');
+        const total = this.listElement.querySelector('#list_total span');
         total.addEventListener('click', () => {
             if (this.list.length >= 2) {
                 this.map.flyToBounds(this.getBbox());

@@ -1,0 +1,69 @@
+/* GFont Atkinson Hyperlegible*/
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Leaflet CSS */
+@import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" layer(leaflet);
+
+/* Framework CSS*/
+@import 'test.css' layer(test);
+
+/* Déclaration explicite de l'ordre des layers */
+@layer leaflet, test, custom;
+
+/* Custom CSS moderne */
+@layer custom {
+
+  :root {
+    --color-bg: DarkSeaGreen;
+    --color-item: LightSteelBlue;
+    --color-button: Moccasin;
+    --color-info: Tomato;
+    --color-select: Lightblue;
+
+    --color-sb-bg: Gainsboro;
+    --color-sb-item: WhiteSmoke;
+    --color-sb-select: AntiqueWhite;
+
+    --color-primary: Lightblue;
+    --color-primary-light: LightSteelBlue;
+    --color-secondary: hsl(280 80% 40%);
+    --color-success: DarkSeaGreen;
+    --color-warning: Moccasin;
+    --color-error: Tomato;
+
+    --color-neutral-dark: Gainsboro;
+    --color-neutral-light: WhiteSmoke;
+    --color-neutral-select: AntiqueWhite;
+
+    --color-text: #222;
+    --color-border: DimGray;
+
+  }
+
+  body {
+    font-family: "Atkinson Hyperlegible";
+    color: var(--color-text);
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    li {
+      list-style: none;
+    }
+
+  }
+
+  .container {
+    width: min(100% - 1rem, 70rem);
+  }
+
+  .leaflet-top {
+    top: var(--spacing-xl);
+  }
+
+  .box-shadow {
+    box-shadow: rgba(50, 50, 93, 0.5) 0px 2px 5px -1px, rgba(0, 0, 0, 0.53) 0px 1px 3px -1px;
+  }
+}

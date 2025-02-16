@@ -4,7 +4,7 @@ export default class Position {
         this.map = map;
         this.time = time;
 
-        this.positionElement = document.querySelector(`#${divId} .position`);
+        this.positionElement = document.querySelector(`#${divId} #list_position`);
 
         this.lat = null;
         this.lon = null;
@@ -18,10 +18,10 @@ export default class Position {
         this.watchId = navigator.geolocation.watchPosition(
             this.updateLocation.bind(this),
             this.handleLocationError.bind(this), {
-                enableHighAccuracy: true,
-                timeout: this.time,
-                maximumAge: 0,
-            }
+            enableHighAccuracy: true,
+            timeout: this.time,
+            maximumAge: 0,
+        }
         );
 
         // init listener for set view on position
