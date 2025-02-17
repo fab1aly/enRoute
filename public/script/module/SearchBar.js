@@ -16,7 +16,7 @@ export default class SearchBar {
 
         // event listener for input search
         this.inputElement.addEventListener("input", async () => {
-            const inputValue = this.inputElement.value; console.log("searchbar");
+            const inputValue = this.inputElement.value;
             if (inputValue.length >= 5) {
                 const results = await this.searchAddress(inputValue);
                 this.displayResults(results);
