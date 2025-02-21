@@ -16,23 +16,29 @@
     <form id="sign_up" class="bgcolor-green" method="post" action="./sign-up">
         <fieldset class="bgcolor-blue">
             <legend class="bgcolor-red">Inscription</legend>
-            
-            <input 
+
+            <label for="username" hidden>Pseudo :</label>
+            <input id="username"
                 class="bgcolor-white form-input" 
+                title="Veuillez entrer votre pseudo" 
                 type="text" name="username" placeholder="Pseudo" 
                 value="<?= isset($_SESSION['formSignData']['username']) ?
                     $_SESSION['formSignData']['username'] : null ?>"
             required>
             
-            <input 
+            <label for="email" hidden>Email :</label>
+            <input id="email"
                 class="bgcolor-white form-input" 
+                title="Veuillez entrer votre adresse électronique" 
                 type="email" name="email" placeholder="Adresse électronique" 
                 value="<?= isset($_SESSION['formSignData']['email']) ? 
                     $_SESSION['formSignData']['email'] : null ?>"
             required>
             
+            <label for="form_password" hidden>Mot de passe :</label>
             <input id="form_password" 
                 class="bgcolor-white form-input"
+                title="Veuillez entrer votre mot de passe" 
                 type="password" name="password" placeholder="Mot de passe"
                 required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$"
                 title="Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial et faire au moins 8 caractères"
@@ -40,8 +46,10 @@
                     $_SESSION['formSignData']['password'] : null ?>"
             required>
 
+            <label for="form_password_confirm" hidden>Vérifier votre mot de passe :</label>
             <input id="form_password_confirm"
                 class="bgcolor-white form-input" 
+                title="Veuillez vérifier votre mot de passe" 
                 type="password" name="password_confirm" 
                 placeholder="Vérifier votre mdp" 
             required>

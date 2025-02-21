@@ -17,16 +17,20 @@
     <form id="sign_in" class="bgcolor-green" method="post" action="./sign-in">
         <fieldset class="bgcolor-blue">
             <legend class="bgcolor-red">Connexion</legend>
-            
-            <input
+
+            <label for="email" hidden>Email :</label>
+            <input id="email"
+                title="Veuillez entrer votre adresse électronique" 
                 class="bgcolor-white form-input" 
                 type="email" name="email" placeholder="Adresse électronique" 
                 value="<?= isset($_SESSION['formSignData']['email']) ? 
                     $_SESSION['formSignData']['email'] : null ?>"
             required>
             
-            <input 
+            <label for="password" hidden>Mot de passe :</label>
+            <input id="password"
                 class="bgcolor-white form-input" 
+                title="Veuillez entrer votre mot de passe" 
                 type="password" name="password" placeholder="Mot de passe"
             required>
             

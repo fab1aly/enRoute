@@ -25,7 +25,9 @@
 	</span>
 	<ul id="searchbar_results"></ul>
 </div>
+
 <div id="map" class="bgcolor-yellow"></div>
+
 <div id="listpoint" class="bgcolor-green border-none">
 
 		<!--<div class="resize-hitbox"></div>-->
@@ -37,7 +39,7 @@
 		
 		<div id="list_invite" class="info">
 				<p class="icon"><i class="fa-solid fa-map-location-dot"></i></p>
-				<p class="label text-center-xs">
+				<p class="label">
 						Rechercher quelques adresses.<br>Ajoutez-les, organisez-les ...<br>
 						<?php if(isset($_SESSION['user'])==false): ?>
 						Créer un compte pour garder<br>et partager cette route.
@@ -46,7 +48,7 @@
 		</div>
 		
 		<!--list of point-->
-		<ul class="container"></ul>
+		<ul id="list_container" class=""></ul>
 		
 		<!--template of point-->
 		<template> 
@@ -54,7 +56,7 @@
 						<div class="up"><i class="fa-solid fa-angles-up"></i></div>
 						<div class="label-box bgcolor-blue">
 								<span class='label'></span>
-								<span class="remove">
+								<span class="remove" title="Supprimer">
 										<i class="fa-solid fa-circle-xmark"></i>
 								</span>
 						</div>
@@ -62,8 +64,7 @@
 				</li>
 		</template>
 
-		<div id="list_total" class="bgcolor-red
-		">
+		<div id="list_total" class="bgcolor-red">
 				<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
 		
 		<!--display save button if user connected-->
@@ -71,7 +72,7 @@
 				<form id="save_form" method="post" action="./routes-process"> 
 						<input id="save_listpoint" type="hidden" name="listpoint" value="">
 						<input id="save_listname" type="hidden" name="name" value=''>
-						<button id="save_button" type="button" class="bgcolor-yellow hover-green" >
+						<button id="save_button" class="bgcolor-yellow hover-green" title="Sauvegarder cette route">
 							Sauver <i class="fa-solid fa-download"></i>
 						</button>
 				</form>

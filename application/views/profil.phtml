@@ -13,6 +13,7 @@
         <fieldset class="bgcolor-blue">
             <legend class="bgcolor-red">Nom d'utilisateur</legend> 
             <input class="bgcolor-white form-input" 
+                title="Veuillez entrer votre nouveau nom d'utilisateur" 
                 type="text" name="new_username" 
                 placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
             
@@ -22,6 +23,7 @@
             <legend class="bgcolor-red">Email</legend>
             
             <input class="bgcolor-white form-input" 
+                title="Veuillez entrer votre nouvelle adresse électronique" 
                 type="email" name="new_email" 
                 placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
             
@@ -32,6 +34,7 @@
             
             <input id="form_password" 
                 class="bgcolor-white form-input"
+                title="Veuillez entrer votre nouveau mot de passe"
                 type="password" name="new_password" 
                 placeholder="nouveau mdp"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$">
@@ -45,7 +48,11 @@
             </div>
             <script type="text/javascript" src="script/sign.js"></script>
             
-            <input class="bgcolor-white form-input" type="password" name="new_password_confirm" placeholder="vérifier mdp">
+            <input 
+                class="bgcolor-white form-input" 
+                title="Veuillez confirmer votre nouveau mot de passe"
+                type="password" name="new_password_confirm" 
+                placeholder="vérifier mdp">
             
         </fieldset>
         

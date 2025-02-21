@@ -9,22 +9,22 @@
     <script type="module" src="./script/routes.js"></script>
 
 
-<div id='routes'>
-    <ul>
+<div id="routes" class="bgcolor-gray border-none">
+    <ul id='routes_container'>
         <?php foreach ($lists as $list):?>
           
-        <li 
+        <li  class="bgcolor-white border-none"
             data-name="<?=htmlspecialchars($list['name'])?>"
             data-uniqid="<?=htmlspecialchars($list['uniq_id'])?>"
             data-value="<?=htmlspecialchars($list['listpoint'])?>"
         >
-            <span class="share">
+            <span class="share" title="Partager">
                 <i class="fa-solid fa-share-from-square"></i>
             </span>
             
             <span class='label'><?=htmlspecialchars($list['name'])?></span>
             
-            <span class="remove" data-index="" >
+            <span class="remove" title="Supprimer" data-index="" >
                 <i class="fa-solid fa-circle-xmark"></i>
             </span>
         </li>
@@ -37,7 +37,45 @@
     </form>
 </div>
 
-<div id="modal" class="modal">
+<div id="listpoint" class="bgcolor-green border-none">
+
+    <!--<div class="drag-bar"></div>-->
+
+    <div id="list_position" class="bgcolor-yellow">
+        <span><i class="fa-solid fa-location-crosshairs"></i> Votre position</span>
+    </div>
+
+    <ul id="list_container" class=""></ul><!--list of point-->
+
+    <template> <!--template of point-->
+        <li class="point">
+            <div class="label-box bgcolor-blue">
+                <span class='label'></span>
+                
+            </div>
+        </li>
+    </template>
+
+    <div id="list_total" class="bgcolor-red">
+        <span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
+
+        <form id="load_form" method="post" action="./home-process"> 
+            <input id="load_input" type="hidden" name="list_uniq_id" value="">
+            
+            <button  id="save_button" class="bgcolor-yellow hover-green" 
+               title="Charger cette liste de points"
+                type="button"><i class="fa-solid fa-upload"></i> Charger</button>
+        </form>
+    </div>
+
+
+    
+</div>
+
+<div id="map" class="bgcolor-yellow"></div>
+<script src="script/map.js"></script>
+
+<dialog id="modal" class="modal">
   
     <div  class="modal-content">
         <span class="cross">
@@ -53,42 +91,4 @@
         <button class='remove'><i class="fa-solid fa-trash"></i> Supprimer</button>
     </div>
  
-</div>
-
-
-<div id="listpoint">
-
-    <!--<div class="drag-bar"></div>-->
-
-    <div class="position">
-        <span><i class="fa-solid fa-location-crosshairs"></i> Votre position</span>
-    </div>
-
-    <ul></ul><!--list of point-->
-
-    <template> <!--template of point-->
-        <li class="point">
-            <div class="label-box">
-                <span class='label'></span>
-                
-            </div>
-        </li>
-    </template>
-
-    <div class="total">
-        <span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
-
-        <form id="load_form" method="post" action="./home-process"> 
-            <input id="load_input" type="hidden" name="list_uniq_id" value="">
-            
-            <button type="button"><i class="fa-solid fa-upload"></i> Charger</button>
-        </form>
-    </div>
-
-
-    
-</div>
-
-<div id="map"></div>
-<script src="script/map.js"></script>
-
+</dialog>

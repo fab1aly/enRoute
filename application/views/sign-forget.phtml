@@ -13,8 +13,10 @@
             <legend class="bgcolor-red">Mot de passe oublié</legend>
             
             
-            <input 
+            <label for="email" hidden>Email :</label>
+            <input id="email"
                 class="bgcolor-white form-input" 
+                title="Veuillez entrer votre adresse électronique" 
                 type="email" name="email" placeholder="Adresse électronique" 
                 <?= isset($_SESSION['formSignData']['email']) ? 
                     'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
