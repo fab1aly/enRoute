@@ -71,7 +71,7 @@ export default class SearchBar {
             const span = document.createElement('span');
             span.textContent = result.properties.label;
             const li = document.createElement('li');
-            li.classList.add('color-neutral-item-noborder');
+            li.classList.add('bgcolor-white', 'border-none');
             li.feature = result;
             li.appendChild(span);
             this.resultsList.appendChild(li);

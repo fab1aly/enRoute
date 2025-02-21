@@ -8,29 +8,34 @@
 
 <div id="sign-container">
     
-    <form class="sign-form" method='post' action='./profil-process'>
+    <form id="sign_profil" class="bgcolor-green" method='post' action='./profil-process'>
         
-        <fieldset>
-            <!--<?php var_dump($user_info);?>-->
-            <legend>Nom d'utilisateur</legend>
-            
-            <input type="text" name="new_username" placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
-            
-        </fieldset>
-    
-        <fieldset>
-            <legend>Email</legend>
-            
-            <input type="email" name="new_email" placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red">Nom d'utilisateur</legend> 
+            <input class="bgcolor-white form-input" 
+                type="text" name="new_username" 
+                placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
             
         </fieldset>
     
-        <fieldset>
-            <legend>Mot de passe</legend>
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red">Email</legend>
             
-            <input id="password" type="password" name="new_password" placeholder="nouveau mdp"
+            <input class="bgcolor-white form-input" 
+                type="email" name="new_email" 
+                placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
+            
+        </fieldset>
+    
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red">Mot de passe</legend>
+            
+            <input id="form_password" 
+                class="bgcolor-white form-input"
+                type="password" name="new_password" 
+                placeholder="nouveau mdp"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$">
-            <div id="tooltip-pw" class="profil">
+            <div id="form_password_tooltip" class="bgcolor-black">
                 <span class="maj">Une Majuscule</span>
                 <span class="min">une minuscule</span>
                 <span class="num">1 chiffre</span>
@@ -40,14 +45,14 @@
             </div>
             <script type="text/javascript" src="script/sign.js"></script>
             
-            <input type="password" name="new_password_confirm" placeholder="vérifier mdp">
+            <input class="bgcolor-white form-input" type="password" name="new_password_confirm" placeholder="vérifier mdp">
             
         </fieldset>
         
-        <button type="submit" ><span>Mettre à jour</span><i class="fa-solid fa-arrows-rotate"></i></button>
+        <button class="bgcolor-yellow form-button hover-green" type="submit" ><span>Mettre à jour</span><i class="fa-solid fa-arrows-rotate"></i></button>
     </form>
     
-    <a class="delete-user" href="./profil-delete"><i class="fa-solid fa-trash"></i> Supprimer votre compte</a>
+    <a class="delete-user bgcolor-red hover-green" href="./profil-delete"><i class="fa-solid fa-trash"></i> Supprimer votre compte</a>
 
     <?php if(isset($error)): ?>
 		<p class="error"><?= $error ?></p>

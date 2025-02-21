@@ -12,25 +12,25 @@
 		<script type="module" src="./script/home.js"></script>
 
 
-<div id="searchbar" class="color-neutral-bg-noborder">
+<div id="searchbar" class="bgcolor-gray border-none">
 	
-	<span id="searchbar_input" class="color-neutral-item-noborder">
+	<span id="searchbar_input" class="bgcolor-white border-none">
 		<span id="search_glass">
 			<i class="fa-solid fa-magnifying-glass"></i>
 		</span>
-		<input id="search_input" type="text" name="search_adress" placeholder="recherche addresse">
+		<input id="search_input" class="form-input"type="text" name="search_adress" placeholder="recherche addresse">
 		<span id="search_cross">
 			<i class="fa-regular fa-circle-xmark"></i>
 		</span> 
 	</span>
 	<ul id="searchbar_results"></ul>
 </div>
-<div id="map" class="color-button"></div>
-<div id="listpoint" class="color-bg-noborder">
+<div id="map" class="bgcolor-yellow"></div>
+<div id="listpoint" class="bgcolor-green border-none">
 
 		<!--<div class="resize-hitbox"></div>-->
 
-		<div id="list_position" class="color-button">
+		<div id="list_position" class="bgcolor-yellow">
 				<i class="fa-solid fa-location-crosshairs"></i>
 				<span>Votre position</span>
 		</div>
@@ -52,7 +52,7 @@
 		<template> 
 				<li class="">
 						<div class="up"><i class="fa-solid fa-angles-up"></i></div>
-						<div class="label-box color-item">
+						<div class="label-box bgcolor-blue">
 								<span class='label'></span>
 								<span class="remove">
 										<i class="fa-solid fa-circle-xmark"></i>
@@ -62,7 +62,8 @@
 				</li>
 		</template>
 
-		<div id="list_total" class="color-info">
+		<div id="list_total" class="bgcolor-red
+		">
 				<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
 		
 		<!--display save button if user connected-->
@@ -70,7 +71,9 @@
 				<form id="save_form" method="post" action="./routes-process"> 
 						<input id="save_listpoint" type="hidden" name="listpoint" value="">
 						<input id="save_listname" type="hidden" name="name" value=''>
-						<button id="save_button" type="button">Sauver <i class="fa-solid fa-download"></i></button>
+						<button id="save_button" type="button" class="bgcolor-yellow hover-green" >
+							Sauver <i class="fa-solid fa-download"></i>
+						</button>
 				</form>
 		<?php endif; ?>
 		</div>

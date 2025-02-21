@@ -21,11 +21,11 @@
 </head>
 
 <body>
-    <div id="app" class="height-100vh bg-warning">
+    <div id="app" class="">
 
-        <header class="color-item border-none">
+        <header class="bgcolor-blue border-none">
 
-            <nav class="color-bg border-none">
+            <nav class="bgcolor-green border-none">
 
                 <a href='./' class="">
                     <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo" class="" >    
@@ -36,28 +36,28 @@
                </a>
 
             <?php if (isset($_SESSION['user'])): ?>
-                <menu class='color-item border-none'>
-                    <li class="">
+                <menu class='bgcolor-blue border-none'>
+                    <li class="bgcolor-yellow">
                         <a href="./routes">Routes</a>
                     </li>
-                    <li class="">
+                    <li class="bgcolor-yellow">
                         <a href="./profil">Profil</a>
                     </li>
-                    <li class="">
+                    <li class="bgcolor-yellow">
                         <a href="./sign-out">Sortie</a>
                     </li>
                 </menu>
-                <aside class="color-info"onclick="myFunction()"><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></aside>
+                <aside class="bgcolor-red"onclick="myFunction()"><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></aside>
             <?php else: ?>
-                <menu class="color-item border-none">
-                    <li class="color-button">
+                <menu class="bgcolor-blue border-none">
+                    <li class="bgcolor-yellow">
                         <a href="./sign-up">Inscription</a>
                     </li>
-                    <li class="color-button">
+                    <li class="bgcolor-yellow">
                         <a href="./sign-in">Connexion</a>
                     </li>
                 </menu>
-                <aside class="color-info" onclick="myFunction()">Menu</aside>
+                <aside class="bgcolor-red" onclick="myFunction()">Menu</aside>
             <?php endif; ?>
             </nav>
             <script>
@@ -101,7 +101,7 @@
             <?= $viewContent ?>
         </main>
 
-        <footer class="color-item border-none">
+        <footer class="bgcolor-blue border-none">
               copyright, bla bla, merci, rgpd, et autre ...
         </footer>
 

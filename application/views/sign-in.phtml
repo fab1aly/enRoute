@@ -14,23 +14,32 @@
 ?>
 
 <div id="sign-container">
-    <form id="sign_in" class="sign-form" method="post" action="./sign-in">
-        <fieldset>
-            <legend>Connexion</legend>
+    <form id="sign_in" class="bgcolor-green" method="post" action="./sign-in">
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red">Connexion</legend>
             
-            <input type="email" name="email" placeholder="Adresse électronique" 
-                <?= isset($_SESSION['formSignData']['email']) ? 
-                    'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
+            <input
+                class="bgcolor-white form-input" 
+                type="email" name="email" placeholder="Adresse électronique" 
+                value="<?= isset($_SESSION['formSignData']['email']) ? 
+                    $_SESSION['formSignData']['email'] : null ?>"
             required>
             
-            <input type="password" name="password" placeholder="Mot de passe" required>
+            <input 
+                class="bgcolor-white form-input" 
+                type="password" name="password" placeholder="Mot de passe"
+            required>
             
         </fieldset>
         
-        <button type="submit" ><span>Valider</span><i class="fa-solid fa-circle-check"></i></button>
+        <button  class="bgcolor-yellow form-button hover-green" type="submit" >
+            <span>Valider</span><i class="fa-solid fa-circle-check"></i>
+        </button>
     </form>
     
-    <a class="delete-user" href="./sign-forget"><i class="fa-solid fa-arrows-rotate"></i><span>Mot de passe oublié</span></a>
+    <a class="delete-user bgcolor-red hover-green" href="./sign-forget">
+        <i class="fa-solid fa-arrows-rotate"></i><span>Mot de passe oublié</span>
+    </a>
     
     <?php if(isset($error)): ?>
     	<p class="error"><?= $error ?></p>

@@ -6,8 +6,10 @@
         private ?string $username;
         private ?string $email;
         private ?string $password;
+        private ?string $date_creat;
         private string $CSRFToken;
         private int $admin;
+        
         
         
         public function __construct(?string $username = null,
