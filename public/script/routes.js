@@ -1,4 +1,8 @@
-// document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function () {
+//     removeRoute = function (uniqid) {
+//         console.log(uniqid);
+//     }
+// });
 
 // function for toggle select li (route) in ul (routes)
 function displaySelect(li) {
@@ -29,16 +33,21 @@ if (list_routes.querySelector('li')) {
     displaySelect(li, list_routes);
 
     // init ListPoint
-    const route_list = JSON.parse(li.dataset.value);
-    route = new ListPoint(map, 'route', route_list);
+    if (li.dataset.value) {
+        const route_list = JSON.parse(li.dataset.value);
+        route = new ListPoint(map, 'route', route_list);
 
-    // display li ListPoint
-    route.displayInit();
-    route.eventListenerInit();
-    route.setViewOnAllPoint();
-
+        // display li ListPoint
+        route.displayInit();
+        route.eventListenerInit();
+        route.setViewOnAllPoint();
+    } else {
+        console.log('route_list is empty');
+    }
 }
-
+function removeRoute(uniqid) {
+    console.log(uniqid);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // routes ul listener
@@ -86,8 +95,8 @@ document.querySelector('#routes ul').addEventListener('click', () => {
         p.textContent = li.dataset.name;
         const button = modal.querySelector("button");
         button.style.display = "inline";
-
     }
+
 
     // share route
     if (event.target.matches('.share i')) {
@@ -103,7 +112,7 @@ document.querySelector('#routes ul').addEventListener('click', () => {
         const span = modal.querySelector("fieldset span");
         span.textContent = " Voici un lien pour partager cette route ";
         const p = modal.querySelector("fieldset p");
-        p.textContent = "enRoute.fr/route?id=" + li.dataset.uniqid;
+        p.textContent = "enRoute.ovh/route?id=" + li.dataset.uniqid;
         const button = modal.querySelector("button");
         button.style.display = "none";
 

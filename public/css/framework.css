@@ -98,52 +98,51 @@
                 }
             }
 
-
-            [class*="bgcolor-"][class*="-green"] {
+            .bgcolor-green {
                 --element-color: var(--green-color);
             }
 
-            [class*="bgcolor-"][class*="-red"] {
+            .bgcolor-red {
                 --element-color: var(--red-color);
             }
 
-            [class*="bgcolor-"][class*="-cyan"] {
+            .bgcolor-cyan {
                 --element-color: var(--cyan-color);
             }
 
-            [class*="bgcolor-"][class*="-blue"] {
+            .bgcolor-blue {
                 --element-color: var(--blue-color);
             }
 
-            [class*="bgcolor-"][class*="-yellow"] {
+            .bgcolor-yellow {
                 --element-color: var(--yellow-color);
             }
 
 
-            [class*="bgcolor-"][class*="-white"] {
+            .bgcolor-white {
                 --element-color: var(--white-color);
             }
 
-            [class*="bgcolor-"][class*="-gray"] {
+            .bgcolor-gray {
                 --element-color: var(--gray-color);
             }
 
-            [class*="bgcolor-"][class*="-grey"] {
+            .bgcolor-grey {
                 --element-color: var(--grey-color);
             }
 
-            [class*="bgcolor-"][class*="-black"] {
+            .bgcolor-black {
                 --element-color: var(--black-color);
                 color: light-dark(var(--white-color), var(--yellow-color));
             }
 
 
 
-            [class*="border-"][class*="-none"] {
+            .border-none {
                 border-color: light-dark(transparent, var(--element-color));
             }
 
-            [class*="shadow-"][class*="-none"] {
+            .shadow-none {
                 box-shadow: none;
             }
         }
@@ -152,7 +151,6 @@
             @layer button {
                 .form-button {
                     margin: .5rem;
-                    /* margin-bottom: .25rem; */
                     padding: .25rem .5rem;
 
                     width: fit-content;
@@ -177,10 +175,13 @@
                     }
                 }
 
-                [class*="hover-"][class*="-green"]:hover {
+                .hover-green:hover {
                     --hover-color: var(--green-color);
                 }
 
+                .hover-red:hover {
+                    --hover-color: var(--red-color);
+                }
             }
 
 
@@ -204,7 +205,6 @@
                 .form-input:hover:not(:focus-visible) {
                     background-color: light-dark(var(--cream-color), var(--grey-color));
                 }
-
             }
         }
     }

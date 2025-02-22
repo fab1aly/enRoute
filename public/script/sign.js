@@ -1,4 +1,4 @@
-const tooltip = document.querySelector('#form_password_tooltip');
+const tooltip = document.querySelector('.password_tooltip');
 const input = document.querySelector('#form_password');
 
 input.addEventListener('focus', () => {

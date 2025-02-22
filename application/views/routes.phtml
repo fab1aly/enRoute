@@ -41,9 +41,9 @@
 
     <!--<div class="drag-bar"></div>-->
 
-    <div id="list_position" class="bgcolor-yellow">
+    <!-- <div id="list_position" class="bgcolor-yellow">
         <span><i class="fa-solid fa-location-crosshairs"></i> Votre position</span>
-    </div>
+    </div> -->
 
     <ul id="list_container" class=""></ul><!--list of point-->
 
@@ -63,7 +63,7 @@
             <input id="load_input" type="hidden" name="list_uniq_id" value="">
             
             <button  id="save_button" class="bgcolor-yellow hover-green" 
-               title="Charger cette liste de points"
+               title="Charger cette route"
                 type="button"><i class="fa-solid fa-upload"></i> Charger</button>
         </form>
     </div>
@@ -75,20 +75,20 @@
 <div id="map" class="bgcolor-yellow"></div>
 <script src="script/map.js"></script>
 
-<dialog id="modal" class="modal">
+<div id="modal" class="modal">
   
-    <div  class="modal-content">
+    <div  class="modal-content bgcolor-green">
         <span class="cross">
             <i class="fa-solid fa-circle-xmark"></i>
         </span>
         
-        <fieldset>
-            <legend></legend>
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red"></legend>
             <span></span>
-            <p></p>
+            <p class="bgcolor-cyan"></p>
         </fieldset>
         
-        <button class='remove'><i class="fa-solid fa-trash"></i> Supprimer</button>
+        <button class='remove bgcolor-yellow hover-red'><i class="fa-solid fa-trash"></i><span>Supprimer</span></button>
     </div>
  
-</dialog>
+</div>

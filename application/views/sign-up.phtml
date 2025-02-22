@@ -45,6 +45,15 @@
                 value="<?= isset($_SESSION['formSignData']['password']) ? 
                     $_SESSION['formSignData']['password'] : null ?>"
             required>
+                <div id="form_password_tooltip" class="password_tooltip bgcolor-black">
+                    <span class="maj">Une Majuscule</span>
+                    <span class="min">une minuscule</span>
+                    <span class="num">1 chiffre</span>
+                    <span class="spe">un spécial (!?..) </span>
+                    <span class="num8">8 caractères</span>
+                    <div class="arrow"></div>
+                </div>
+            </input>
 
             <label for="form_password_confirm" hidden>Vérifier votre mot de passe :</label>
             <input id="form_password_confirm"
@@ -52,16 +61,7 @@
                 title="Veuillez vérifier votre mot de passe" 
                 type="password" name="password_confirm" 
                 placeholder="Vérifier votre mdp" 
-            required>
-
-            <div id="form_password_tooltip" class="bgcolor-black">
-                <span class="maj">Une Majuscule</span>
-                <span class="min">une minuscule</span>
-                <span class="num">1 chiffre</span>
-                <span class="spe">un spécial (!?..) </span>
-                <span class="num8">8 caractères</span>
-                <div class="arrow"></div>
-            </div>   
+            required> 
         </fieldset>
         <button class="bgcolor-yellow form-button hover-green" type="submit" >
             <span>Valider</span><i class="fa-solid fa-circle-check"></i>

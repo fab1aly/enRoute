@@ -22,6 +22,8 @@ if (save_button) {
     save_button.addEventListener('click', () => {
         const modal = document.querySelector("#modal");
         modal.style.display = "flex";
+        event.preventDefault();
+
     });
 }
 
@@ -65,7 +67,7 @@ const searchBar = new SearchBar(local_list, pos);
 ////////////////////////////////////////////////////////////////////////////////
 // set view at position on load if no point in list
 if (!local_list.getList().length) {
-    navigator.geolocation.getCurrentPosition(function(e) {
+    navigator.geolocation.getCurrentPosition(function (e) {
         map.setView([e.coords.latitude, e.coords.longitude], 13);
     });
 }

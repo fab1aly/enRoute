@@ -7,56 +7,59 @@
 ?>
 
 <div id="sign-container">
-    
+
     <form id="sign_profil" class="bgcolor-green" method='post' action='./profil-process'>
-        
+
         <fieldset class="bgcolor-blue">
-            <legend class="bgcolor-red">Nom d'utilisateur</legend> 
-            <input class="bgcolor-white form-input" 
+            <legend class="bgcolor-red"><label for="form_username">Nom d'utilisateur</label></legend> 
+            <input id = "form_username"
+                class="bgcolor-white form-input" 
                 title="Veuillez entrer votre nouveau nom d'utilisateur" 
                 type="text" name="new_username" 
-                placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>">
-            
+                placeholder="<?= htmlspecialchars($_SESSION['user']->getUsername())?>"
+            >
         </fieldset>
     
         <fieldset class="bgcolor-blue">
-            <legend class="bgcolor-red">Email</legend>
-            
-            <input class="bgcolor-white form-input" 
+            <legend class="bgcolor-red"><label for="form_email">Email</label></legend> 
+            <input id = "form_email"
+                class="bgcolor-white form-input" 
                 title="Veuillez entrer votre nouvelle adresse électronique" 
                 type="email" name="new_email" 
-                placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>">
-            
+                placeholder="<?= htmlspecialchars($_SESSION['user']->getEmail())?>"
+            >
         </fieldset>
     
         <fieldset class="bgcolor-blue">
-            <legend class="bgcolor-red">Mot de passe</legend>
-            
+            <legend class="bgcolor-red"><label for="form_password">Mot de passe</label></legend> 
             <input id="form_password" 
                 class="bgcolor-white form-input"
                 title="Veuillez entrer votre nouveau mot de passe"
                 type="password" name="new_password" 
                 placeholder="nouveau mdp"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$">
-            <div id="form_password_tooltip" class="bgcolor-black">
-                <span class="maj">Une Majuscule</span>
-                <span class="min">une minuscule</span>
-                <span class="num">1 chiffre</span>
-                <span class="spe">un spécial (!?..) </span>
-                <span class="num8">8 caractères</span>
-                <div class="arrow"></div>
-            </div>
-            <script type="text/javascript" src="script/sign.js"></script>
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$"
+            >
+                <div id="form_new_password_tooltip" class="password_tooltip bgcolor-black">
+                    <span class="maj">Une Majuscule</span>
+                    <span class="min">une minuscule</span>
+                    <span class="num">1 chiffre</span>
+                    <span class="spe">un spécial (!?..) </span>
+                    <span class="num8">8 caractères</span>
+                    <div class="arrow"></div>
+                </div>
+                <script type="text/javascript" src="script/sign.js"></script>
+            </input>
             
-            <input 
+            <input id="form_password_confirm" 
                 class="bgcolor-white form-input" 
                 title="Veuillez confirmer votre nouveau mot de passe"
                 type="password" name="new_password_confirm" 
-                placeholder="vérifier mdp">
-            
+                placeholder="vérifier mdp"
+            >
         </fieldset>
         
         <button class="bgcolor-yellow form-button hover-green" type="submit" ><span>Mettre à jour</span><i class="fa-solid fa-arrows-rotate"></i></button>
+
     </form>
     
     <a class="delete-user bgcolor-red hover-green" href="./profil-delete"><i class="fa-solid fa-trash"></i> Supprimer votre compte</a>
@@ -64,7 +67,7 @@
     <?php if(isset($error)): ?>
 		<p class="error"><?= $error ?></p>
 	<?php endif ?>
-	
+
 </div>
     
     
