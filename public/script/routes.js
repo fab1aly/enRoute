@@ -9,6 +9,9 @@ function displaySelect(li) {
         }
         li.classList.add('selected');
     }
+    // add id list in load form 
+    const input = document.querySelector('#load_input');
+    input.value = li.dataset.uniqid;
 }
 
 
@@ -40,6 +43,7 @@ if (list_routes.querySelector('li')) {
     } else {
         console.log('route_list is empty');
     }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,28 +66,8 @@ document.querySelector('#routes ul').addEventListener('click', () => {
         route.setList(list_point);
         route.displayInit();
         route.setViewOnAllPoint();
-
-        // add id list in load form 
-        const input = document.querySelector('#load_form input');
-        input.value = li.dataset.uniqid;
     }
-
-
-
 });
-
-////////////////////////////////////////////////////////////////////////////////
-// #load_form event listener
-const listElement = document.querySelector(`#listpoint`);
-if (listElement) {
-    listElement.addEventListener('click', () => {
-        // click load button
-        if (event.target.matches('#load_form button')) {
-            document.querySelector('#load_form').submit();
-        }
-    });
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 // init Position

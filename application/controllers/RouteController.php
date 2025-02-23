@@ -13,7 +13,7 @@
 
 		public function route ()
 		{
-session_start();
+// session_start();
 // var_dump($_GET);
 // exit;
 

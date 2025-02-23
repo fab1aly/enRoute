@@ -179,6 +179,7 @@
         }
 
         @layer map {
+
             #map {
                 background-color: moccasin;
 
@@ -196,77 +197,66 @@
                     /* bottom: 1.5rem; */
                     height: calc(100vh - 6.2rem);
                 }
+            }
 
-                .leaflet-top {
+            .leaflet-control-attribution {
+                display: none;
+
+                @media screen and (825px <=width) {
+                    display: block;
                     position: fixed;
-                    top: 5rem;
+                    font-size: .7rem;
+                    bottom: 1.5rem;
                     left: .5rem;
+                }
 
-                    display: flex;
-                    flex-direction: column-reverse;
-                    align-items: flex-start;
+                @media screen and (min-width: 1400px) and (min-height: 600px) {
+                    bottom: 2rem;
+                    left: 1rem;
+                }
+            }
 
-                    @media screen and (min-width: 1400px) and (min-height: 500px) {
-                        left: 1.25rem;
-                        top: 5.25rem;
-                    }
+            .leaflet-top {
+                position: fixed;
+                top: 5rem;
+                left: .5rem;
 
-                    /* @media (prefers-color-scheme: dark) {
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: flex-start;
+
+                @media screen and (min-width: 1400px) and (min-height: 500px) {
+                    left: 1.25rem;
+                    top: 5.25rem;
+                }
+
+                /* @media (prefers-color-scheme: dark) {
                 top: 5.9rem;
                 background-color: var(--black-color);
                 
             } */
-                }
+            }
 
-                .leaflet-control-layers-base {
-                    /* font-size: .8rem; */
-                    /* @media (prefers-color-scheme: dark) {
-                color: var(--black-color);
-                background-color: var(--black-color);
-            } */
-                }
+            .leaflet-control {
+                margin: .2rem;
+            }
 
-                .leaflet-control-layers-expanded {
-                    /* margin: 0; */
-                    /* font-size: 1rem; */
-                }
+            .leaflet-control-layers-base>label {
+                margin: .25rem .5rem 0rem .5rem;
+            }
 
-                .leaflet-control {
-                    /* transform: scale(.9); */
-                    margin: .2rem;
-                    /* font-size: .8rem; */
+            .leaflet-control-layers-base>label:last-child {
+                margin-bottom: .25rem;
+            }
 
-                }
+            .leaflet-control-zoom {}
 
-                .leaflet-control-zoom {}
+            .leaflet-control-layers-base {}
 
-                .leaflet-control-layers-base>label {
-                    margin: .25rem .5rem 0rem .5rem;
-                }
+            .leaflet-control-layers-expanded {}
 
-                .leaflet-control-layers-base>label:last-child {
-                    margin-bottom: .25rem;
-                }
 
-                .leaflet-control-attribution {
-                    display: none;
-
-                    @media screen and (750px <=width) {
-                        display: block;
-                        position: fixed;
-                        font-size: .7rem;
-                        bottom: 1.5rem;
-                        left: .5rem;
-                    }
-
-                    @media screen and (min-width: 1400px) and (min-height: 600px) {
-                        bottom: 2rem;
-                        left: 1rem;
-                    }
-
-                }
-
-                /* @media (prefers-color-scheme: dark) {
+            /* @media (prefers-color-scheme: dark) {
             #map {
                 background-color: $text-color;
                 .leaflet-control-zoom-in>span,
@@ -282,7 +272,6 @@
                 background-color: $text-color;
             }
         } */
-            }
         }
 
         @layer searchbar {
@@ -393,6 +382,7 @@
         }
 
         @layer routes {
+
             #routes {
                 position: fixed;
                 top: 4.5rem;
@@ -444,7 +434,6 @@
                 li:hover {
                     --element-color: var(--cream-color);
                     color: light-dark(var(--black-color), var(--yellow-color));
-
                 }
 
                 li.selected {
@@ -761,12 +750,14 @@
                     text-align: center;
                 }
 
-                #save_button {
+                #save_button,
+                #load_button {
                     margin: .25rem .5rem;
                     padding: 0.1rem .3rem;
                 }
 
-                #save_button:hover {
+                #save_button:hover,
+                #load_button:hover {
                     border-color: light-dark(var(--black-color), var(--green-color));
 
                     i {
@@ -777,6 +768,7 @@
         }
 
         @layer modal {
+
             dialog {
                 z-index: 2000;
                 margin: auto;

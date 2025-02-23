@@ -1,0 +1,74 @@
+<script type="module" src="./script/module/Position.js"></script>
+<script type="module" src="./script/module/ListPoint.js"></script>
+
+<div id="listpoint" class="bgcolor-green border-none">
+
+		<!--<div class="resize-hitbox"></div>-->
+
+		<div id="list_position" class="bgcolor-yellow">
+				<i class="fa-solid fa-location-crosshairs"></i>
+				<span>Votre position</span>
+		</div>
+		
+		<div id="list_invite" class="info">
+				<p class="icon"><i class="fa-solid fa-map-location-dot"></i></p>
+				<p class="label">
+						Rechercher quelques adresses.<br>Ajoutez-les, organisez-les ...<br>
+						<?php if(isset($_SESSION['user'])==false): ?>
+						Créer un compte pour garder<br>et partager cette route.
+						<?php endif; ?>
+				</p>
+		</div>
+		
+		<!--list of point-->
+		<ul id="list_container" class=""></ul>
+		
+		<!--template of point-->
+		<template> 
+				<li class="">
+						<div class="up"><i class="fa-solid fa-angles-up"></i></div>
+						<div class="label-box bgcolor-blue">
+								<span class='label'></span>
+								<span class="remove" title="Supprimer">
+										<i class="fa-solid fa-circle-xmark"></i>
+								</span>
+						</div>
+						<div class="down"><i class="fa-solid fa-angles-down"></i></div>
+				</li>
+		</template>
+
+		<div id="list_total" class="bgcolor-red">
+			<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
+		
+			<!--display save button if user connected and in homepage-->
+			<?php if( $_SERVER['REQUEST_URI'] === '/'): ?>
+				<?php if(isset($_SESSION['user'])): ?>
+					<button id="save_button" 
+						class="bgcolor-yellow hover-green" 
+						title="Sauvegarder cette route"
+						onclick='
+							document.querySelector("#modal_save_route").showModal();
+							'
+						>
+						Sauver <i class="fa-solid fa-download"></i>
+					</button>
+				<?php endif; ?>
+			<?php endif; ?>
+
+			
+			<!--display load button if user in routes page-->
+			<?php if( $_SERVER['REQUEST_URI'] === '/routes' 
+				or $_SERVER['REQUEST_URI'] === '/route'): ?>
+			<form id="load_form" method="post" action="./home-process"> 
+				<input id="load_input" type="hidden" name="list_uniq_id" value="">
+				<button  id="load_button" 
+					class="bgcolor-yellow hover-green" 
+					title="Charger cette route"
+					>
+					<i class="fa-solid fa-upload"></i> Charger
+				</button>
+			</form>
+			<?php endif; ?>
+
+		</div>
+</div>

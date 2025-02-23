@@ -1,89 +1,11 @@
+<!--Script-->		
+<script type="module" src="./script/home.js"></script>
 
-<!-- Leaflet Script -->
- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-		 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-		 crossorigin=""></script>
-		
-<!--Script-->
-		<script type="module" src="./script/module/Position.js"></script>
-		<script type="module" src="./script/module/ListPoint.js"></script>
-		<script type="module" src="./script/module/SearchBar.js"></script>
-		
-		<script type="module" src="./script/home.js"></script>
-
-
-<div id="map" class="bgcolor-yellow"></div>
-<script src="script/map.js"></script>
-
-
-<div id="searchbar" class="bgcolor-gray border-none">
-	
-	<span id="searchbar_input" class="bgcolor-white border-none">
-		<span id="search_glass">
-			<i class="fa-solid fa-magnifying-glass"></i>
-		</span>
-		<input id="search_input" class="form-input"type="text" name="search_adress" placeholder="recherche addresse">
-		<span id="search_cross">
-			<i class="fa-regular fa-circle-xmark"></i>
-		</span> 
-	</span>
-	<ul id="searchbar_results"></ul>
-</div>
-
-
-<div id="listpoint" class="bgcolor-green border-none">
-
-		<!--<div class="resize-hitbox"></div>-->
-
-		<div id="list_position" class="bgcolor-yellow">
-				<i class="fa-solid fa-location-crosshairs"></i>
-				<span>Votre position</span>
-		</div>
-		
-		<div id="list_invite" class="info">
-				<p class="icon"><i class="fa-solid fa-map-location-dot"></i></p>
-				<p class="label">
-						Rechercher quelques adresses.<br>Ajoutez-les, organisez-les ...<br>
-						<?php if(isset($_SESSION['user'])==false): ?>
-						Créer un compte pour garder<br>et partager cette route.
-						<?php endif; ?>
-				</p>
-		</div>
-		
-		<!--list of point-->
-		<ul id="list_container" class=""></ul>
-		
-		<!--template of point-->
-		<template> 
-				<li class="">
-						<div class="up"><i class="fa-solid fa-angles-up"></i></div>
-						<div class="label-box bgcolor-blue">
-								<span class='label'></span>
-								<span class="remove" title="Supprimer">
-										<i class="fa-solid fa-circle-xmark"></i>
-								</span>
-						</div>
-						<div class="down"><i class="fa-solid fa-angles-down"></i></div>
-				</li>
-		</template>
-
-		<div id="list_total" class="bgcolor-red">
-			<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
-		
-		<!--display save button if user connected-->
-		<?php if(isset($_SESSION['user'])): ?>
-			<button id="save_button" 
-				class="bgcolor-yellow hover-green" 
-				onclick='
-					document.querySelector("#modal_save_route").showModal();
-					'
-				title="Sauvegarder cette route">
-				Sauver <i class="fa-solid fa-download"></i>
-			</button>
-		<?php endif; ?>
-		</div>
-
-</div>
+<?php
+	include 'elements/search-bar.phtml';
+	include 'elements/map.phtml';
+	include 'elements/list-point.phtml';
+?>
 
 <dialog id="modal_save_route" class="bgcolor-green">
 

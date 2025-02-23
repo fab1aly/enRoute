@@ -6,7 +6,7 @@
     
     class ListsManager extends Manager
     {
-        public function getList ( $uniqid) 
+        public function getList (string $uniqid) 
         {
             
             $query = "SELECT * FROM Lists WHERE uniq_id = :uniqid";
@@ -32,7 +32,7 @@
             return $sth->fetchAll();
         }
 
-        public function saveList (int $user_id, string $name, string $listpoint, $uniqid) : void
+        public function saveList (int $user_id, string $name, string $listpoint, string $uniqid) : void
         {
             $query = "INSERT INTO Lists (uniq_id, user_id, name, listpoint)
                                 VALUES (:uniqid, :user_id, :name,:listpoint)";

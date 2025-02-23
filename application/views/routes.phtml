@@ -1,103 +1,11 @@
-<!-- Leaflet Script -->
- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
-    
 <!--Script-->
-    <script type="module" src="./script/module/Position.js"></script>
-    <script type="module" src="./script/module/ListPoint.js"></script>
-    <script type="module" src="./script/routes.js"></script>
+<script type="module" src="./script/routes.js"></script>
 
-
-<div id="routes" class="bgcolor-gray border-none">
-    <ul id='routes_container'>
-        <?php foreach ($lists as $list):?>
-          
-        <li  class="bgcolor-white border-none"
-            data-name="<?=htmlspecialchars($list['name'])?>"
-            data-uniqid="<?=htmlspecialchars($list['uniq_id'])?>"
-            data-value="<?=htmlspecialchars($list['listpoint'])?>"
-        >
-            <span 
-                class="share" 
-                title="Partager"
-                onclick='
-                    document.querySelector("#modal_share_route").showModal();
-                    document.querySelector("#modal_share_route fieldset p")
-                        .innerText = "enRoute.ovh/route?id=<?=htmlspecialchars($list["uniq_id"])?>";
-                    '
-                >
-                <i class="fa-solid fa-share-from-square"></i>
-            </span>
-            
-            <span class='label'><?=htmlspecialchars($list['name'])?></span>
-            
-            <span 
-                class="remove"
-                onclick='
-                    document.querySelector("#modal_delete_route").showModal();
-                    document.querySelector("#modal_delete_route input[name=uniq_id_list_remove]")
-                        .value = "<?=htmlspecialchars($list["uniq_id"])?>";
-                    document.querySelector("#modal_delete_route fieldset p")
-                        .innerText = "<?=htmlspecialchars($list["name"])?>";
-                    document.querySelector("#modal_share_route fieldset p")
-                        .innerText = "enRoute.ovh/route?id=<?=htmlspecialchars($list["uniq_id"])?>";
-                    '
-                title="Supprimer" 
-                data-index="" >
-                <i class="fa-solid fa-circle-xmark"></i>
-            </span>
-        </li>
-          
-        <?php endforeach;?>   
-    </ul>
-
-    <form id="remove_form" method='post' action='./routes-process'>
-        <input type="hidden" name="uniq_id_list_remove" value="">
-    </form>
-</div>
-
-<div id="listpoint" class="bgcolor-green border-none">
-
-    <!--<div class="drag-bar"></div>-->
-
-    <!-- <div id="list_position" class="bgcolor-yellow">
-        <span><i class="fa-solid fa-location-crosshairs"></i> Votre position</span>
-    </div> -->
-
-    <ul id="list_container" class=""></ul><!--list of point-->
-
-    <template> <!--template of point-->
-        <li class="point">
-            <div class="label-box bgcolor-blue">
-                <span class='label'></span>
-                
-            </div>
-        </li>
-    </template>
-
-    <div id="list_total" class="bgcolor-red">
-        <span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
-
-        <form id="load_form" method="post" action="./home-process"> 
-            <input id="load_input" type="hidden" name="list_uniq_id" value="">
-            
-            <button  id="save_button" 
-                class="bgcolor-yellow hover-green" 
-                title="Charger cette route"
-                type="button"
-            >
-                <i class="fa-solid fa-upload"></i> Charger
-            </button>
-        </form>
-    </div>
-
-
-    
-</div>
-
-<div id="map" class="bgcolor-yellow"></div>
-<script src="script/map.js"></script>
+<?php
+	include 'elements/list-routes.phtml';
+	include 'elements/map.phtml';
+    include 'elements/list-point.phtml';
+?>
 
 <dialog id="modal_delete_route" class="bgcolor-green">
     <span 
