@@ -12,6 +12,10 @@
 		<script type="module" src="./script/home.js"></script>
 
 
+<div id="map" class="bgcolor-yellow"></div>
+<script src="script/map.js"></script>
+
+
 <div id="searchbar" class="bgcolor-gray border-none">
 	
 	<span id="searchbar_input" class="bgcolor-white border-none">
@@ -26,7 +30,6 @@
 	<ul id="searchbar_results"></ul>
 </div>
 
-<div id="map" class="bgcolor-yellow"></div>
 
 <div id="listpoint" class="bgcolor-green border-none">
 
@@ -65,39 +68,54 @@
 		</template>
 
 		<div id="list_total" class="bgcolor-red">
-				<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
+			<span><i class="fa-solid fa-map-location-dot"></i><span class='label'></span></span>
 		
 		<!--display save button if user connected-->
 		<?php if(isset($_SESSION['user'])): ?>
-				<form id="save_form" method="post" action="./routes-process"> 
-						<input id="save_listpoint" type="hidden" name="listpoint" value="">
-						<input id="save_listname" type="hidden" name="name" value=''>
-						<button id="save_button" class="bgcolor-yellow hover-green" title="Sauvegarder cette route">
-							Sauver <i class="fa-solid fa-download"></i>
-						</button>
-				</form>
+			<button id="save_button" 
+				class="bgcolor-yellow hover-green" 
+				onclick='
+					document.querySelector("#modal_save_route").showModal();
+					'
+				title="Sauvegarder cette route">
+				Sauver <i class="fa-solid fa-download"></i>
+			</button>
 		<?php endif; ?>
 		</div>
 
 </div>
 
-<div id="modal" class="modal">
-	
-		<div  class="modal-content bgcolor-green">
-				<span class="cross">
-						<i class="fa-solid fa-circle-xmark"></i>
-				</span>
-				
-				<fieldset class="bgcolor-blue">
-						<legend class="bgcolor-red">Route</legend>
-						<input class="bgcolor-cyan" type="text" name="name" placeholder="Nommer cette route">
-				</fieldset>
-				
-				<button class='remove bgcolor-yellow hover-green'><span>Valider</span><i class="fa-solid fa-circle-check"></i></button>
-		</div>
+<dialog id="modal_save_route" class="bgcolor-green">
+
+		<span 
+			class="cross" 
+			title="Fermer" 
+			onclick='document.querySelector("#modal_save_route").close();'
+			>
+			<i class="fa-solid fa-circle-xmark"></i>
+		</span>
+
+		<form  id="form_save_route"
+			class="modal-content "
+			method="post" action="./routes-process"
+			>
+			
+			<fieldset class="bgcolor-blue">
+				<legend class="bgcolor-red">Route</legend>
+				<input id="save_listpoint" type="hidden" name="listpoint" value="">
+				<input id="save_listname" 
+					class="bgcolor-white form-input" 
+					placeholder="Nommer cette route"
+					type="text" 
+					name="name" 
+					required
+					>
+			</fieldset>
+			
+			<button type='button' class='remove bgcolor-yellow hover-green' title="Valider">
+				<span>Valider</span><i class="fa-solid fa-circle-check"></i>
+			</button>	
+		</form>
  
-</div>
-
-
-<script src="script/map.js"></script>
+</dialog>
 
