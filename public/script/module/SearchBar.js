@@ -11,7 +11,7 @@ export default class SearchBar {
         this.glassElement = document.querySelector('#search_glass');
         this.inputElement = document.querySelector('#search_input');
         this.crossElement = document.querySelector('#search_cross');
-        this.resultsList = document.querySelector('#searchbar ul');
+        this.resultsList = document.querySelector('#search_results');
 
 
         // event listener for input search

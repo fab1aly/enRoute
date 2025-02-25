@@ -274,8 +274,9 @@
         } */
         }
 
-        @layer searchbar {
-            #searchbar {
+        @layer search_bar {
+
+            #search_bar {
                 position: fixed;
                 top: 4.5rem;
                 right: .5rem;
@@ -295,7 +296,7 @@
                 }
             }
 
-            #searchbar_input {
+            #search_box {
 
                 height: 2.25rem;
                 display: flex;
@@ -355,7 +356,7 @@
                 }
             }
 
-            ul#searchbar_results {
+            ul#search_results {
                 display: none;
 
                 li {
@@ -381,9 +382,9 @@
             }
         }
 
-        @layer routes {
+        @layer list_routes {
 
-            #routes {
+            #list_routes {
                 position: fixed;
                 top: 4.5rem;
                 right: .5rem;
@@ -473,6 +474,7 @@
         }
 
         @layer listpoint {
+
             #listpoint {
 
                 position: fixed;
@@ -480,24 +482,24 @@
                 right: .5rem;
                 left: .5rem;
                 z-index: 500;
-
-                padding: .5rem;
-                padding-bottom: 1.7rem;
-
                 max-height: 60vh;
                 border-radius: .4rem .4rem 0 0;
+                padding: .5rem;
+                padding-bottom: 1.7rem;
 
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
                 align-items: center;
 
-                @media screen and (425px <=width) and (540px <=height <=1400px) {
+                @media screen and (425px <=width) and (540px <=height) {
                     left: unset;
                     width: 27.5rem;
                 }
 
-                @media screen and (min-width: 1024px) and (min-height: 600px) {}
+                @media screen and (1400px <=width) {
+                    width: 22.5rem;
+                }
 
                 /* .resize-hitbox {
                     position: absolute;
@@ -517,7 +519,6 @@
                 width: 100%;
 
                 li {
-                    /* point */
                     width: 100%;
 
                     margin: .2rem 0;
@@ -560,7 +561,6 @@
                 li.selected {
 
                     .label-box {
-
                         --element-color: var(--cyan-color);
 
                         border-style: solid;
@@ -576,7 +576,6 @@
                             padding-right: calc(1rem - 2px);
                         }
                     }
-
                 }
 
                 li.selected {
@@ -649,8 +648,6 @@
                 li.selected:last-child .down {
                     display: none;
                 }
-
-
             }
 
             #list_position {
@@ -690,8 +687,6 @@
             }
 
             #list_invite {
-                /* display: none; */
-
                 margin: 0.5rem auto;
                 user-select: none;
 
@@ -737,7 +732,6 @@
             }
 
             #list_total {
-
                 width: 100%;
                 user-select: none;
 
@@ -786,6 +780,7 @@
                 .cross:hover {
                     color: var(--grey-color);
                 }
+
 
             }
 

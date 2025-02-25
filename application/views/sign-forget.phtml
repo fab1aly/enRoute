@@ -10,24 +10,26 @@
 <div id="sign-container">
     <form id="sign_up" class="bgcolor-green" method="post" action="./sign-forget">
         <fieldset class="bgcolor-blue">
-            <legend class="bgcolor-red">Mot de passe oublié</legend>
+            <legend class="bgcolor-red">
+                <label for="email">Mot de passe oublié</label>
+            </legend>
             
-            
-            <label for="email" hidden>Email :</label>
             <input id="email"
                 class="bgcolor-white form-input" 
                 title="Veuillez entrer votre adresse électronique" 
-                type="email" name="email" placeholder="Adresse électronique" 
-                <?= isset($_SESSION['formSignData']['email']) ? 
-                    'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
+                placeholder="Adresse électronique"
+                type="email" name="email"  
+                value="<?= isset($_SESSION['formSignData']['email']) ? 
+                   $_SESSION['formSignData']['email'] : null ?>"
             required>
-            
         </fieldset>
-        <button class="bgcolor-yellow form-button hover-green" type="submit" ><span>Valider</span><i class="fa-solid fa-circle-check"></i></button>
+
+        <button class="bgcolor-yellow form-button hover-green" type="submit" >
+            <span>Valider</span><i class="fa-solid fa-circle-check"></i>
+        </button>
     </form>
 
     <?php if(isset($error)): ?>
 		<p class="error"><?= $error ?></p>
 	<?php endif ?>
-	
 </div>

@@ -3,7 +3,7 @@
 // function for toggle select li (route) in ul (routes)
 function displaySelect(li) {
     if (li.classList.contains('selected') == false) {
-        const old = document.querySelector('#routes ul .selected');
+        const old = document.querySelector('#list_routes ul .selected');
         if (old) {
             old.classList.remove('selected');
         }
@@ -19,7 +19,7 @@ function displaySelect(li) {
 ////////////////////////////////////////////////////////////////////////////////
 // on start init ListPoint and display last route
 import ListPoint from "./module/ListPoint.js";
-const list_routes = document.querySelector('#routes ul');
+const list_routes = document.querySelector('#list_routes ul');
 let route;
 
 if (list_routes.querySelector('li')) {
@@ -28,7 +28,7 @@ if (list_routes.querySelector('li')) {
     list_routes.scrollTop = list_routes.scrollHeight;
 
     // select last li
-    const li = document.querySelector('#routes ul li:last-child');
+    const li = document.querySelector('#list_routes ul li:last-child');
     displaySelect(li, list_routes);
 
     // init ListPoint
@@ -48,7 +48,7 @@ if (list_routes.querySelector('li')) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // routes ul listener
-document.querySelector('#routes ul').addEventListener('click', () => {
+document.querySelector('#list_routes ul').addEventListener('click', () => {
 
     // select routes (li)
     let li;

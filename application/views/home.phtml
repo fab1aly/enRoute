@@ -2,17 +2,17 @@
 <script type="module" src="./script/home.js"></script>
 
 <?php
-	include 'elements/search-bar.phtml';
+	include 'elements/search_bar.phtml';
 	include 'elements/map.phtml';
 	include 'elements/list-point.phtml';
 ?>
 
 <dialog id="modal_save_route" class="bgcolor-green">
 
-		<span 
+		<span
 			class="cross" 
 			title="Fermer" 
-			onclick='document.querySelector("#modal_save_route").close();'
+			onclick='document.querySelector("dialog").close();'
 			>
 			<i class="fa-solid fa-circle-xmark"></i>
 		</span>
@@ -23,7 +23,9 @@
 			>
 			
 			<fieldset class="bgcolor-blue">
-				<legend class="bgcolor-red">Route</legend>
+				<legend class="bgcolor-red">
+					<label for="save_listname">Sauvegarder</label>
+				</legend>
 				<input id="save_listpoint" type="hidden" name="listpoint" value="">
 				<input id="save_listname" 
 					class="bgcolor-white form-input" 
@@ -34,7 +36,7 @@
 					>
 			</fieldset>
 			
-			<button type='button' class='remove bgcolor-yellow hover-green' title="Valider">
+			<button type='button' class='remove bgcolor-yellow hover-green' title="Sauver cette route">
 				<span>Valider</span><i class="fa-solid fa-circle-check"></i>
 			</button>	
 		</form>

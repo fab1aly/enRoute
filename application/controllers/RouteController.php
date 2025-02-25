@@ -11,15 +11,17 @@
         //     session_start();
         // }
 
-		public function route ()
+		public function route () : void
 		{
 // session_start();
-// var_dump($_GET);
-// exit;
+var_dump($_GET);
+exit;
 
         //	 (GET)
 			if($_SERVER['REQUEST_METHOD'] == 'GET')
 			{
+                var_dump($_GET);
+exit;
 				if (array_key_exists('id', $_GET))
                 {
                     $listsManager = new ListsManager;
