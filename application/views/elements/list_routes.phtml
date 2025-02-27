@@ -1,47 +1,48 @@
-
 <script type="module" src="./script/routes.js"></script>
 
 <div id="list_routes" class="bgcolor-gray border-none">
     <ul id='list_routes_container'>
-        <?php foreach ($lists as $list):?>
-          
-        <li  class="bgcolor-white border-none"
-            data-name="<?=htmlspecialchars($list['name'])?>"
-            data-uniqid="<?=htmlspecialchars($list['uniq_id'])?>"
-            data-value="<?=htmlspecialchars($list['listpoint'])?>"
-        >
-            <span 
-                class="share" 
-                title="Partager"
-                onclick='
-                    document.querySelector("#modal_share_route").showModal();
-                    document.querySelector("#modal_share_route fieldset p")
-                        .innerText = "enRoute.ovh/route?id=<?=htmlspecialchars($list["uniq_id"])?>";
-                    '
-                >
-                <i class="fa-solid fa-share-from-square"></i>
-            </span>
-            
-            <span class='label'><?=htmlspecialchars($list['name'])?></span>
-            
-            <span 
-                class="remove"
-                onclick='
-                    document.querySelector("#modal_delete_route").showModal();
-                    document.querySelector("#modal_delete_route input[name=uniq_id_list_remove]")
-                        .value = "<?=htmlspecialchars($list["uniq_id"])?>";
-                    document.querySelector("#modal_delete_route fieldset p")
-                        .innerText = "<?=htmlspecialchars($list["name"])?>";
-                    document.querySelector("#modal_share_route fieldset p")
-                        .innerText = "enRoute.ovh/route?id=<?=htmlspecialchars($list["uniq_id"])?>";
-                    '
-                title="Supprimer" 
-                data-index="" >
-                <i class="fa-solid fa-circle-xmark"></i>
-            </span>
-        </li>
-          
-        <?php endforeach;?>   
+        <?php foreach ($lists as $list): ?>
+
+            <li
+                class="bgcolor-white border-none"
+                data-name="<?= htmlspecialchars($list['name']) ?>"
+                data-uniqid="<?= htmlspecialchars($list['uniq_id']) ?>"
+                data-value="<?= htmlspecialchars($list['listpoint']) ?>">
+                <span
+                    class="share"
+                    title="Partager"
+                    onclick='
+                        document.querySelector("#modal_share_route").showModal();
+                        document.querySelector("#modal_share_route fieldset p")
+                            .innerText = "enRoute.ovh/route?id=<?= htmlspecialchars($list["uniq_id"]) ?>";
+                    '>
+                    <i class="fa-solid fa-share-from-square"></i>
+                </span>
+
+                <span class='label'><?= htmlspecialchars($list['name']) ?></span>
+
+                <?php if ($_SERVER['REQUEST_URI'] === '/routes'): ?>
+                    <span
+                        class="remove"
+                        title="Supprimer"
+                        data-index=""
+                        onclick='
+                            document.querySelector("#modal_delete_route").showModal();
+                            document.querySelector("#modal_delete_route input[name=uniq_id_list_remove]")
+                                .value = "<?= htmlspecialchars($list["uniq_id"]) ?>";
+                            document.querySelector("#modal_delete_route fieldset p")
+                                .innerText = "<?= htmlspecialchars($list["name"]) ?>";
+                            document.querySelector("#modal_share_route fieldset p")
+                                .innerText = "enRoute.ovh/route?id=<?= htmlspecialchars($list["uniq_id"]) ?>";
+                        '>
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </span>
+                <?php endif; ?>
+
+            </li>
+
+        <?php endforeach; ?>
     </ul>
 
     <form id="remove_form" method='post' action='./routes-process'>

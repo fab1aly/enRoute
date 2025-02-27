@@ -29,7 +29,7 @@ if (list_routes.querySelector('li')) {
 
     // select last li
     const li = document.querySelector('#list_routes ul li:last-child');
-    displaySelect(li, list_routes);
+    displaySelect(li);
 
     // init ListPoint
     if (li.dataset.value) {

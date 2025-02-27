@@ -407,19 +407,24 @@
                     padding: .3rem .5rem;
                     user-select: none;
 
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    display: grid;
+                    grid-template-columns: 10% 80% 10%;
 
                     .share,
                     .remove {
                         display: none;
                     }
 
+                    .share,
+                    .remove,
                     .label {
-                        width: 80%;
                         text-align: center;
                     }
+                }
+
+                li:not(.selected) {
+                    display: flex;
+                    justify-content: center;
                 }
 
                 li:first-child,
@@ -454,7 +459,7 @@
                     padding-right: calc(1rem - 2px);
 
 
-                    justify-content: space-between;
+                    /* justify-content: space-between; */
 
                     .share,
                     .remove {

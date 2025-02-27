@@ -29,7 +29,8 @@ try
 
 	//	Routeur
 	$routes = require ROOT . '/application/routes.php';
-	$route = ($_SERVER['REQUEST_URI'] ?? null);
+	// $route = ($_SERVER['REQUEST_URI'] ?? null);
+	$route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 	// Page index
 	if ($route == '/index.php')

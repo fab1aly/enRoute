@@ -1,45 +1,10 @@
-<!--Script-->		
+<!--Script-->
 <script type="module" src="./script/home.js"></script>
 
+<!--Content-->
 <?php
-	include 'elements/search_bar.phtml';
-	include 'elements/map.phtml';
-	include 'elements/list-point.phtml';
+include 'elements/search_bar.phtml';
+include 'elements/map.phtml';
+include 'elements/list_point.phtml';
+include 'elements/dialog.phtml';
 ?>
-
-<dialog id="modal_save_route" class="bgcolor-green">
-
-		<span
-			class="cross" 
-			title="Fermer" 
-			onclick='document.querySelector("dialog").close();'
-			>
-			<i class="fa-solid fa-circle-xmark"></i>
-		</span>
-
-		<form  id="form_save_route"
-			class="modal-content "
-			method="post" action="./routes-process"
-			>
-			
-			<fieldset class="bgcolor-blue">
-				<legend class="bgcolor-red">
-					<label for="save_listname">Sauvegarder</label>
-				</legend>
-				<input id="save_listpoint" type="hidden" name="listpoint" value="">
-				<input id="save_listname" 
-					class="bgcolor-white form-input" 
-					placeholder="Nommer cette route"
-					type="text" 
-					name="name" 
-					required
-					>
-			</fieldset>
-			
-			<button type='button' class='remove bgcolor-yellow hover-green' title="Sauver cette route">
-				<span>Valider</span><i class="fa-solid fa-circle-check"></i>
-			</button>	
-		</form>
- 
-</dialog>
-
