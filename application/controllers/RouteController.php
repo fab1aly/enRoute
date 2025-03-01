@@ -24,6 +24,7 @@ class RouteController extends Controller
                 $listsManager = new ListsManager;
                 $list = $listsManager->getList($_GET['id']);
 
+                // var_dump($list);
                 $this->renderView('route.phtml', ['title' => 'Route', 'lists' => [$list]]);
             }
             else

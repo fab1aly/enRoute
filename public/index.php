@@ -48,9 +48,9 @@ try
 
 	//	Instanciation du contrôleur et appel de la méthode souhaités
 	$parts = explode('::', $routes[$route]);
-	$controller = $parts[0];
-	$method = $parts[1];
-	// 	list($controller, $method) = explode('::', $routes[$route]);
+	// $controller = $parts[0];
+	// $method = $parts[1];
+	list($controller, $method) = explode('::', $routes[$route]);
 
 	(new $controller)->$method();
 }

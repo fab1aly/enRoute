@@ -2,32 +2,42 @@
 
 <div id="list_routes" class="bgcolor-gray border-none">
     <ul id='list_routes_container'>
-        <?php foreach ($lists as $list): ?>
 
-            <li
-                class="bgcolor-white border-none"
-                data-name="<?= htmlspecialchars($list['name']) ?>"
-                data-uniqid="<?= htmlspecialchars($list['uniq_id']) ?>"
-                data-value="<?= htmlspecialchars($list['listpoint']) ?>">
-                <span
-                    class="share"
-                    title="Partager"
-                    onclick='
+        <?php if (!$lists[0] && $_GET['url'] === 'route'): ?>
+            <span class='label'>Cette route n'existe pas ou plus</span>
+        <?php endif; ?>
+
+        <?php if (!$lists[0] && $_GET['url'] === 'routes'): ?>
+            <span class='label'>Vous n'avez pas encore de route</span>
+        <?php endif; ?>
+
+        <?php if ($lists[0]): ?>
+            <?php foreach ($lists as $list): ?>
+
+                <li
+                    class="bgcolor-white border-none"
+                    data-name="<?= htmlspecialchars($list['name']) ?>"
+                    data-uniqid="<?= htmlspecialchars($list['uniq_id']) ?>"
+                    data-value="<?= htmlspecialchars($list['listpoint']) ?>">
+                    <span
+                        class="share"
+                        title="Partager"
+                        onclick='
                         document.querySelector("#modal_share_route").showModal();
                         document.querySelector("#modal_share_route fieldset p")
                             .innerText = "enRoute.ovh/route?id=<?= htmlspecialchars($list["uniq_id"]) ?>";
                     '>
-                    <i class="fa-solid fa-share-from-square"></i>
-                </span>
+                        <i class="fa-solid fa-share-from-square"></i>
+                    </span>
 
-                <span class='label'><?= htmlspecialchars($list['name']) ?></span>
+                    <span class='label'><?= htmlspecialchars($list['name']) ?></span>
 
-                <?php if ($_SERVER['REQUEST_URI'] === '/routes'): ?>
-                    <span
-                        class="remove"
-                        title="Supprimer"
-                        data-index=""
-                        onclick='
+                    <?php if ($_SERVER['REQUEST_URI'] === '/routes'): ?>
+                        <span
+                            class="remove"
+                            title="Supprimer"
+                            data-index=""
+                            onclick='
                             document.querySelector("#modal_delete_route").showModal();
                             document.querySelector("#modal_delete_route input[name=uniq_id_list_remove]")
                                 .value = "<?= htmlspecialchars($list["uniq_id"]) ?>";
@@ -36,13 +46,14 @@
                             document.querySelector("#modal_share_route fieldset p")
                                 .innerText = "enRoute.ovh/route?id=<?= htmlspecialchars($list["uniq_id"]) ?>";
                         '>
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </span>
-                <?php endif; ?>
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </span>
+                    <?php endif; ?>
 
-            </li>
+                </li>
 
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </ul>
 
     <form id="remove_form" method='post' action='./routes-process'>
