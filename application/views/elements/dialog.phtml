@@ -1,0 +1,84 @@
+<?php if (
+    $_SERVER['REQUEST_URI'] === '/'
+): ?>
+    <dialog id="modal_save_route" class="bgcolor-green">
+
+        <span
+            class="cross"
+            title="Fermer"
+            onclick='document.querySelector("dialog").close();'>
+            <i class="fa-solid fa-circle-xmark"></i>
+        </span>
+
+        <form id="form_save_route"
+            class="modal-content "
+            method="post" action="./routes-process">
+
+            <fieldset class="bgcolor-blue">
+                <legend class="bgcolor-red">
+                    <label for="save_listname">Sauvegarder</label>
+                </legend>
+                <input id="save_listpoint" type="hidden" name="listpoint" value="">
+                <input id="save_listname"
+                    class="bgcolor-white form-input"
+                    placeholder="Nommer cette route"
+                    type="text"
+                    name="name"
+                    required>
+            </fieldset>
+
+            <button type='button' class='remove bgcolor-yellow hover-green' title="Sauver cette route">
+                <span>Valider</span><i class="fa-solid fa-circle-check"></i>
+            </button>
+        </form>
+
+    </dialog>
+<?php endif; ?>
+
+
+<?php if (
+    $_SERVER['REQUEST_URI'] === '/routes'
+    or $_SERVER['REQUEST_URI'] === '/route'
+): ?>
+    <dialog id="modal_delete_route" class="bgcolor-green">
+        <span
+            class="cross"
+            title="Fermer"
+            onclick='document.querySelector("#modal_delete_route").close();'>
+            <i class="fa-solid fa-circle-xmark"></i>
+        </span>
+
+        <form
+            class="modal-content"
+            method="post" action="./routes-process">
+            <input type="hidden" name="uniq_id_list_remove" value="">
+            <fieldset class="bgcolor-blue">
+                <legend class="bgcolor-red">Attention !</legend>
+                <span>Êtes-vous sûr de vouloir supprimer cette route ?</span>
+                <p class="bgcolor-cyan"></p>
+            </fieldset>
+
+            <button type="submit" class='remove bgcolor-yellow hover-red'><i class="fa-solid fa-trash"></i><span>Supprimer</span></button>
+        </form>
+    </dialog>
+
+    <dialog id="modal_share_route" class="bgcolor-green">
+        <span
+            class="cross"
+            title="Fermer"
+            onclick='document.querySelector("#modal_share_route").close();'>
+            <i class="fa-solid fa-circle-xmark"></i>
+        </span>
+
+        <div
+            class="modal-content"
+            method="post" action="">
+            <input type="hidden" name="uniq_id_list_remove" value="">
+            <fieldset class="bgcolor-blue">
+                <legend class="bgcolor-red">Partager</legend>
+                <span>Voici le lien de partage de la route :</span>
+                <p autofocus class="bgcolor-cyan"></p>
+            </fieldset>
+        </div>
+    </dialog>
+<?php endif; ?>

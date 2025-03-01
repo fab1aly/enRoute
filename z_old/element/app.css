@@ -3,7 +3,7 @@
     height: 100%;
     width: 100%;
 
-    background-color: $button-color;
+    background-color: var(--button-color);
 
     main {
         height: 100%;
@@ -14,7 +14,7 @@
 @media (prefers-color-scheme: dark) {
 
     #app {
-        background-color: $border-color;
+        background-color: var(--border-color);
     }
 }
 

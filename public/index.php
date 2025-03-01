@@ -29,7 +29,8 @@ try
 
 	//	Routeur
 	$routes = require ROOT . '/application/routes.php';
-	$route = ($_SERVER['REQUEST_URI'] ?? null);
+	// $route = ($_SERVER['REQUEST_URI'] ?? null);
+	$route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 	// Page index
 	if ($route == '/index.php')
@@ -47,9 +48,9 @@ try
 
 	//	Instanciation du contrôleur et appel de la méthode souhaités
 	$parts = explode('::', $routes[$route]);
-	$controller = $parts[0];
-	$method = $parts[1];
-	// 	list($controller, $method) = explode('::', $routes[$route]);
+	// $controller = $parts[0];
+	// $method = $parts[1];
+	list($controller, $method) = explode('::', $routes[$route]);
 
 	(new $controller)->$method();
 }

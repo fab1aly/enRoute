@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Fabien Aly">
-    <meta
-        name="description"
+    <meta name="description"
         content="L'application d'itinéraire enRoute vous aide à organiser vos trajets entre différents points de passage.">
     <!--Favicon-->
     <link rel="icon" href="image/icons8-SkyBlue-marker-48.png">
@@ -21,39 +20,43 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="">
 
-        <header>
+        <header class="bgcolor-blue border-none">
 
-            <a href='./' class="title">
-                <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo">
-                <h1>enRoute</h1>
-            </a>
+            <nav class="bgcolor-green border-none">
 
-            <nav class="">
+                <a href='./' class="">
+                    <img src="./image/icons8-SkyBlue-marker-48.png" alt="logo" class="">
+                </a>
+
+                <a href='./' class="">
+                    <h1 class="">enRoute</h1>
+                </a>
+
                 <?php if (isset($_SESSION['user'])): ?>
-                    <menu class=''>
-                        <li class="">
+                    <menu class='bgcolor-blue border-none'>
+                        <li class="bgcolor-yellow">
                             <a href="./routes">Routes</a>
                         </li>
-                        <li class="">
+                        <li class="bgcolor-yellow">
                             <a href="./profil">Profil</a>
                         </li>
-                        <li class="">
+                        <li class="bgcolor-yellow">
                             <a href="./sign-out">Sortie</a>
                         </li>
                     </menu>
-                    <aside onclick="myFunction()"><span><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></span></aside>
+                    <aside class="bgcolor-red" onclick="myFunction()"><?= htmlspecialchars($_SESSION['user']->getUsername()) ?></aside>
                 <?php else: ?>
-                    <menu class=''>
-                        <li class="">
+                    <menu class="bgcolor-blue border-none">
+                        <li class="bgcolor-yellow">
                             <a href="./sign-up">Inscription</a>
                         </li>
-                        <li class="">
+                        <li class="bgcolor-yellow">
                             <a href="./sign-in">Connexion</a>
                         </li>
                     </menu>
-                    <aside onclick="myFunction()"><span>Menu</span></aside>
+                    <aside class="bgcolor-red" onclick="myFunction()">Menu</aside>
                 <?php endif; ?>
             </nav>
             <script>
@@ -93,11 +96,11 @@
 
         </header>
 
-        <main>
+        <main class="">
             <?= $viewContent ?>
         </main>
 
-        <footer>
+        <footer class="bgcolor-blue border-none">
             copyright, bla bla, merci, rgpd, et autre ...
         </footer>
 

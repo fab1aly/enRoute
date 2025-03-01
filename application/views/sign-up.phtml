@@ -13,38 +13,61 @@
 
 ?>
 <div id="sign-container">
-    <form id="sign_up" class="sign-form" method="post" action="./sign-up">
-        <fieldset>
-            <legend>Inscription</legend>
-            
-            <input type="text" name="username" placeholder="Pseudo" 
-                <?= isset($_SESSION['formSignData']['username']) ?
-                    'value="'.$_SESSION['formSignData']['username'].'"' : null ?>
+    <form id="sign_up" class="bgcolor-green" method="post" action="./sign-up">
+        <fieldset class="bgcolor-blue">
+            <legend class="bgcolor-red">Inscription</legend>
+
+            <label for="username" hidden>Pseudo :</label>
+            <input id="username"
+                class="bgcolor-white form-input" 
+                title="Veuillez entrer votre pseudo" 
+                type="text" name="username" placeholder="Pseudo" 
+                value="<?= isset($_SESSION['formSignData']['username']) ?
+                    $_SESSION['formSignData']['username'] : null ?>"
             required>
             
-            <input type="email" name="email" placeholder="Adresse électronique" 
-                <?= isset($_SESSION['formSignData']['email']) ? 
-                    'value="'.$_SESSION['formSignData']['email'].'"' : null ?>
+            <label for="email" hidden>Email :</label>
+            <input id="email"
+                class="bgcolor-white form-input" 
+                title="Veuillez entrer votre adresse électronique" 
+                type="email" name="email" placeholder="Adresse électronique" 
+                value="<?= isset($_SESSION['formSignData']['email']) ? 
+                    $_SESSION['formSignData']['email'] : null ?>"
             required>
             
-            
-            <input id="password" type="password" name="password" placeholder="Mot de passe"
-                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$">
-            <div id="tooltip-pw">
-                <span class="maj">Une Majuscule</span>
-                <span class="min">une minuscule</span>
-                <span class="num">1 chiffre</span>
-                <span class="spe">un spécial (!?..) </span>
-                <span class="num8">8 caractères</span>
-                <div class="arrow"></div>
-            </div>
-            <script type="text/javascript" src="script/sign.js"></script>
-            
-            <input type="password" name="password_confirm" placeholder="Vérifier votre mdp" required>
-            
+            <label for="form_password" hidden>Mot de passe :</label>
+            <input id="form_password" 
+                class="bgcolor-white form-input"
+                title="Veuillez entrer votre mot de passe" 
+                type="password" name="password" placeholder="Mot de passe"
+                required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(.{8,})$"
+                title="Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial et faire au moins 8 caractères"
+                value="<?= isset($_SESSION['formSignData']['password']) ? 
+                    $_SESSION['formSignData']['password'] : null ?>"
+            required>
+                <div id="form_password_tooltip" class="password_tooltip bgcolor-black">
+                    <span class="maj">Une Majuscule</span>
+                    <span class="min">une minuscule</span>
+                    <span class="num">1 chiffre</span>
+                    <span class="spe">un spécial (!?..) </span>
+                    <span class="num8">8 caractères</span>
+                    <div class="arrow"></div>
+                </div>
+            </input>
+
+            <label for="form_password_confirm" hidden>Vérifier votre mot de passe :</label>
+            <input id="form_password_confirm"
+                class="bgcolor-white form-input" 
+                title="Veuillez vérifier votre mot de passe" 
+                type="password" name="password_confirm" 
+                placeholder="Vérifier votre mdp" 
+            required> 
         </fieldset>
-        <button type="submit" ><span>Valider</span><i class="fa-solid fa-circle-check"></i></button>
+        <button class="bgcolor-yellow form-button hover-green" type="submit" >
+            <span>Valider</span><i class="fa-solid fa-circle-check"></i>
+        </button>
     </form>
+    <script type="text/javascript" src="script/sign.js"></script>
 
     <?php if(isset($error)): ?>
 		<p class="error"><?= $error ?></p>
