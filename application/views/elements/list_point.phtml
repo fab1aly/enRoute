@@ -26,14 +26,20 @@
 	<!--template of point-->
 	<template>
 		<li class="">
-			<div class="up"><i class="fa-solid fa-angles-up"></i></div>
+			<?php if ($_SERVER['REQUEST_URI'] === '/'): ?>
+				<div class="up"><i class="fa-solid fa-angles-up"></i></div>
+			<?php endif; ?>
 			<div class="label-box bgcolor-blue">
 				<span class='label'></span>
-				<span class="remove" title="Supprimer">
-					<i class="fa-solid fa-circle-xmark"></i>
-				</span>
+				<?php if ($_SERVER['REQUEST_URI'] === '/'): ?>
+					<span class="remove" title="Supprimer">
+						<i class="fa-solid fa-circle-xmark"></i>
+					</span>
+				<?php endif; ?>
 			</div>
-			<div class="down"><i class="fa-solid fa-angles-down"></i></div>
+			<?php if ($_SERVER['REQUEST_URI'] === '/'): ?>
+				<div class="down"><i class="fa-solid fa-angles-down"></i></div>
+			<?php endif; ?>
 		</li>
 	</template>
 
