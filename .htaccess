@@ -1,19 +1,4 @@
-RewriteEngine On
-RewriteBase /
-
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^(.*)$ $1.php
-
-RewriteCond %{HTTP_HOST} ^enroute\.ovh$ [NC]
-RewriteRule ^(.*)$ http://www.enroute.ovh/$1 [L,R=301]
-
-ErrorDocument 404 /404.php
-
-Options -Indexes
-
-AddDefaultCharset UTF-8
-
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ /public/$1 [L]
 </IfModule>
