@@ -1,6 +1,4 @@
 .gitconfig
+.env
 .vscode/
 .tmp*/
-
-terminal.txt
-/application/configuration.php

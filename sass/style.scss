@@ -1,0 +1,42 @@
+// Reset CSS
+@import "https://meyerweb.com/eric/tools/css/reset/reset.css";
+// Leaflet CSS
+@import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+
+// Fonts Atkinson_Hyperlegible
+@font-face {
+    font-family: "Atkinson_Hyperlegible";
+    src: url("fonts/Atkinson-Hyperlegible/WOFF2/Atkinson-Hyperlegible-Regular-102a.woff2") format("woff2"),
+    url("fonts/Atkinson-Hyperlegible/WOFF2/Atkinson-Hyperlegible-Bold-102a.woff2") format("woff2"),
+    url("fonts/Atkinson-Hyperlegible/WOFF2/Atkinson-Hyperlegible-Italic-102a.woff2") format("woff2"),
+    url("fonts/Atkinson-Hyperlegible/WOFF2/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format("woff2"),
+
+    url("fonts/Atkinson-Hyperlegible/WOFF/Atkinson-Hyperlegible-Regular-102.woff") format("woff"),
+    url("fonts/Atkinson-Hyperlegible/WOFF/Atkinson-Hyperlegible-Bold-102.woff") format("woff"),
+    url("fonts/Atkinson-Hyperlegible/WOFF/Atkinson-Hyperlegible-Italic-102.woff") format("woff"),
+    url("fonts/Atkinson-Hyperlegible/WOFF/Atkinson-Hyperlegible-BoldItalic-102.woff") format("woff"),
+
+    url("fonts/Atkinson-Hyperlegible/TTF/Atkinson-Hyperlegible-Regular-102.ttf") format("ttf"),
+    url("fonts/Atkinson-Hyperlegible/TTF/Atkinson-Hyperlegible-Bold-102.ttf") format("ttf"),
+    url("fonts/Atkinson-Hyperlegible/TTF/Atkinson-Hyperlegible-Italic-102.ttf") format("ttf"),
+    url("fonts/Atkinson-Hyperlegible/TTF/Atkinson-Hyperlegible-BoldItalic-102.ttf") format("ttf");
+
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+// data and base (:root body)
+@import 'data';
+@import 'base';
+
+// HTML element
+@import './element/app',
+'./element/header',
+'./element/map',
+'./element/searchbar',
+'./element/routes',
+'./element/listpoint',
+'./element/modal',
+'./element/sign',
+'./element/footer';

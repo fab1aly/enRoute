@@ -13,7 +13,7 @@ try
 	//	Auto-chargement des classes (Pourrait être amélioré en utilisant les espaces de noms et le standard PSR-4.)
 	spl_autoload_register(function (string $class): void
 	{
-		$folderPaths = ['/application/controllers', '/application/managers', '/application/entities', '/core'];
+		$folderPaths = ['/application/controllers', '/application/managers', '/application/entities', '/application/core'];
 
 		foreach ($folderPaths as $folderPath)
 		{

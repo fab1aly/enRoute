@@ -1,0 +1,132 @@
+#routes {
+
+    position: absolute;
+    top: 6.2rem;
+    right: .5rem;
+    z-index: 500;
+
+    max-width: 80vw;
+    min-width: 30vw;
+
+    @include theme($sb-bg-color, 1rem);
+    border: none;
+
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    ul {
+
+        min-height: 0;
+        max-height: 20vh;
+
+        @include theme($sb-bg-color, .5rem);
+        box-shadow: none;
+        border: none;
+
+        margin: 0;
+        padding: 0;
+
+        overflow-y: auto;
+
+        li {
+
+            min-height: 2.5rem;
+            max-height: 4rem;
+
+            @include theme($sb-item-color, .8rem);
+            box-shadow: none;
+            border: none;
+
+
+            padding: .7rem .3rem;
+
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .share {
+                padding-left: 1rem;
+                color: transparent;
+            }
+
+            .label {
+                margin: 0 auto;
+            }
+
+            .remove {
+                color: transparent;
+                padding-right: 1rem;
+            }
+        }
+
+        li:hover {
+            @include theme($sb-select-color, .8rem);
+            box-shadow: none;
+            border: none;
+
+            padding: .7rem .3rem;
+
+        }
+
+        .selected,
+        .selected:hover {
+            height: 3.5rem;
+
+            @include theme($sb-select-color, .8rem);
+            border-width: 3px;
+
+
+            padding: .72rem 0;
+
+            .share,
+            .remove {
+                color: $border-color;
+            }
+
+        }
+    }
+}
+
+//tablet
+@media screen and (min-width: 600px) and (max-width: 1280px) and (min-height: 540px) and (max-height: 1400px) {
+
+    #routes {
+        // width: 35vw;
+    }
+}
+
+//desktop
+@media screen and (min-width: 1024px) and (min-height: 600px) {
+
+    #routes {
+        position: static;
+        width: 30vw;
+        height: fit-content;
+
+
+        margin: .5rem; // height: 100%;
+        display: flex;
+
+        ul {
+            // height: 100%;
+            // min-height: 5.7rem;
+            max-height: 30vh;
+            width: 100%;
+
+            li {
+                height: 2.5rem;
+
+                border-radius: 1rem;
+                padding: .7rem .5rem;
+                margin: .4rem .5rem;
+
+            }
+        }
+
+        form {}
+
+    }
+}
