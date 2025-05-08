@@ -1,12 +1,24 @@
- 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-</IfModule>
+# Activer la réécriture d'URL
+RewriteEngine On
 
-# Compression GZIP pour améliorer les performances
+# Base URL pour la réécriture
+RewriteBase /public/
+
+# Réécrire les URL pour enlever l'extension .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+# Rediriger vers une page d'erreur personnalisée pour les erreurs 404
+ErrorDocument 404 /public/404.php
+
+# Désactiver la liste des répertoires
+Options -Indexes
+
+# Définir le jeu de caractères par défaut
+AddDefaultCharset UTF-8
+
+# Activer la compression GZIP
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
 </IfModule>
